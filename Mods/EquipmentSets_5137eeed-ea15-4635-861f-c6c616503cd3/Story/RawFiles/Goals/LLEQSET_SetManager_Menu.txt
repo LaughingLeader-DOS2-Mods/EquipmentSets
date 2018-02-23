@@ -1,0 +1,444 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+LLEQSET_Menu_InitializeSettings();
+KBSECTION
+//REGION SETTINGS
+PROC
+LLEQSET_Menu_InitializeSettings()
+THEN
+DB_NOOP(1);
+
+PROC
+LLEQSET_System_UpdateDatabases()
+THEN
+LLEQSET_Menu_InitializeSettings();
+
+PROC
+LLEQSET_System_ClearDatabases()
+THEN
+DebugBreak("[LLEQSET] Menu databases cleared.");
+//END_REGION
+
+//REGION HELPERS
+
+//END_REGION
+
+//REGION CLEAR
+PROC
+LLEQSET_Menu_ClearSetName((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+THEN
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength);
+//END_REGION
+
+//REGION DIALOG_VARS
+PROC
+LLEQSET_Menu_LoadSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+AND
+DB_LLEQSET_SetManager_Variables(_SetID, _DialogNameVar, _SelectFlag, _EquipSetFlag)
+THEN
+DialogSetVariableStringForInstance(_Instance, _DialogNameVar, _Name);
+
+PROC
+LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2", "");
+
+PROC
+LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+AND
+StringConcatenate("Current: ", _Name, _SetName)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2", _SetName);
+
+PROC
+LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+AND
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _, _)
+AND
+StringConcatenate("Current: ", _SetID, _SetName)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2", _SetName);
+
+PROC
+LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_SetManager_LastSet(_Player, _)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22", "");
+
+PROC
+LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+AND
+StringConcatenate("Last: ", _Name, _SetName)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22", _SetName);
+
+PROC
+LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
+AND
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _, _)
+AND
+StringConcatenate("Last: ", _SetID, _SetName)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22", _SetName);
+
+PROC
+LLEQSET_Menu_SetSwitcherVars((CHARACTERGUID)_Player, (STRING)_SetID, (INTEGER)_Instance)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_SetSwitcherTemplate_e65c5fe3-a8f4-451e-b647-dfee50984e44", _ItemTemplate);
+
+PROC
+LLEQSET_Menu_SetSwitcherVars((CHARACTERGUID)_Player, (STRING)_SetID, (INTEGER)_Instance)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+AND
+CharacterHasSkill(_Player, _Skill, 1)
+THEN
+ObjectSetFlag(_Player,"LLEQSET_Menu_HasSelectedSetSkill");
+//END_REGION
+
+//REGION SET_SELECTION
+PROC
+DB_LLEQSET_Menu_ClearSelectedSet((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+THEN
+NOT DB_LLEQSET_Menu_SelectedSet(_Player, _SetID);
+
+PROC
+LLEQSET_Menu_SelectSet((CHARACTERGUID)_Player, (STRING)_SetID)
+THEN
+DB_LLEQSET_Menu_ClearSelectedSet(_Player);
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID);
+
+PROC
+LLEQSET_Menu_SelectSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID,_,_)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Menu_CurrentSetSaved", 0)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
+
+IF
+ObjectFlagCleared("LLEQSET_CurrentMenu_SetMenu", (CHARACTERGUID)_Player, _Instance)
+THEN
+DB_LLEQSET_Menu_ClearSelectedSet(_Player);
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
+ObjectClearFlag(_Player, "LLEQSET_Menu_HasSelectedSetSkill");
+
+PROC
+LLEQSET_Menu_InitMenuFlags((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Menu_HasMenuSkill", 0)
+AND
+DB_LLEQSET_MenuSkill(_Skill)
+AND
+CharacterHasSkill(_Player, _Skill, 1)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Menu_HasMenuSkill");
+
+PROC
+LLEQSET_Menu_InitMenuFlags((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Menu_HasMenuSkill", 1)
+AND
+DB_LLEQSET_MenuSkill(_Skill)
+AND
+CharacterHasSkill(_Player, _Skill, 0)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Menu_HasMenuSkill");
+//END_REGION
+
+//REGION SET_ACTIONS
+IF
+ObjectFlagSet(_SelectFlag, (CHARACTERGUID)_Player, _Instance)
+AND
+DB_LLEQSET_SetManager_Variables(_SetID, _DialogNameVar, _SelectFlag, _EquipSetFlag)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, _SelectFlag)
+THEN
+LLEQSET_Menu_SelectSet(_Player, _SetID);
+LLEQSET_Menu_SetSwitcherVars(_Player, _SetID, _Instance);
+
+IF
+ObjectFlagSet(_EquipSetFlag, (CHARACTERGUID)_Player, _Instance)
+AND
+DB_LLEQSET_SetManager_Variables(_SetID, _DialogNameVar, _SelectFlag, _EquipSetFlag)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, _EquipSetFlag)
+THEN
+LLEQSET_SetManager_ChangeSet(_Player, _SetID);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_LoadSelectedEquipmentSet", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_LoadSelectedEquipmentSet")
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+THEN
+LLEQSET_SetManager_ChangeSet(_Player, _SetID);
+LLEQSET_Menu_SetActiveSetNames(_Player, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_SaveCurrentEquipment", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_SaveCurrentEquipment")
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+THEN
+LLEQSET_SetManager_RegisterEquipment(_Player, _SetID);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_ClearSelectedSetEquipment", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_ClearSelectedSetEquipment")
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+THEN
+LLEQSET_SetManager_ClearSet(_Player, _SetID);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_GiveSelectedSetSkill", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_GiveSelectedSetSkill")
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+CharacterAddSkill(_Player, _Skill);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_GiveSelectedSetItem", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_GiveSelectedSetItem")
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+ItemTemplateAddTo(_ItemTemplate, _Player, 1);
+//END_REGION
+
+//REGION COMMANDS
+IF
+ObjectFlagSet("LLEQSET_Actions_GiveAllSetSkills", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_GiveAllSetSkills")
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+CharacterAddSkill(_Player, _Skill);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_GiveAllSetItems", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_GiveAllSetItems")
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+AND
+CharacterGetItemTemplateCount(_Player, _ItemTemplate, _Count)
+AND
+_Count == 0
+THEN
+ItemTemplateAddTo(_ItemTemplate, _Player, 1);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_RemoveAllSetSkills", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_RemoveAllSetSkills")
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+AND
+CharacterHasSkill(_Player, _Skill, 1)
+THEN
+CharacterRemoveSkill(_Player, _Skill);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_ClearAllSets", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_ClearAllSets")
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+LLEQSET_SetManager_ClearSet(_Player, _SetID);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_ClearAllSetNames", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_ClearAllSetNames")
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+THEN
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_UnequipEverything", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_UnequipEverything")
+AND
+LLEQSET_QRY_ColorStatusText(_Player, "Unequipped all items.", "UnequippedAll")
+AND
+DB_LLEQSET_EquipmentSlots(_Slot)
+THEN
+LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_ReInitialize", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_ReInitialize")
+THEN
+LLEQSET_System_ClearInitialization(_Player);
+LLEQSET_System_InitialSetup(_Player);
+LLEQSET_ColorStatusText(_Player, "Re-Initialized Player", "Warning");
+
+IF
+ObjectFlagSet("LLEQSET_Actions_GiveMenuBook", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_GiveMenuBook")
+AND
+DB_LLEQSET_MenuItem(_Template)
+THEN
+ItemTemplateAddTo(_Template, _Player, 1);
+LLEQSET_ColorStatusText(_Player, "Menu book added.", "FriendlyText");
+
+IF
+ObjectFlagSet("LLEQSET_Menu_HasMenuSkill", (CHARACTERGUID)_Player, _Instance)
+AND
+DB_LLEQSET_MenuSkill(_Skill)
+AND
+CharacterHasSkill(_Player, _Skill, 0)
+THEN
+CharacterAddSkill(_Player, _Skill);
+
+IF
+ObjectFlagCleared("LLEQSET_Menu_HasMenuSkill", (CHARACTERGUID)_Player, _Instance)
+AND
+DB_LLEQSET_MenuSkill(_Skill)
+AND
+CharacterHasSkill(_Player, _Skill, 1)
+THEN
+CharacterRemoveSkill(_Player, _Skill);
+//END_REGION
+
+//REGION MENU_OPENING
+PROC
+LLEQSET_Menu_OpenMenu((CHARACTERGUID)_Player)
+AND
+CharacterIsInCombat(_Player, _CombatState)
+THEN
+LLEQSET_Menu_OpenMenu((CHARACTERGUID)_Player, _CombatState);
+
+PROC
+LLEQSET_Menu_OpenMenu((CHARACTERGUID)_Player, 0)
+THEN
+Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);
+
+PROC
+LLEQSET_Menu_OpenMenu((CHARACTERGUID)_Player, 1)
+THEN
+LLEQSET_ColorStatusText(_Player, "Unable to open the Equipment Set menu while in combat!", "Error");
+
+//Events
+IF
+CharacterUsedSkill(_Player, _Skill, _)
+AND
+DB_LLEQSET_MenuSkill(_Skill)
+THEN
+LLEQSET_Menu_OpenMenu(_Player);
+
+IF
+CharacterUsedItemTemplate(_Player, _Template, _Item)
+AND
+DB_LLEQSET_MenuItem(_Template)
+THEN
+LLEQSET_Menu_OpenMenu(_Player);
+//END_REGION
+
+//REGION DIALOG_EVENTS
+IF
+DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+THEN
+LLEQSET_Menu_LoadSetNames(_Player, _Instance);
+LLEQSET_Menu_SetActiveSetNames(_Player, _Instance);
+LLEQSET_Menu_InitMenuFlags(_Player, _Instance);
+//END_REGION
+
+//REGION NAMING
+IF
+DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_TextSaved", 1)
+AND
+DB_LLEQSET_Naming_FinishedText(_Text, _Player, _Length)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_FinalText_7a7aaab8-c19d-4af5-9d1b-9a1b5d7a47c0", _Text);
+
+IF
+ObjectFlagSet("LLEQSET_Menu_ConfirmName", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_ConfirmName")
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_TextSaved")
+AND
+DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length)
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+THEN
+LLEQSET_Menu_ClearSetName(_Player, _SetID);
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _Length);
+NOT DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length);
+LLEQSET_Menu_LoadSetNames(_Player, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Menu_CancelName", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_CancelName")
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_TextSaved")
+AND
+DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length)
+THEN
+NOT DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length);
+
+IF
+DialogEnded("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Menu_OpenNamingMenu", 1)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_OpenNamingMenu")
+THEN
+Proc_StartDialog(0, "LLEQSET_NamingMenu", _Player, _Player);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"

@@ -1,0 +1,59 @@
+#TestLevel stuff. Nothing special here. Just a basic level.
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Levels/*
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Globals/*
+Editor/Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Levels/*
+
+#Story files that can be compiled by the user (only raw files needed).
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/meta.lsx
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/log.txt
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/goals.div
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/goals.raw
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/story.div
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/story.div.osi
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/story_ac.dat
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/RawFiles/story_definitions.div
+Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/RawFiles/story_header.div
+
+#Assets
+Editor/Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Assets/Effects/*
+Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Assets/*
+Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/GUI/*
+
+#Log files, etc
+*.log
+*.ailog
+StatsEditorConfig.xml
+DockPanel.config
+EditorBrowserMetadata.*
+EffectEditorConfig.xml
+
+#Assets
+*.gr2
+*.dae
+*.swf
+*.bullet
+*.dds
+*.tga
+*.png
+*.ttf
+
+#Binary Files
+*.dat
+*.data
+*.bik
+*.bnk
+*.bshd
+*.cur
+*.fnt
+*.iggy
+*.iggytex
+*.lsb
+*.lsf
+*.lsfx
+*.osi
+*.patch
+*.tmpl
+
+# Dump files
+*.stackdump
+*.dmp

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stats stat_object_definition_id="e078e210-b9ba-48e5-afe3-c5eb91ba8545">
+  <stat_objects>
+    <stat_object index="0" is_substat="false">
+      <fields>
+        <field name="Name" type="NameStatObjectFieldDefinition" clear_inherited_value="false" value="LLEQSET_BOOK_MenuBook" />
+        <field name="Using" type="BaseClassStatObjectFieldDefinition" clear_inherited_value="false" value="_Generics" />
+        <field name="RootTemplate" type="RootTemplateStatObjectFieldDefinition" clear_inherited_value="false" value="28a23ffa-3a2b-471e-a16c-e1c8abcefc7b" />
+        <field name="Act part" type="EnumerationStatObjectFieldDefinition" clear_inherited_value="false" value="1" enumeration_type_name="ActPart" />
+        <field name="Value" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+        <field name="Weight" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+        <field name="InventoryTab" type="EnumerationStatObjectFieldDefinition" clear_inherited_value="false" value="5" enumeration_type_name="InventoryTabs" />
+        <field name="AddToBottomBar" type="EnumerationStatObjectFieldDefinition" clear_inherited_value="false" value="1" enumeration_type_name="YesNo" />
+        <field name="Unique" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="1" />
+        <field name="MinLevel" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+        <field name="MaxLevel" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+      </fields>
+    </stat_object>
+    <stat_object index="1" is_substat="false">
+      <fields>
+        <field name="Name" type="NameStatObjectFieldDefinition" clear_inherited_value="false" value="LLEQSET_CONT_SetStorage" />
+        <field name="Using" type="BaseClassStatObjectFieldDefinition" clear_inherited_value="false" value="_Generics" />
+        <field name="RootTemplate" type="RootTemplateStatObjectFieldDefinition" clear_inherited_value="false" value="6ba54120-1265-4827-a96f-7ca658a569c4" />
+        <field name="Act part" type="EnumerationStatObjectFieldDefinition" clear_inherited_value="false" value="1" enumeration_type_name="ActPart" />
+        <field name="Value" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+        <field name="Weight" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+        <field name="InventoryTab" type="EnumerationStatObjectFieldDefinition" clear_inherited_value="false" value="6" enumeration_type_name="InventoryTabs" />
+        <field name="Unique" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object index="2" is_substat="false">
+      <fields>
+        <field name="Name" type="NameStatObjectFieldDefinition" clear_inherited_value="false" value="LLEQSET_SetSwitcher" />
+        <field name="Using" type="BaseClassStatObjectFieldDefinition" clear_inherited_value="false" value="_Generics" />
+        <field name="Act part" type="EnumerationStatObjectFieldDefinition" clear_inherited_value="false" value="1" enumeration_type_name="ActPart" />
+        <field name="UseAPCost" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="2" />
+        <field name="Value" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+        <field name="Weight" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
+        <field name="InventoryTab" type="EnumerationStatObjectFieldDefinition" clear_inherited_value="false" value="3" enumeration_type_name="InventoryTabs" />
+        <field name="Unique" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="1" />
+      </fields>
+    </stat_object>
+  </stat_objects>
+</stats>

@@ -1,0 +1,911 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+LLEQSET_Naming_InitializeSettings();
+
+//DB_LLEQSET_Naming_VisibleText(_Text, _Instance);
+//DB_LLEQSET_Naming_FinishedText(_Text, _Player, _Length);
+//DB_LLEQSET_Naming_LastFinishedText(_Text, _Player, _Length);
+//DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
+//DB_LLEQSET_Naming_CommonWords(_Index, _Word)
+//DB_LLEQSET_Naming_CommonWordVariables(_Index, _DialogVar, _SelectFlag)
+
+//DB_LLEQSET_Naming_Groups(_Index, _Group)
+//DB_LLEQSET_Naming_CurrentGroup(_Index, _Instance)
+//DB_LLEQSET_Naming_GroupMax(_Group, _Max)
+//DB_LLEQSET_Naming_CurrentCasing(_Group, _Instance)
+
+//DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+//DB_LLEQSET_Naming_TextLength(_Length, _Instance);
+//DB_LLEQSET_Naming_MaxLength(_MaxLength)
+//DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _Length)
+KBSECTION
+//REGION SETTINGS_CODEX
+PROC
+LLEQSET_Naming_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_Groups", 2);
+DB_LLEQSET_Naming_Groups(0, "Letters");
+DB_LLEQSET_Naming_Groups(1, "Number");
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_GroupMax", 2);
+DB_LLEQSET_Naming_GroupMax("Letters", 25);
+DB_LLEQSET_Naming_GroupMax("Upper", 25);
+DB_LLEQSET_Naming_GroupMax("Lower", 25);
+DB_LLEQSET_Naming_GroupMax("Number", 9);
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_Letters", 3);
+DB_LLEQSET_Naming_Letters("Upper", 0, "A");
+DB_LLEQSET_Naming_Letters("Upper", 1, "B");
+DB_LLEQSET_Naming_Letters("Upper", 2, "C");
+DB_LLEQSET_Naming_Letters("Upper", 3, "D");
+DB_LLEQSET_Naming_Letters("Upper", 4, "E");
+DB_LLEQSET_Naming_Letters("Upper", 5, "F");
+DB_LLEQSET_Naming_Letters("Upper", 6, "G");
+DB_LLEQSET_Naming_Letters("Upper", 7, "H");
+DB_LLEQSET_Naming_Letters("Upper", 8, "I");
+DB_LLEQSET_Naming_Letters("Upper", 9, "J");
+DB_LLEQSET_Naming_Letters("Upper", 10, "K");
+DB_LLEQSET_Naming_Letters("Upper", 11, "L");
+DB_LLEQSET_Naming_Letters("Upper", 12, "M");
+DB_LLEQSET_Naming_Letters("Upper", 13, "N");
+DB_LLEQSET_Naming_Letters("Upper", 14, "O");
+DB_LLEQSET_Naming_Letters("Upper", 15, "P");
+DB_LLEQSET_Naming_Letters("Upper", 16, "Q");
+DB_LLEQSET_Naming_Letters("Upper", 17, "R");
+DB_LLEQSET_Naming_Letters("Upper", 18, "S");
+DB_LLEQSET_Naming_Letters("Upper", 19, "T");
+DB_LLEQSET_Naming_Letters("Upper", 20, "U");
+DB_LLEQSET_Naming_Letters("Upper", 21, "V");
+DB_LLEQSET_Naming_Letters("Upper", 22, "W");
+DB_LLEQSET_Naming_Letters("Upper", 23, "X");
+DB_LLEQSET_Naming_Letters("Upper", 24, "Y");
+DB_LLEQSET_Naming_Letters("Upper", 25, "Z");
+
+DB_LLEQSET_Naming_Letters("Lower", 0, "a");
+DB_LLEQSET_Naming_Letters("Lower", 1, "b");
+DB_LLEQSET_Naming_Letters("Lower", 2, "c");
+DB_LLEQSET_Naming_Letters("Lower", 3, "d");
+DB_LLEQSET_Naming_Letters("Lower", 4, "e");
+DB_LLEQSET_Naming_Letters("Lower", 5, "f");
+DB_LLEQSET_Naming_Letters("Lower", 6, "g");
+DB_LLEQSET_Naming_Letters("Lower", 7, "h");
+DB_LLEQSET_Naming_Letters("Lower", 8, "i");
+DB_LLEQSET_Naming_Letters("Lower", 9, "j");
+DB_LLEQSET_Naming_Letters("Lower", 10, "k");
+DB_LLEQSET_Naming_Letters("Lower", 11, "l");
+DB_LLEQSET_Naming_Letters("Lower", 12, "m");
+DB_LLEQSET_Naming_Letters("Lower", 13, "n");
+DB_LLEQSET_Naming_Letters("Lower", 14, "o");
+DB_LLEQSET_Naming_Letters("Lower", 15, "p");
+DB_LLEQSET_Naming_Letters("Lower", 16, "q");
+DB_LLEQSET_Naming_Letters("Lower", 17, "r");
+DB_LLEQSET_Naming_Letters("Lower", 18, "s");
+DB_LLEQSET_Naming_Letters("Lower", 19, "t");
+DB_LLEQSET_Naming_Letters("Lower", 20, "u");
+DB_LLEQSET_Naming_Letters("Lower", 21, "v");
+DB_LLEQSET_Naming_Letters("Lower", 22, "w");
+DB_LLEQSET_Naming_Letters("Lower", 23, "x");
+DB_LLEQSET_Naming_Letters("Lower", 24, "y");
+DB_LLEQSET_Naming_Letters("Lower", 25, "z");
+
+DB_LLEQSET_Naming_Letters("Number", 0, "0");
+DB_LLEQSET_Naming_Letters("Number", 1, "1");
+DB_LLEQSET_Naming_Letters("Number", 2, "2");
+DB_LLEQSET_Naming_Letters("Number", 3, "3");
+DB_LLEQSET_Naming_Letters("Number", 4, "4");
+DB_LLEQSET_Naming_Letters("Number", 5, "5");
+DB_LLEQSET_Naming_Letters("Number", 6, "6");
+DB_LLEQSET_Naming_Letters("Number", 7, "7");
+DB_LLEQSET_Naming_Letters("Number", 8, "8");
+DB_LLEQSET_Naming_Letters("Number", 9, "9");
+//END_REGION
+
+//REGION SETTINGS_COMMON_WORDS
+PROC
+LLEQSET_Naming_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_CommonWordVariables", 3);
+DB_LLEQSET_Naming_CommonWordVariables(0, "LLEQSET_Naming_Word1_9bddecd9-c5ed-4758-939b-af4430f643c8", "LLEQSET_Naming_SelectedWord1");
+DB_LLEQSET_Naming_CommonWordVariables(1, "LLEQSET_Naming_Word2_3de95984-7f32-48a8-a6e1-9fdc8db0923c", "LLEQSET_Naming_SelectedWord2");
+DB_LLEQSET_Naming_CommonWordVariables(2, "LLEQSET_Naming_Word3_ffbe6471-325f-45db-9ef2-cd936ec44629", "LLEQSET_Naming_SelectedWord3");
+DB_LLEQSET_Naming_CommonWordVariables(3, "LLEQSET_Naming_Word4_9bfe7a46-71f4-480f-8820-303898a36b8b", "LLEQSET_Naming_SelectedWord4");
+DB_LLEQSET_Naming_CommonWordVariables(4, "LLEQSET_Naming_Word5_40e7b21f-ee75-4c90-8ced-a884924c72e9", "LLEQSET_Naming_SelectedWord5");
+DB_LLEQSET_Naming_CommonWordVariables(5, "LLEQSET_Naming_Word6_ff231f70-36cf-42ae-8bce-47d9bd8c0487", "LLEQSET_Naming_SelectedWord6");
+DB_LLEQSET_Naming_CommonWordVariables(6, "LLEQSET_Naming_Word7_0d997a83-39e7-473b-9b13-39c8fd6c148a", "LLEQSET_Naming_SelectedWord7");
+DB_LLEQSET_Naming_CommonWordVariables(7, "LLEQSET_Naming_Word8_a906a9bd-790d-4a4b-83d0-a8c0c3fa11d9", "LLEQSET_Naming_SelectedWord8");
+DB_LLEQSET_Naming_CommonWordVariables(8, "LLEQSET_Naming_Word9_1785e926-439a-43f4-9602-a67abfa875fc", "LLEQSET_Naming_SelectedWord9");
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_CommonWords", 2);
+DB_LLEQSET_Naming_CommonWords(0, "Aerothurge");
+DB_LLEQSET_Naming_CommonWords(1, "Armor");
+DB_LLEQSET_Naming_CommonWords(2, "Axe");
+DB_LLEQSET_Naming_CommonWords(3, "Barter");
+DB_LLEQSET_Naming_CommonWords(4, "Battle");
+DB_LLEQSET_Naming_CommonWords(5, "Bow");
+DB_LLEQSET_Naming_CommonWords(6, "Charisma");
+DB_LLEQSET_Naming_CommonWords(7, "Class");
+DB_LLEQSET_Naming_CommonWords(8, "Cloth");
+DB_LLEQSET_Naming_CommonWords(9, "Combat");
+DB_LLEQSET_Naming_CommonWords(10, "Common");
+DB_LLEQSET_Naming_CommonWords(11, "Crafting");
+DB_LLEQSET_Naming_CommonWords(12, "Crossbow");
+DB_LLEQSET_Naming_CommonWords(13, "Custom");
+DB_LLEQSET_Naming_CommonWords(14, "DualWielding");
+DB_LLEQSET_Naming_CommonWords(15, "Epic");
+DB_LLEQSET_Naming_CommonWords(16, "Geomancer");
+DB_LLEQSET_Naming_CommonWords(17, "Healer");
+DB_LLEQSET_Naming_CommonWords(18, "Huntsman");
+DB_LLEQSET_Naming_CommonWords(19, "Hydrosophist");
+DB_LLEQSET_Naming_CommonWords(20, "Junk");
+DB_LLEQSET_Naming_CommonWords(21, "Knight");
+DB_LLEQSET_Naming_CommonWords(22, "Leadership");
+DB_LLEQSET_Naming_CommonWords(23, "Leather");
+DB_LLEQSET_Naming_CommonWords(24, "Legendary");
+DB_LLEQSET_Naming_CommonWords(25, "Loremaster");
+DB_LLEQSET_Naming_CommonWords(26, "Luck");
+DB_LLEQSET_Naming_CommonWords(27, "Mace");
+DB_LLEQSET_Naming_CommonWords(28, "Mage");
+DB_LLEQSET_Naming_CommonWords(29, "Magic");
+DB_LLEQSET_Naming_CommonWords(30, "Magic Armor");
+DB_LLEQSET_Naming_CommonWords(31, "Metal");
+DB_LLEQSET_Naming_CommonWords(32, "Necromancy");
+DB_LLEQSET_Naming_CommonWords(33, "Paladin");
+DB_LLEQSET_Naming_CommonWords(34, "Perseverance");
+DB_LLEQSET_Naming_CommonWords(35, "Persuasion");
+DB_LLEQSET_Naming_CommonWords(36, "Physical");
+DB_LLEQSET_Naming_CommonWords(37, "Physical Armor");
+DB_LLEQSET_Naming_CommonWords(38, "Pickpocket");
+DB_LLEQSET_Naming_CommonWords(39, "Polymorph");
+DB_LLEQSET_Naming_CommonWords(40, "Priest");
+DB_LLEQSET_Naming_CommonWords(41, "Pyrokinetic");
+DB_LLEQSET_Naming_CommonWords(42, "Ranged");
+DB_LLEQSET_Naming_CommonWords(43, "Ranger");
+DB_LLEQSET_Naming_CommonWords(44, "Rare");
+DB_LLEQSET_Naming_CommonWords(45, "Retribution");
+DB_LLEQSET_Naming_CommonWords(46, "Rogue");
+DB_LLEQSET_Naming_CommonWords(47, "Running");
+DB_LLEQSET_Naming_CommonWords(48, "Scoundrel");
+DB_LLEQSET_Naming_CommonWords(49, "Shield");
+DB_LLEQSET_Naming_CommonWords(50, "SingleHanded");
+DB_LLEQSET_Naming_CommonWords(51, "Sneaking");
+DB_LLEQSET_Naming_CommonWords(52, "Sourcery");
+DB_LLEQSET_Naming_CommonWords(53, "Spear");
+DB_LLEQSET_Naming_CommonWords(54, "Speed");
+DB_LLEQSET_Naming_CommonWords(55, "Staff");
+DB_LLEQSET_Naming_CommonWords(56, "Summoning");
+DB_LLEQSET_Naming_CommonWords(57, "Sword");
+DB_LLEQSET_Naming_CommonWords(58, "Telekinesis");
+DB_LLEQSET_Naming_CommonWords(59, "Thievery");
+DB_LLEQSET_Naming_CommonWords(60, "Town");
+DB_LLEQSET_Naming_CommonWords(61, "TwoHanded");
+DB_LLEQSET_Naming_CommonWords(62, "Uncommon");
+DB_LLEQSET_Naming_CommonWords(63, "Unique");
+DB_LLEQSET_Naming_CommonWords(64, "Vitality");
+DB_LLEQSET_Naming_CommonWords(65, "Wand");
+DB_LLEQSET_Naming_CommonWords(66, "Warfare");
+//END_REGION
+
+//REGION SETTINGS_COUNTING
+PROC
+LLEQSET_Naming_ConfigureCountingDatabase()
+AND
+DB_LLEQSET_Naming_Init_CharStart(_Index)
+AND
+IntegerSum(_Index, 1, _NextIndex)
+AND
+_NextIndex <= 255
+THEN
+DB_LLEQSET_Naming_CharIndex(_NextIndex);
+NOT DB_LLEQSET_Naming_Init_CharStart(_Index);
+DB_LLEQSET_Naming_Init_CharStart(_NextIndex);
+
+PROC
+LLEQSET_Naming_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_CharIndex", 1);
+DB_LLEQSET_Naming_CharIndex(0);
+DB_LLEQSET_Naming_Init_CharStart(0);
+TimerLaunch("LLEQSET_Timers_CharIndexInit", 100);
+
+IF
+TimerFinished("LLEQSET_Timers_CharIndexInit")
+AND
+DB_LLEQSET_Naming_Init_CharStart(_Index)
+AND
+_Index < 256
+THEN
+LLEQSET_Naming_ConfigureCountingDatabase();
+TimerLaunch("LLEQSET_Timers_CharIndexInit", 100);
+
+IF
+TimerFinished("LLEQSET_Timers_CharIndexInit")
+AND
+DB_LLEQSET_Naming_Init_CharStart(_Index)
+AND
+_Index >= 256
+THEN
+NOT DB_LLEQSET_Naming_Init_CharStart(_Index);
+//END_REGION
+
+//REGION SETTINGS_MISC
+PROC
+LLEQSET_Naming_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_MaxLength", 1);
+DB_LLEQSET_Naming_MaxLength(32);
+
+PROC
+LLEQSET_Naming_ClearDatabases()
+THEN
+SysClear("DB_LLEQSET_Naming_VisibleText", 2);
+SysClear("DB_LLEQSET_Naming_FinishedText", 3);
+SysClear("DB_LLEQSET_Naming_LastFinishedText", 3);
+SysClear("DB_LLEQSET_Naming_Letters", 3);
+SysClear("DB_LLEQSET_Naming_Groups", 2);
+SysClear("DB_LLEQSET_Naming_CurrentGroup", 2);
+SysClear("DB_LLEQSET_Naming_GroupMax", 2);
+SysClear("DB_LLEQSET_Naming_CurrentCasing", 2);
+SysClear("DB_LLEQSET_Naming_SelectedLetter", 3);
+SysClear("DB_LLEQSET_Naming_TextLength", 2);
+SysClear("DB_LLEQSET_Naming_MaxLength", 1);
+SysClear("DB_LLEQSET_Naming_Temp_TextLength", 3);
+DebugBreak("[LLEQSET] Naming databases cleared.");
+
+PROC
+LLEQSET_System_UpdateDatabases()
+THEN
+LLEQSET_Naming_InitializeSettings();
+
+PROC
+LLEQSET_System_ClearDatabases()
+THEN
+LLEQSET_Naming_ClearDatabases();
+//END_REGION
+
+//REGION CLEAR
+PROC
+LLEQSET_Naming_ClearSelectedLetter((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance);
+
+PROC
+LLEQSET_Naming_ClearCurrentGroup((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CurrentGroup(_Index, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_CurrentGroup(_Index, _Instance);
+//END_REGION
+
+//REGION LETTER_CHANGING
+PROC
+LLEQSET_Naming_SetText((STRING)_Text, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_VisibleText(_CurrentText, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_VisibleText(_CurrentText, _Instance);
+
+PROC
+LLEQSET_Naming_SetText((STRING)_Text, (INTEGER)_Instance)
+THEN
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance);
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_Text_9bddecd9-c5ed-4758-939b-af4430f643c8", _Text);
+
+PROC
+LLEQSET_Naming_SetLength((INTEGER)_Length, (INTEGER)_Instance)
+AND 
+DB_LLEQSET_Naming_TextLength(_CurrentLength, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_TextLength(_CurrentLength, _Instance);
+
+PROC
+LLEQSET_Naming_SetLength((INTEGER)_Length, (INTEGER)_Instance)
+THEN
+DB_LLEQSET_Naming_TextLength(_Length, _Instance);
+LLEQSET_Naming_CheckMaxLength(_Instance);
+
+PROC
+LLEQSET_Naming_IncrementLength((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_TextLength(_Length, _Instance)
+AND
+IntegerSum(_Length, 1, _NewLength)
+THEN
+LLEQSET_Naming_SetLength(_NewLength, _Instance);
+
+PROC
+LLEQSET_Naming_IncrementLength((INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_TextLength(_, _Instance)
+THEN
+LLEQSET_Naming_SetLength(0, _Instance);
+
+QRY
+LLEQSET_QRY_Naming_DecreaseLength((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_TextLength(_Length, _Instance)
+AND
+_Length > 0
+AND
+IntegerSubtract(_Length, 1, _NewLength)
+THEN
+LLEQSET_Naming_SetLength(_NewLength, _Instance);
+
+QRY
+LLEQSET_QRY_Naming_DecreaseLength((INTEGER)_Instance)
+THEN
+DB_NOOP(1);
+
+PROC
+LLEQSET_Naming_AppendLetter((STRING)_Letter, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
+AND
+StringConcatenate(_Text, _Letter, _NextText)
+THEN
+LLEQSET_Naming_SetText(_NextText, _Instance);
+LLEQSET_Naming_IncrementLength(_Instance);
+
+PROC
+LLEQSET_Naming_AppendLetter((STRING)_Letter, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_VisibleText(_,_Instance)
+THEN
+LLEQSET_Naming_SetText(_Letter, _Instance);
+LLEQSET_Naming_SetLength(1, _Instance);
+
+PROC
+LLEQSET_Naming_RemoveLastLetter((INTEGER)_Instance)
+AND
+LLEQSET_QRY_Naming_DecreaseLength(_Instance)
+AND
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
+AND
+DB_LLEQSET_Naming_TextLength(_Length, _Instance)
+AND
+StringSub(_Text, 0, _Length, _NewText)
+THEN
+LLEQSET_Naming_SetText(_NewText, _Instance);
+//END_REGION
+
+//REGION LETTER_CYCLING
+QRY
+LLEQSET_Naming_MoveGroupForward((INTEGER)_NextIndex, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_Groups(_NextIndex, _Group)
+THEN
+LLEQSET_Naming_ClearCurrentGroup(_Instance);
+DB_LLEQSET_Naming_CurrentGroup(_NextIndex, _Instance);
+
+QRY
+LLEQSET_Naming_MoveGroupForward((INTEGER)_NextIndex, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_Groups(_NextIndex, _)
+THEN
+LLEQSET_Naming_ClearCurrentGroup(_Instance);
+DB_LLEQSET_Naming_CurrentGroup(0, _Instance);
+
+QRY
+LLEQSET_Naming_MoveGroupForward((INTEGER)_NextIndex, (INTEGER)_Instance)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_Naming_MoveGroupBackward((INTEGER)_NextIndex, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_Groups(_NextIndex, _Group)
+THEN
+LLEQSET_Naming_ClearCurrentGroup(_Instance);
+DB_LLEQSET_Naming_CurrentGroup(_NextIndex, _Instance);
+
+QRY
+LLEQSET_Naming_MoveGroupBackward((INTEGER)_NextIndex, (INTEGER)_Instance)
+AND
+_NextIndex < 0
+AND
+SysCount("DB_LLEQSET_Naming_Groups", 2, _TotalGroups)
+AND
+IntegerSubtract(_TotalGroups, 1, _LastIndex)
+THEN
+LLEQSET_Naming_ClearCurrentGroup(_Instance);
+DB_LLEQSET_Naming_CurrentGroup(_LastIndex, _Instance);
+
+QRY
+LLEQSET_Naming_MoveGroupBackward((INTEGER)_NextIndex, (INTEGER)_Instance)
+THEN
+DB_NOOP(1);
+
+PROC
+LLEQSET_Naming_MoveLetterForward((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_GroupMax(_Group, _Max)
+AND
+_Index <= _Max
+AND
+DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance);
+
+PROC
+LLEQSET_Naming_MoveLetterForward((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_GroupMax(_Group, _Max)
+AND
+_Index > _Max
+AND
+DB_LLEQSET_Naming_CurrentGroup(_CurrentGroupIndex, _Instance)
+AND
+IntegerSum(_CurrentGroupIndex, 1, _NextGroupIndex)
+AND
+LLEQSET_Naming_MoveGroupForward(_NextGroupIndex, _Instance)
+AND
+DB_LLEQSET_Naming_CurrentGroup(_GroupIndex, _Instance)
+AND
+DB_LLEQSET_Naming_Groups(_GroupIndex, _NextGroup)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(0, _NextGroup, _Instance);
+
+PROC
+LLEQSET_Naming_MoveLetterBackward((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
+AND
+_Index >= 0
+AND
+DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance);
+
+PROC
+LLEQSET_Naming_MoveLetterBackward((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
+AND
+_Index < 0
+AND
+DB_LLEQSET_Naming_CurrentGroup(_CurrentGroupIndex, _Instance)
+AND
+IntegerSubtract(_CurrentGroupIndex, 1, _NextGroupIndex)
+AND
+LLEQSET_Naming_MoveGroupBackward(_NextGroupIndex, _Instance)
+AND
+DB_LLEQSET_Naming_CurrentGroup(_GroupIndex, _Instance)
+AND
+DB_LLEQSET_Naming_Groups(_GroupIndex, _NextGroup)
+AND
+DB_LLEQSET_Naming_GroupMax(_NextGroup, _Max)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Max, _NextGroup, _Instance);
+//END_REGION
+
+//REGION LETTER_COUNTING
+PROC
+LLEQSET_Naming_CheckMaxLength((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_TextLength(_Length, _Instance)
+AND
+DB_LLEQSET_Naming_MaxLength(_Max)
+AND
+_Length >= _Max // Keep it lean, keep it mean
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_LimitReached", 0)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Naming_LimitReached");
+
+PROC
+LLEQSET_Naming_CheckMaxLength((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_TextLength(_Length, _Instance)
+AND
+DB_LLEQSET_Naming_MaxLength(_Max)
+AND
+_Length < _Max
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_LimitReached", 1)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Naming_LimitReached");
+
+PROC
+LLEQSET_Naming_CharTotalIncrement((STRING)_Text, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _Length)
+AND
+IntegerSum(_Length, 1, _NewLength)
+THEN
+NOT DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _Length);
+DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _NewLength);
+
+PROC
+LLEQSET_Naming_CharTotalIncrement((STRING)_Text, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _)
+THEN
+DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, 1);
+
+QRY
+LLEQSET_QRY_Naming_CharCount((STRING)_Text, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CharIndex(_Index)
+AND
+StringSub(_Text, _Index, 1, _Result)
+AND
+_Result != ""
+THEN
+LLEQSET_Naming_CharTotalIncrement(_Text, _Instance);
+
+QRY
+LLEQSET_QRY_Naming_CharCount((STRING)_Text, (INTEGER)_Instance)
+THEN
+DB_NOOP(1);
+//END_REGION
+
+//REGION NAMING_ACTIONS
+PROC
+LLEQSET_Naming_SelectNextLetter((INTEGER)_Amount, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+AND
+IntegerSum(_Index, _Amount, _NextIndex)
+THEN
+LLEQSET_Naming_MoveLetterForward(_NextIndex, _Group, _Instance);
+LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
+
+PROC
+LLEQSET_Naming_SelectPreviousLetter((INTEGER)_Amount, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+AND
+IntegerSubtract(_Index, _Amount, _NextIndex)
+THEN
+LLEQSET_Naming_MoveLetterBackward(_NextIndex, _Group, _Instance);
+LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
+
+PROC
+LLEQSET_Naming_SelectLastLetter((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Max, _Group, _Instance)
+AND
+DB_LLEQSET_Naming_GroupMax(_Group, _Max)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Max, _Group, _Instance);
+LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
+
+PROC
+LLEQSET_Naming_ChangeCasing((INTEGER)_Instance, "Upper")
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Index, "Lower", _Instance);
+
+PROC
+LLEQSET_Naming_ChangeCasing((INTEGER)_Instance, "Lower")
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Index, "Upper", _Instance);
+
+PROC
+LLEQSET_Naming_ChangeCasing((INTEGER)_Instance, (STRING)_Current)
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+AND
+DB_LLEQSET_Naming_CurrentCasing(_CurrentGroup)
+THEN
+NOT DB_LLEQSET_Naming_CurrentCasing(_CurrentGroup);
+DB_LLEQSET_Naming_CurrentCasing(_Group);
+
+PROC
+LLEQSET_Naming_SetWordState((INTEGER)_Instance, (STRING)_ExtraText)
+AND
+DB_LLEQSET_Naming_TextLength(_Length, _Instance)
+AND
+DB_LLEQSET_Naming_MaxLength(_MaxLength)
+AND
+IntegertoString(_Length, _LStr)
+AND
+IntegertoString(_MaxLength, _MStr)
+AND
+StringConcatenate(_LStr, "/", _Str1)
+AND
+StringConcatenate(_Str1, _MStr, _Str2)
+AND
+StringConcatenate("Limit: ", _Str2, _Str3)
+AND
+StringConcatenate(_Str3, _ExtraText, _Text)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_WordStateText_89c105f6-b29f-4391-a1dd-ecd151487505", _Text);
+
+PROC
+LLEQSET_Naming_SetLength((INTEGER)_Length, (INTEGER)_Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_LimitReached", 0)
+THEN
+LLEQSET_Naming_SetWordState(_Instance, "");
+
+PROC
+LLEQSET_Naming_SetLength((INTEGER)_Length, (INTEGER)_Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_LimitReached", 1)
+THEN
+LLEQSET_Naming_SetWordState(_Instance, " - Max Character Limit Reached");
+
+PROC
+LLEQSET_Naming_SetFinishedText((STRING)_Text, (CHARACTERGUID)_Player, (INTEGER)_Length)
+AND
+DB_LLEQSET_Naming_FinishedText(_LastText, _Player, _LastLength)
+THEN
+NOT DB_LLEQSET_Naming_FinishedText(_LastText, _Player, _LastLength);
+
+PROC
+LLEQSET_Naming_SetFinishedText((STRING)_Text, (CHARACTERGUID)_Player, (INTEGER)_Length)
+AND
+DB_LLEQSET_Naming_LastFinishedText(_LastText, _Player, _LastLength)
+THEN
+NOT DB_LLEQSET_Naming_LastFinishedText(_LastText, _Player, _LastLength);
+
+PROC
+LLEQSET_Naming_SetFinishedText((STRING)_Text, (CHARACTERGUID)_Player, (INTEGER)_Length)
+THEN
+DB_LLEQSET_Naming_FinishedText(_Text, _Player, _Length);
+DB_LLEQSET_Naming_LastFinishedText(_Text, _Player, _Length);
+//END_REGION
+
+//REGION FLAG_EVENTS
+IF
+ObjectFlagSet("LLEQSET_Naming_AddLetter", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_AddLetter")
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+AND
+DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
+THEN
+LLEQSET_Naming_AppendLetter(_Letter, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_RemoveLastLetter", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_RemoveLastLetter")
+THEN
+LLEQSET_Naming_RemoveLastLetter(_Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_NextLetter", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_NextLetter")
+THEN
+LLEQSET_Naming_SelectNextLetter(1, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_PreviousLetter", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_PreviousLetter")
+THEN
+LLEQSET_Naming_SelectPreviousLetter(1, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_NextLetter5", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_NextLetter5")
+THEN
+LLEQSET_Naming_SelectNextLetter(5, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_PreviousLetter5", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_PreviousLetter5")
+THEN
+LLEQSET_Naming_SelectPreviousLetter(5, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_LetterEnd", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_LetterEnd")
+THEN
+LLEQSET_Naming_SelectLastLetter(_Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_LetterStart", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_LetterStart")
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(0, _Group, _Instance);
+LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_ChangeCasing", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_ChangeCasing")
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+THEN
+LLEQSET_Naming_ChangeCasing(_Instance, _Group);
+LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_ClearAll", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_ClearAll")
+THEN
+LLEQSET_Naming_SetText("", _Instance);
+LLEQSET_Naming_SetLength(0, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_RestoreLastName", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_RestoreLastName")
+AND
+DB_LLEQSET_Naming_LastFinishedText(_Text, _Player, _Length)
+THEN
+LLEQSET_Naming_SetText(_Text, _Instance);
+LLEQSET_Naming_SetLength(_Length, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_CountText", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_CountText")
+AND
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
+AND
+LLEQSET_QRY_Naming_CharCount(_Text, _Instance)
+AND
+DB_LLEQSET_Naming_Temp_TextLength(_Name, _Instance, _Length)
+THEN
+LLEQSET_Naming_SetLength(_Length, _Instance);
+NOT DB_LLEQSET_Naming_Temp_TextLength(_Name, _Instance, _Length);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_SaveText", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_SaveText")
+AND
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
+AND
+_Text != ""
+AND
+DB_LLEQSET_Naming_TextLength(_Length, _Instance)
+THEN
+LLEQSET_Naming_SetFinishedText(_Text, _Player, _Length);
+ObjectSetFlag(_Player, "LLEQSET_Naming_TextSaved");
+//END_REGION
+
+//REGION DIALOG_EVENTS
+PROC
+LLEQSET_Naming_InitVariables((INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_CurrentCasing(_, _Instance)
+THEN
+DB_LLEQSET_Naming_CurrentCasing("Upper", _Instance);
+
+PROC
+LLEQSET_Naming_InitVariables((INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_SelectedLetter(_,_,_Instance)
+THEN
+DB_LLEQSET_Naming_SelectedLetter(0, "Upper", _Instance);
+LLEQSET_Naming_ClearCurrentGroup(_Instance);
+DB_LLEQSET_Naming_CurrentGroup(0, _Instance);
+LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
+LLEQSET_Naming_SetLength(0, _Instance);
+
+
+IF
+DialogStarted("LLEQSET_NamingMenu", _Instance)
+THEN
+LLEQSET_Naming_InitVariables(_Instance);
+
+IF
+DialogStarted("LLEQSET_NamingMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+AND
+_Name != ""
+AND
+_Name != _SetID
+THEN
+LLEQSET_Naming_SetText(_Name, _Instance);
+LLEQSET_Naming_SetLength(_NameLength, _Instance);
+
+PROC
+LLEQSET_Naming_ClearInstanceVariables((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance);
+
+PROC
+LLEQSET_Naming_ClearInstanceVariables((INTEGER)_Instance)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+
+IF
+DialogEnded("LLEQSET_NamingMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+THEN
+LLEQSET_Naming_ClearInstanceVariables(_Instance);
+Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);
+//END_REGION
+
+//REGION LETTER_SETTING
+IF
+DB_LLEQSET_Naming_SelectedLetter(_Index, "Letters", _Instance)
+AND
+DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_SelectedLetter(_Index, "Letters", _Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Index, _ActualGroup, _Instance);
+
+IF
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+AND
+_Group != "Number"
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Naming_GroupIsLetter");
+
+IF
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+AND
+_Group == "Number"
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Naming_GroupIsLetter");
+
+IF
+DB_LLEQSET_Naming_VisibleText(_NextText, _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+AND
+_NextText == ""
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_NotEmpty", 1)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Naming_NotEmpty");
+
+IF
+DB_LLEQSET_Naming_VisibleText(_NextText, _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, _Player)
+AND
+_NextText != ""
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_NotEmpty", 0)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Naming_NotEmpty");
+
+PROC
+LLEQSET_Naming_UpdateSelectedLetterVariable((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+AND
+DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_SelectedLetter_8aeb4b2a-b0c5-418d-89ff-d93f326c3e6c", _Letter);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"

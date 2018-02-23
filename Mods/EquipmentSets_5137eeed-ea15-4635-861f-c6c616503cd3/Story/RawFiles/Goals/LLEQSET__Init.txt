@@ -1,0 +1,234 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+//DB_LLEQSET_EquipmentSlots(_Slot)
+//DB_LLEQSET_SystemColors(_Color, _ColorValue)
+//DB_LLEQSET_DefaultColors(_Index, _ColorName, _ColorValue)
+//DB_LLEQSET_PlayerSetColors(_Player, _SetID, _Color)
+//DB_LLEQSET_MenuSkill(_Skill)
+//DB_LLEQSET_MenuItem(_Template)
+
+LLEQSET_System_InitializeSettings();
+KBSECTION
+//REGION SETTINGS
+
+PROC
+LLEQSET_System_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_EquipmentSlots", 1);
+DB_LLEQSET_EquipmentSlots("Weapon");
+DB_LLEQSET_EquipmentSlots("Shield");
+DB_LLEQSET_EquipmentSlots("Helmet");
+DB_LLEQSET_EquipmentSlots("Breast");
+DB_LLEQSET_EquipmentSlots("Leggings");
+DB_LLEQSET_EquipmentSlots("Ring");
+DB_LLEQSET_EquipmentSlots("Belt");
+DB_LLEQSET_EquipmentSlots("Boots");
+DB_LLEQSET_EquipmentSlots("Gloves");
+DB_LLEQSET_EquipmentSlots("Amulet");
+DB_LLEQSET_EquipmentSlots("Ring2");
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_SystemColors", 2);
+DB_LLEQSET_SystemColors("FriendlyText", "00FA9A");
+DB_LLEQSET_SystemColors("SetSaved", "00BFFF");
+DB_LLEQSET_SystemColors("SetCleared", "FF4500");
+DB_LLEQSET_SystemColors("SetChanged", "00FF7F");
+DB_LLEQSET_SystemColors("UnequippedAll", "FF6347");
+DB_LLEQSET_SystemColors("Error", "FF0000");
+DB_LLEQSET_SystemColors("Warning", "FF8C00");
+DB_LLEQSET_SystemColors("Set1", "FF7F50"); // Coral
+DB_LLEQSET_SystemColors("Set2", "00BFFF"); // DeepSkyBlue
+DB_LLEQSET_SystemColors("Set3", "FF69B4"); // HotPink ;)
+DB_LLEQSET_SystemColors("Set4", "6A5ACD"); // SlateBlue
+DB_LLEQSET_SystemColors("Set5", "FFD700"); // Gold
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_DefaultColors", 3);
+DB_LLEQSET_DefaultColors(0, "Red", "FF0000");
+DB_LLEQSET_DefaultColors(1, "Pink", "FFC0CB");
+DB_LLEQSET_DefaultColors(2, "Orange", "FFA500");
+DB_LLEQSET_DefaultColors(3, "Yellow", "FFFF00");
+DB_LLEQSET_DefaultColors(4, "Gold", "FFD700");
+DB_LLEQSET_DefaultColors(5, "Magenta", "FF00FF");
+DB_LLEQSET_DefaultColors(6, "Purple", "800080");
+DB_LLEQSET_DefaultColors(7, "Lime", "00FF00");
+DB_LLEQSET_DefaultColors(8, "Green", "008000");
+DB_LLEQSET_DefaultColors(9, "Cyan", "00FFFF");
+DB_LLEQSET_DefaultColors(10, "Blue", "0000FF");
+DB_LLEQSET_DefaultColors(11, "SkyBlue", "87CEEB");
+DB_LLEQSET_DefaultColors(12, "Wheat", "F5DEB3");
+DB_LLEQSET_DefaultColors(13, "Brown", "A52A2A");
+DB_LLEQSET_DefaultColors(14, "Maroon", "800000");
+DB_LLEQSET_DefaultColors(15, "White", "FFFFFF");
+DB_LLEQSET_DefaultColors(16, "Azure", "F0FFFF");
+DB_LLEQSET_DefaultColors(17, "Gray", "808080");
+DB_LLEQSET_DefaultColors(18, "Black", "000000");
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_MenuSkill", 1);
+DB_LLEQSET_MenuSkill("Shout_LLEQSET_OpenSetMenu");
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_MenuItem", 1);
+DB_LLEQSET_MenuItem("LLEQSET_BOOK_MenuBook_42227c69-e194-4de6-9771-c05f39aa3f46");
+PROC
+LLEQSET_System_UpdateDatabases()
+THEN
+LLEQSET_System_InitializeSettings();
+
+PROC
+LLEQSET_System_ClearDatabases()
+THEN
+SysClear("DB_LLEQSET_EquipmentSlots", 1);
+SysClear("DB_LLEQSET_SystemColors", 2);
+SysClear("DB_LLEQSET_DefaultColors", 3);
+SysClear("DB_LLEQSET_PlayerSetColors", 3);
+SysClear("DB_LLEQSET_MenuSkill", 1);
+SysClear("DB_LLEQSET_MenuItem", 1);
+SysClear("DB_LLEQSET_System_PlayerInitialized", 1);
+DebugBreak("[LLEQSET] System databases cleared.");
+
+//END_REGION
+
+//REGION DATABASE_HELPERS
+PROC
+LLEQSET_System_ClearExistingDatabase((STRING)_DatabaseName, (INTEGER)_Arity)
+AND
+SysCount(_DatabaseName, _Arity, _Count)
+AND
+_Count > 0
+THEN
+SysClear(_DatabaseName, _Arity);
+//END_REGION
+
+//REGION MESSAGE_HELPERS
+PROC
+LLEQSET_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
+AND
+DB_LLEQSET_SystemColors(_Color, _ColorValue)
+THEN
+LLEQSET_Internal_ColorStatusText(_Player, _Message, _ColorValue);
+
+PROC
+LLEQSET_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
+AND
+NOT DB_LLEQSET_SystemColors(_Color, _)
+THEN
+LLEQSET_Internal_ColorStatusText(_Player, _Message, _Color);
+
+QRY
+LLEQSET_QRY_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, _Color);
+
+PROC
+LLEQSET_Internal_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
+AND
+StringConcatenate("<font color='#", _Color, _Str1)
+AND
+StringConcatenate(_Str1, "'>", _Str2)
+AND
+StringConcatenate(_Str2, _Message, _Str3)
+AND
+StringConcatenate(_Str3, "</font>", _Str4)
+THEN
+CharacterStatusText(_Player, _Str4);
+//END_REGION
+
+//REGION FLAG_HELPERS
+QRY
+LLEQSET_QRY_ClearObjectFlag((GUIDSTRING)_Object, (STRING)_Flag)
+THEN
+ObjectClearFlag(_Object, _Flag);
+//END_REGION
+
+//REGION SET_HELPERS
+QRY
+LLEQSET_QRY_Helpers_GetSetName((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName)
+THEN
+NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
+
+QRY
+LLEQSET_QRY_Helpers_GetSetName((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID,_,_)
+AND
+StringSub(_SetID, 3, 1, _SetNumber)
+AND
+StringConcatenate("Set ", _SetNumber, _SetName)
+THEN
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
+
+QRY
+LLEQSET_QRY_Helpers_GetSetName((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+THEN
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _Name);
+//END_REGION
+
+//REGION HOST_FLAGGING
+PROC
+LLEQSET_System_MarkHost((CHARACTERGUID)_Player)
+AND
+CharacterGetHostCharacter(_Player)
+THEN
+UserSetFlag(_Player, "LLEQSET_ISHOST");
+
+PROC
+LLEQSET_System_MarkHost((CHARACTERGUID)_Player)
+AND
+NOT CharacterGetHostCharacter(_Player)
+AND
+UserGetFlag(_Player, "LLEQSET_ISHOST", 1)
+THEN
+UserClearFlag(_Player, "LLEQSET_ISHOST", 0);
+
+PROC
+LLEQSET_System_ClearInitialization((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_System_PlayerInitialized(_Player)
+THEN
+NOT DB_LLEQSET_System_PlayerInitialized(_Player);
+
+PROC
+LLEQSET_System_InitialSetup((CHARACTERGUID)_Player)
+AND
+NOT DB_LLEQSET_System_PlayerInitialized(_Player)
+AND
+DB_LLEQSET_MenuSkill(_Skill)
+AND
+CharacterHasSkill(_Player, _Skill, 0)
+THEN
+CharacterAddSkill(_Player, _Skill);
+
+PROC
+LLEQSET_System_InitialSetup((CHARACTERGUID)_Player)
+AND
+NOT DB_LLEQSET_System_PlayerInitialized(_Player)
+THEN
+DB_LLEQSET_System_PlayerInitialized(_Player);
+
+IF
+GameStarted(_,_)
+AND
+DB_IsPlayer(_Player)
+THEN
+LLEQSET_System_MarkHost(_Player);
+LLEQSET_System_InitialSetup(_Player);
+//END_REGION
+
+//REGION DEBUG
+IF
+CharacterUsedItem(_Player, ITEMGUID_Lever_OpenNamingMenu_4289a1de-0d4b-43b0-9c38-0d796dff1d43)
+THEN
+Proc_StartDialog(0, "LLEQSET_NamingMenu", _Player, _Player);
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_Lever_OpenMainMenu_bac439cf-9197-49f1-8b5a-91ca40d050ec)
+THEN
+LLEQSET_Menu_OpenMenu(_Player);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"

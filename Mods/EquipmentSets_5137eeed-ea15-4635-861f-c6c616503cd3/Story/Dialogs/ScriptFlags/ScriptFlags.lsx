@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<save>
+    <header version="2" time="1519405739" />
+    <version major="3" minor="1" revision="6" build="0" />
+    <region id="ScriptFlags">
+        <node id="root">
+            <children>
+                <node id="ScriptFlag">
+                    <attribute id="Description" value="" type="23" />
+                    <attribute id="Script" value='CONDITION HasItemTemplate(%LLEQSET_Menu_SpeakerIndex_3bd618b8-b115-4c17-89b0-0ca98050fdc1, %LLEQSET_Menu_MenuBookTemplate_59794e0d-e2c7-4b2c-af0a-4bf5cb576b59, &quot;&gt;=&quot;, %LLEQSET_Menu_MinimumItemAmount_cb1f061b-330e-4f99-8650-bb9e7ab2282b)&#x0D;&#x0A;CHECK &quot;c1&quot;' type="23" />
+                    <attribute id="UUID" value="530f6d48-d6a4-42e3-a269-f383d9262d2a" type="31" />
+                    <attribute id="name" value="LLEQSET_HasMenuBook" type="22" />
+                </node>
+                <node id="ScriptFlag">
+                    <attribute id="Description" value="Checks if a character has a set switcher item for a specific set." type="23" />
+                    <attribute id="Script" value='CONDITION HasItemTemplate(%LLEQSET_Menu_SpeakerIndex_3bd618b8-b115-4c17-89b0-0ca98050fdc1, %LLEQSET_Menu_SetSwitcherTemplate_e65c5fe3-a8f4-451e-b647-dfee50984e44, &quot;&gt;=&quot;, %LLEQSET_Menu_MinimumItemAmount_cb1f061b-330e-4f99-8650-bb9e7ab2282b)&#x0D;&#x0A;CHECK &quot;c1&quot;' type="23" />
+                    <attribute id="UUID" value="f77078ed-e340-48e0-b989-fcd1210d3f14" type="31" />
+                    <attribute id="name" value="LLEQSET_HasSetSwitcher" type="22" />
+                </node>
+            </children>
+        </node>
+    </region>
+</save>

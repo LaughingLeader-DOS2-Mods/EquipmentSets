@@ -1,0 +1,50 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+LLEQSET_Updater_RegisterMod("0.9.0.0");
+KBSECTION
+//REGION MOD_UPDATING
+PROC
+LLEQSET_Updater_ClearPreviousVersions()
+AND
+DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader")
+THEN
+NOT DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader");
+
+PROC
+LLEQSET_Updater_RegisterMod((STRING)_Version)
+AND
+NOT DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader")
+THEN
+LLEQSET_Updater_ClearPreviousVersions();
+DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader");
+
+QRY
+LLEQSET_QRY_Updater_ModUpdateNeeded((STRING)_NewVersion)
+AND
+NOT DB_Mods_RegisteredMod("EquipmentSets", _NewVersion, "LaughingLeader")
+THEN
+DB_NOOP(1);
+
+IF
+GameStarted(_,_)
+AND
+LLEQSET_QRY_Updater_ModUpdateNeeded("0.9.0.0")
+THEN
+LLEQSET_Updater_RegisterMod("0.9.0.0");
+LLEQSET_System_UpdateDatabases();
+
+PROC
+LLEQSET_System_UpdateDatabases()
+THEN
+DebugBreak("[LLEQSET] Databases updated.");
+
+PROC
+LLEQSET_System_ClearDatabases()
+THEN
+DebugBreak("[LLEQSET] Databases cleared.");
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"

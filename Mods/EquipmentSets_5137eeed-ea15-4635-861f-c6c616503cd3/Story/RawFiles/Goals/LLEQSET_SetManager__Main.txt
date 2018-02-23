@@ -1,0 +1,340 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+//DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+//DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+//DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
+//DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
+//DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+//DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+//DB_LLEQSET_SetManager_Variables(_SetID, _DialogNameVar, _SelectFlag, _EquipSetFlag)
+//Type setting
+DB_LLEQSET_SavedSets((CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000, "", "", (ITEMGUID)NULL_00000000-0000-0000-0000-000000000000);
+
+LLEQSET_SetManager_InitializeSettings();
+KBSECTION
+//REGION SETTINGS
+PROC
+LLEQSET_SetManager_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_SetManager_SetConfig", 4);
+DB_LLEQSET_SetManager_SetConfig("Set1", "Shout_LLEQSET_EquipmentSet1", "LLEQSET_SetSwitcher_Set1_0730aca7-6ffd-4206-a0bf-6c454d0017f1", "LLEQSET_BackPack_Set1_6ba54120-1265-4827-a96f-7ca658a569c4");
+DB_LLEQSET_SetManager_SetConfig("Set2", "Shout_LLEQSET_EquipmentSet2", "LLEQSET_SetSwitcher_Set2_39f4f924-dd09-42d3-9da2-9dcb852f4d6b", "LLEQSET_BackPack_Set2_4193c597-b722-4772-85f1-f96ddd82843f");
+DB_LLEQSET_SetManager_SetConfig("Set3", "Shout_LLEQSET_EquipmentSet3", "LLEQSET_SetSwitcher_Set3_b3fd8c1b-caba-4c5e-bb71-9d85d684b17a", "LLEQSET_BackPack_Set3_8b410fe7-7a27-4e4f-bcc1-39857b385120");
+DB_LLEQSET_SetManager_SetConfig("Set4", "Shout_LLEQSET_EquipmentSet4", "LLEQSET_SetSwitcher_Set4_771ba282-d742-499b-8709-73a4239a5c29", "LLEQSET_BackPack_Set4_57d6b94d-a6fb-42b5-9b54-cb25ab8dbf97");
+DB_LLEQSET_SetManager_SetConfig("Set5", "Shout_LLEQSET_EquipmentSet5", "LLEQSET_SetSwitcher_Set5_fc91f52e-978b-454e-8ac2-ddb81d91601b", "LLEQSET_BackPack_Set5_600b5f95-6389-4c75-80bd-bb496e5b8143");
+
+NOT DB_LLEQSET_SetManager_SavedSets((CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000, "", "", (ITEMGUID)NULL_00000000-0000-0000-0000-000000000000);
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_SetManager_Variables", 4);
+DB_LLEQSET_SetManager_Variables("Set1", "LLEQSET_Set1_Name_66186e4d-bc09-41b6-892f-15da2693d668", "LLEQSET_Actions_SelectSet1", "LLEQSET_Actions_EquipSet1");
+DB_LLEQSET_SetManager_Variables("Set2", "LLEQSET_Set2_Name_cd6de903-2364-4c6d-9a10-9b2b2707236d", "LLEQSET_Actions_SelectSet2", "LLEQSET_Actions_EquipSet2");
+DB_LLEQSET_SetManager_Variables("Set3", "LLEQSET_Set3_Name_11964073-abcf-4d8e-b509-7cfe4fe42a7a", "LLEQSET_Actions_SelectSet3", "LLEQSET_Actions_EquipSet3");
+DB_LLEQSET_SetManager_Variables("Set4", "LLEQSET_Set4_Name_b099c556-cd9b-4764-b8e8-21151e9d0d73", "LLEQSET_Actions_SelectSet4", "LLEQSET_Actions_EquipSet4");
+DB_LLEQSET_SetManager_Variables("Set5", "LLEQSET_Set5_Name_96b8dacd-3eaf-4b43-bb88-ea1af58840e2", "LLEQSET_Actions_SelectSet5", "LLEQSET_Actions_EquipSet5");
+
+PROC
+LLEQSET_SetManager_ClearDatabases()
+THEN
+SysClear("DB_LLEQSET_Menu_SelectedSet", 2);
+SysClear("DB_LLEQSET_SetManager_CurrentSet", 2);
+SysClear("DB_LLEQSET_SetManager_LastSet", 2);
+SysClear("DB_LLEQSET_SetManager_SavedSets", 4);
+SysClear("DB_LLEQSET_SetManager_SetNames", 4);
+SysClear("DB_LLEQSET_SetManager_SetConfig", 4);
+SysClear("DB_LLEQSET_SetManager_Variables", 4);
+DebugBreak("[LLEQSET] SetManager databases cleared.");
+
+PROC
+LLEQSET_System_UpdateDatabases()
+THEN
+LLEQSET_SetManager_InitializeSettings();
+
+PROC
+LLEQSET_System_ClearDatabases()
+THEN
+LLEQSET_SetManager_ClearDatabases();
+
+//END_REGION
+
+//REGION CLEAR
+PROC
+LLEQSET_SetManager_ClearSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
+THEN
+NOT DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
+
+PROC
+LLEQSET_SetManager_ClearSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_Helpers_GetSetName(_Player, _SetID)
+AND
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName)
+AND
+StringConcatenate(_SetName, " cleared.", _Message)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, "SetCleared");
+NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
+//END_REGION
+
+//REGION HELPERS
+QRY
+LLEQSET_QRY_SetExists((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player,_SetID,_,_)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_SetManager_CreateBackpackIfMissing((CHARACTERGUID)_Player, (STRING)_BackpackTemplate)
+AND
+CharacterGetItemTemplateCount(_Player, _BackpackTemplate, 0)
+THEN
+ItemTemplateAddTo(_BackpackTemplate, _Player, 1);
+
+QRY
+LLEQSET_QRY_SetManager_CreateBackpackIfMissing((CHARACTERGUID)_Player, (STRING)_BackpackTemplate)
+AND
+CharacterGetItemTemplateCount(_Player, _BackpackTemplate, 1)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_GetTargetBackpack((CHARACTERGUID)_Player, (ITEMGUID)_Item)
+AND
+DB_LLEQSET_Temp_TargetBackpack(_Player, _BackpackTemplate)
+THEN
+NOT DB_LLEQSET_Temp_TargetBackpack(_Player, _BackpackTemplate);
+
+//Prioritize last set.
+QRY
+LLEQSET_QRY_GetTargetBackpack((CHARACTERGUID)_Player, (ITEMGUID)_Item)
+AND
+DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+DB_LLEQSET_Temp_TargetBackpack(_Player, _BackpackTemplate);
+
+//Default to the saved set if it doesn't exist in the last set.
+QRY
+LLEQSET_QRY_GetTargetBackpack((CHARACTERGUID)_Player, (ITEMGUID)_Item)
+AND
+DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
+AND
+NOT DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _, _Item)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player, _OtherSetID, _Slot, _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_OtherSetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+DB_LLEQSET_Temp_TargetBackpack(_Player, _BackpackTemplate);
+
+PROC
+LLEQSET_SetManager_StoreInBackpack((CHARACTERGUID)_Player, (ITEMGUID)_Item)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_StoreInBackpacksDisabled", 0)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+LLEQSET_QRY_GetTargetBackpack(_Player, _Item)
+AND
+DB_LLEQSET_Temp_TargetBackpack(_Player, _BackpackTemplate)
+AND
+LLEQSET_QRY_SetManager_CreateBackpackIfMissing(_Player, _BackpackTemplate)
+AND
+GetItemForItemTemplateInInventory(_Player, _BackpackTemplate, _Backpack)
+THEN
+ItemToInventory(_Item, _Backpack, 1, 0, 0);
+NOT DB_LLEQSET_Temp_TargetBackpack(_Player, _BackpackTemplate);
+
+PROC
+LLEQSET_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_NextSetID)
+AND
+NOT DB_LLEQSET_SetManager_LastSet(_Player, _)
+THEN
+LLEQSET_SetManager_SetLastSet(_Player, _NextSetID);
+
+PROC
+LLEQSET_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_NextSetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+THEN
+LLEQSET_SetManager_SetLastSet(_Player, _SetID);
+NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+THEN
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_SetLastSet((CHARACTERGUID)_Player, (STRING)_NextSetID)
+AND
+DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
+THEN
+NOT DB_LLEQSET_SetManager_LastSet(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_SetLastSet((CHARACTERGUID)_Player, (STRING)_SetID)
+THEN
+DB_LLEQSET_SetManager_LastSet(_Player, _SetID);
+//END_REGION
+
+//REGION EQUIPMENT_METHODS
+PROC
+LLEQSET_SetManager_UnequipItemInSlot((CHARACTERGUID)_Player, (STRING)_Slot)
+AND
+CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
+THEN
+CharacterUnequipItem(_Player, _Item);
+LLEQSET_SetManager_StoreInBackpack(_Player, _Item);
+
+PROC
+LLEQSET_SetManager_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+ItemIsInCharacterInventory(_Item, _Player, 0)
+AND
+StringConcatenate("Missing item for slot ", _Slot, _Message)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, "Error");
+
+PROC
+LLEQSET_SetManager_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+ItemIsInCharacterInventory(_Item, _Player, 1)
+THEN
+LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
+CharacterEquipItem(_Player, _Item);
+
+PROC
+LLEQSET_SetManager_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item == NULL_00000000-0000-0000-0000-000000000000
+AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_IgnoreEmptySlot", 0)
+THEN
+LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
+
+PROC
+LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
+THEN
+LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
+LLEQSET_SetManager_EquipItem(_Player, _Slot, _Item);
+
+PROC
+LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+LLEQSET_QRY_Helpers_GetSetName(_Player, _SetID)
+AND
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName)
+AND
+DB_LLEQSET_SystemColors(_SetID, _Color)
+AND
+StringConcatenate("<font color='#", _Color, _Str1)
+AND
+StringConcatenate(_Str1, "' size='24'>", _Str2)
+AND
+StringConcatenate(_Str2, _SetName, _Str3)
+AND
+StringConcatenate(_Str3, "</font><font>", _ColoredName)
+AND
+StringConcatenate("Set changed to </font>", _ColoredName, _Message)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, "SetChanged");
+NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
+
+PROC
+LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+LLEQSET_QRY_Helpers_GetSetName(_Player, _SetID)
+AND
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName)
+AND
+StringConcatenate(_SetName, " has not been saved!", _Message)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, "Error");
+NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
+
+PROC
+LLEQSET_SetManager_RegisterEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetExists(_Player,_SetID)
+THEN
+LLEQSET_SetManager_ClearSet(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_RegisterEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_EquipmentSlots(_Slot)
+AND
+CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
+THEN
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
+
+PROC
+LLEQSET_SetManager_RegisterEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_EquipmentSlots(_Slot)
+AND
+NOT CharacterGetEquippedItem(_Player, _Slot, _)
+THEN
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, NULL_00000000-0000-0000-0000-000000000000);
+
+PROC
+LLEQSET_SetManager_RegisterEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_Helpers_GetSetName(_Player, _SetID)
+AND
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName)
+AND
+StringConcatenate("Saved current equipment to ", _SetName, _Message)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, "SetSaved");
+NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
+//END_REGION
+
+//REGION USER_EVENTS
+IF
+SkillCast(_Player, _Skill, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
+THEN
+LLEQSET_SetManager_ChangeSet(_Player, _SetID);
+
+IF
+CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+LLEQSET_SetManager_ChangeSet(_Player, _SetID);
+
+IF
+CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+AND
+LLEQSET_QRY_SetExists(_Player, _SetID)
+THEN
+PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
+PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Cast_01", "Dummy_Root");
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"
