@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <save>
-    <header version="2" time="1519430687" />
+    <header version="2" time="1519444731" />
     <version major="3" minor="1" revision="6" build="0" />
     <region id="DialogVariables">
         <node id="root">
@@ -48,11 +48,25 @@
                     <attribute id="type" value="Int" type="23" />
                 </node>
                 <node id="DialogVariable">
+                    <attribute id="DefaultValue" value="0" type="23" />
+                    <attribute id="Description" value="" type="23" />
+                    <attribute id="UUID" value="c0fa11d6-068b-436d-8f85-6ab2f41025f0" type="31" />
+                    <attribute id="name" value="LLEQSET_Naming_CurrentPage" type="22" />
+                    <attribute id="type" value="Int" type="23" />
+                </node>
+                <node id="DialogVariable">
                     <attribute id="DefaultValue" value="" type="23" />
                     <attribute id="Description" value="" type="23" />
                     <attribute id="UUID" value="7a7aaab8-c19d-4af5-9d1b-9a1b5d7a47c0" type="31" />
                     <attribute id="name" value="LLEQSET_Naming_FinalText" type="22" />
                     <attribute id="type" value="String" type="23" />
+                </node>
+                <node id="DialogVariable">
+                    <attribute id="DefaultValue" value="0" type="23" />
+                    <attribute id="Description" value="" type="23" />
+                    <attribute id="UUID" value="c160c3ea-eac5-46d1-b156-8be40f6d0e59" type="31" />
+                    <attribute id="name" value="LLEQSET_Naming_LastPage" type="22" />
+                    <attribute id="type" value="Int" type="23" />
                 </node>
                 <node id="DialogVariable">
                     <attribute id="DefaultValue" value="" type="23" />
@@ -72,6 +86,13 @@
                     <attribute id="DefaultValue" value=" " type="23" />
                     <attribute id="Description" value="" type="23" />
                     <attribute id="UUID" value="9bddecd9-c5ed-4758-939b-af4430f643c8" type="31" />
+                    <attribute id="name" value="LLEQSET_Naming_Text" type="22" />
+                    <attribute id="type" value="String" type="23" />
+                </node>
+                <node id="DialogVariable">
+                    <attribute id="DefaultValue" value="" type="23" />
+                    <attribute id="Description" value="" type="23" />
+                    <attribute id="UUID" value="b3da63bf-bdab-4c02-83a1-12db2c46f1e9" type="31" />
                     <attribute id="name" value="LLEQSET_Naming_Word1" type="22" />
                     <attribute id="type" value="String" type="23" />
                 </node>
@@ -132,7 +153,7 @@
                     <attribute id="type" value="String" type="23" />
                 </node>
                 <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
+                    <attribute id="DefaultValue" value="None" type="23" />
                     <attribute id="Description" value="" type="23" />
                     <attribute id="UUID" value="2627b712-41e0-4883-9208-1f5fb5c3ff05" type="31" />
                     <attribute id="name" value="LLEQSET_Naming_WordLast" type="22" />

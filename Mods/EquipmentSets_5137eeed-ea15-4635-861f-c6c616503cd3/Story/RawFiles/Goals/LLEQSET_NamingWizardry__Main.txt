@@ -16,7 +16,10 @@ LLEQSET_Naming_InitializeSettings();
 //DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
 //DB_LLEQSET_Naming_TextLength(_Length, _Instance);
 //DB_LLEQSET_Naming_MaxLength(_MaxLength)
+
 //DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _Length)
+//DB_LLEQSET_Naming_Temp_FoundWord(_Text, _StartIndex, _StartLength, _StartIndex2, _StartLength2)
+//DB_LLEQSET_Naming_Temp_LastVisibleText(_LastText, _Instance)
 KBSECTION
 //REGION SETTINGS_CODEX
 PROC
@@ -190,15 +193,47 @@ AND
 DB_LLEQSET_Naming_CurrentGroup(_Index, _Instance)
 THEN
 NOT DB_LLEQSET_Naming_CurrentGroup(_Index, _Instance);
+
+PROC
+LLEQSET_Naming_ClearInstanceVariables((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance);
+
+PROC
+LLEQSET_Naming_ClearInstanceVariables((INTEGER)_Instance)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
 //END_REGION
 
 //REGION LETTER_CHANGING
+PROC
+LLEQSET_Naming_SetLastText((STRING)_Text, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_Temp_LastVisibleText(_LastText, _Instance)
+THEN
+NOT DB_LLEQSET_Naming_Temp_LastVisibleText(_LastText, _Instance);
+
+PROC
+LLEQSET_Naming_SetLastText((STRING)_Text, (INTEGER)_Instance)
+THEN
+DB_LLEQSET_Naming_Temp_LastVisibleText(_Text, _Instance);
+
+PROC
+LLEQSET_Naming_SetText((STRING)_Text, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_VisibleText(_, _Instance)
+THEN
+LLEQSET_Naming_SetLastText("", _Instance);
+
 PROC
 LLEQSET_Naming_SetText((STRING)_Text, (INTEGER)_Instance)
 AND
 DB_LLEQSET_Naming_VisibleText(_CurrentText, _Instance)
 THEN
 NOT DB_LLEQSET_Naming_VisibleText(_CurrentText, _Instance);
+LLEQSET_Naming_SetLastText(_CurrentText, _Instance);
 
 PROC
 LLEQSET_Naming_SetText((STRING)_Text, (INTEGER)_Instance)
@@ -281,6 +316,40 @@ AND
 StringSub(_Text, 0, _Length, _NewText)
 THEN
 LLEQSET_Naming_SetText(_NewText, _Instance);
+
+//To do
+QRY
+LLEQSET_QRY_Naming_FindWord((STRING)_Text, (STRING)_Word)
+THEN
+DB_LLEQSET_Naming_Temp_FoundWord(_Text, 0, 0, 0, 0);
+
+PROC
+LLEQSET_Naming_RemoveWord((INTEGER)_Instance, (STRING)_Word)
+AND
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
+AND
+StringContains(_Text, _Word, 1)
+AND
+LLEQSET_QRY_Naming_FindWord(_Text, _Word)
+AND
+DB_LLEQSET_Naming_Temp_FoundWord(_Text, _StartIndex, _StartLength, _StartIndex2, _StartLength2)
+AND
+StringSub(_Text, _StartIndex, _StartLength, _Str1)
+AND
+StringSub(_Text, _StartIndex2, _StartLength2, _Str2)
+AND
+StringConcatenate(_Str2, _Str2, _NewText)
+THEN
+LLEQSET_Naming_SetText(_NewText, _Instance);
+LLEQSET_Naming_RecalculateTextLength(_Instance);
+
+PROC
+LLEQSET_Naming_UndoLast((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_Temp_LastVisibleText(_LastText, _Instance)
+THEN
+LLEQSET_Naming_SetText(_LastText, _Instance);
+LLEQSET_Naming_RecalculateTextLength(_Instance);
 
 PROC
 LLEQSET_Naming_AppendWord((STRING)_Word, (INTEGER)_Instance)
@@ -624,6 +693,7 @@ AND
 DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
 THEN
 LLEQSET_Naming_AppendLetter(_Letter, _Instance);
+//DebugBreak("[LLEQSET] User added letter.");
 
 IF
 ObjectFlagSet("LLEQSET_Naming_RemoveLastLetter", _Speaker, _Instance)
@@ -733,6 +803,16 @@ DB_LLEQSET_Naming_TextLength(_Length, _Instance)
 THEN
 LLEQSET_Naming_SetFinishedText(_Text, _Player, _Length);
 ObjectSetFlag(_Player, "LLEQSET_Naming_TextSaved");
+
+IF
+ObjectFlagSet("LLEQSET_Naming_CancelNaming", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_CancelNaming")
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_TextSaved")
+THEN
+LLEQSET_Naming_ClearInstanceVariables(_Instance);
+
 //END_REGION
 
 //REGION DIALOG_EVENTS
@@ -776,22 +856,12 @@ THEN
 LLEQSET_Naming_SetText(_Name, _Instance);
 LLEQSET_Naming_SetLength(_NameLength, _Instance);
 
-PROC
-LLEQSET_Naming_ClearInstanceVariables((INTEGER)_Instance)
-AND
-DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance)
-THEN
-NOT DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance);
-
-PROC
-LLEQSET_Naming_ClearInstanceVariables((INTEGER)_Instance)
-THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-
 IF
 DialogEnded("LLEQSET_NamingMenu", _Instance)
 AND
 DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_TextSaved", 1)
 THEN
 LLEQSET_Naming_ClearInstanceVariables(_Instance);
 Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);

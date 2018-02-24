@@ -4,7 +4,7 @@ INITSECTION
 LLEQSET_Naming_Words_InitializeSettings();
 //Settings
 //DB_LLEQSET_Naming_CommonWords(_Index, _Word)
-//DB_LLEQSET_Naming_CommonWordVariables(_WordIndex, _DialogVar, _SelectFlag)
+//DB_LLEQSET_Naming_CommonWordVariables(_WordIndex, _DialogVar, _SelectFlag, _DisabledFlag)
 //DB_LLEQSET_Naming_WordPageSettings(_WordsPerPage)
 //Temp variables
 //DB_LLEQSET_Temp_TotalNamingWordVariables(_Total)
@@ -16,157 +16,6 @@ LLEQSET_Naming_Words_InitializeSettings();
 //DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page)
 //DB_LLEQSET_Naming_WordIterator(_WordIndex)
 KBSECTION
-//REGION VARIABLE_INITIALIZATION
-PROC
-LLEQSET_Naming_Words_CalculateMaxPage()
-AND
-DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
-THEN
-NOT DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage);
-
-PROC
-LLEQSET_Naming_Words_CalculateMaxPage()
-AND
-SysCount("DB_LLEQSET_Naming_CommonWords", 2, _TotalWords)
-AND
-DB_LLEQSET_Naming_WordPageSettings(_WordsPerPage)
-AND
-IntegerSubtract(_WordsPerPage, 1, _Variance)
-AND
-IntegerSum(_TotalWords, _Variance, _PageNumToDivide)
-AND
-IntegerDivide(_PageNumToDivide, _WordsPerPage, _MaxPage)
-AND
-IntegerSubtract(_TotalWords, 1, _LastIndex)
-AND
-IntegerSubtract(_MaxPage, 1, _LastPageIndex)
-THEN
-DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage);
-
-PROC
-LLEQSET_Naming_Words_CalculateMaxPage()
-AND
-DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
-AND
-IntegertoString(_LastIndex, _LastIndexStr)
-AND
-IntegertoString(_MaxPage, _MaxPageStr)
-AND
-IntegertoString(_LastPageIndex, _LastPageIndexStr)
-AND
-StringConcatenate("[LLEQSET] Naming_Words - Page values calculated: MaxPage:[", _MaxPageStr, _Str1)
-AND
-StringConcatenate(_Str1, "] LastWordIndex[", _Str2)
-AND
-StringConcatenate(_Str2, _LastIndexStr, _Str3)
-AND
-StringConcatenate(_Str3, "] LastPageIndex[", _Str4)
-AND
-StringConcatenate(_Str4, _LastPageIndexStr, _Str5)
-AND
-StringConcatenate(_Str5, "]", _Str6)
-THEN
-DebugBreak(_Str6);
-
-PROC
-DB_LLEQSET_Naming_Words_SetWordIterator()
-AND
-DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index)
-THEN
-NOT DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index);
-
-PROC
-DB_LLEQSET_Naming_Words_SetWordIterator()
-AND
-DB_LLEQSET_Temp_TotalNamingWordVariables(_Total)
-THEN
-NOT DB_LLEQSET_Temp_TotalNamingWordVariables(_Total);
-
-PROC
-DB_LLEQSET_Naming_Words_SetWordIterator()
-AND
-SysCount("DB_LLEQSET_Naming_CommonWordVariables", 2, _Total)
-THEN
-DB_LLEQSET_Temp_TotalNamingWordVariables(_Total);
-DB_LLEQSET_Temp_CurrentWordVariableIndex(0);
-DB_LLEQSET_Naming_WordIterator(0);
-TimerLaunch("LLEQSET_Timers_Naming_WordIteratorConfigurator", 1);
-
-IF
-TimerFinished("LLEQSET_Timers_Naming_WordIteratorConfigurator")
-AND
-DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index)
-AND
-DB_LLEQSET_Temp_TotalNamingWordVariables(_Total)
-AND
-_Index < _Total
-AND
-IntegerSum(_Index, 1, _WordIndex)
-THEN
-DB_LLEQSET_Naming_WordIterator(_WordIndex);
-TimerLaunch("LLEQSET_Timers_Naming_WordIteratorConfigurator", 1);
-
-IF
-TimerFinished("LLEQSET_Timers_Naming_WordIteratorConfigurator")
-AND
-DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index)
-AND
-DB_LLEQSET_Temp_TotalNamingWordVariables(_Total)
-AND
-_Index >= _Total
-THEN
-NOT DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index);
-NOT DB_LLEQSET_Temp_TotalNamingWordVariables(_Total);
-//END_REGION
-
-//REGION SETTINGS
-PROC
-LLEQSET_Naming_Words_InitializeSettings()
-THEN
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_WordPageSettings", 1);
-DB_LLEQSET_Naming_WordPageSettings(9);
-
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_MaxWordPage", 3);
-LLEQSET_Naming_Words_CalculateMaxPage();
-
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_CommonWordVariables", 3);
-DB_LLEQSET_Naming_CommonWordVariables(0, "LLEQSET_Naming_Word1_9bddecd9-c5ed-4758-939b-af4430f643c8", "LLEQSET_Naming_SelectedWord1");
-DB_LLEQSET_Naming_CommonWordVariables(1, "LLEQSET_Naming_Word2_3de95984-7f32-48a8-a6e1-9fdc8db0923c", "LLEQSET_Naming_SelectedWord2");
-DB_LLEQSET_Naming_CommonWordVariables(2, "LLEQSET_Naming_Word3_ffbe6471-325f-45db-9ef2-cd936ec44629", "LLEQSET_Naming_SelectedWord3");
-DB_LLEQSET_Naming_CommonWordVariables(3, "LLEQSET_Naming_Word4_9bfe7a46-71f4-480f-8820-303898a36b8b", "LLEQSET_Naming_SelectedWord4");
-DB_LLEQSET_Naming_CommonWordVariables(4, "LLEQSET_Naming_Word5_40e7b21f-ee75-4c90-8ced-a884924c72e9", "LLEQSET_Naming_SelectedWord5");
-DB_LLEQSET_Naming_CommonWordVariables(5, "LLEQSET_Naming_Word6_ff231f70-36cf-42ae-8bce-47d9bd8c0487", "LLEQSET_Naming_SelectedWord6");
-DB_LLEQSET_Naming_CommonWordVariables(6, "LLEQSET_Naming_Word7_0d997a83-39e7-473b-9b13-39c8fd6c148a", "LLEQSET_Naming_SelectedWord7");
-DB_LLEQSET_Naming_CommonWordVariables(7, "LLEQSET_Naming_Word8_a906a9bd-790d-4a4b-83d0-a8c0c3fa11d9", "LLEQSET_Naming_SelectedWord8");
-DB_LLEQSET_Naming_CommonWordVariables(8, "LLEQSET_Naming_Word9_1785e926-439a-43f4-9602-a67abfa875fc", "LLEQSET_Naming_SelectedWord9");
-
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_WordIterator", 1);
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_TotalNamingWordVariables", 1);
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_CurrentWordVariableIndex", 1);
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_WordVariableValue", 2);
-DB_LLEQSET_Naming_Words_SetWordIterator();
-
-PROC
-LLEQSET_System_UpdateDatabases()
-THEN
-LLEQSET_Naming_Words_InitializeSettings();
-
-PROC
-LLEQSET_System_ClearDatabases()
-THEN
-SysClear("DB_LLEQSET_Naming_CommonWords", 2);
-SysClear("DB_LLEQSET_Naming_CommonWordVariables", 3);
-SysClear("DB_LLEQSET_Naming_WordPageSettings", 1);
-SysClear("DB_LLEQSET_Naming_MaxWordPage", 3);
-SysClear("DB_LLEQSET_Naming_LastWord", 2);
-SysClear("DB_LLEQSET_Naming_CurrentWordPage", 2);
-SysClear("DB_LLEQSET_Temp_TotalNamingWordVariables", 1);
-SysClear("DB_LLEQSET_Temp_CurrentWordVariableIndex", 1);
-SysClear("DB_LLEQSET_Temp_WordVariableValue", 2);
-
-DebugBreak("[LLEQSET] Naming_Words databases cleared.");
-//END_REGION
-
 //REGION SETTINGS_WORDS
 PROC
 LLEQSET_Naming_Words_InitializeSettings()
@@ -241,53 +90,183 @@ DB_LLEQSET_Naming_CommonWords(65, "Wand");
 DB_LLEQSET_Naming_CommonWords(66, "Warfare");
 //END_REGION
 
+//REGION SETTINGS
+PROC
+LLEQSET_Naming_Words_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_WordPageSettings", 1);
+DB_LLEQSET_Naming_WordPageSettings(9);
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_CommonWordVariables", 4);
+DB_LLEQSET_Naming_CommonWordVariables(0, "LLEQSET_Naming_Word1_b3da63bf-bdab-4c02-83a1-12db2c46f1e9", "LLEQSET_Naming_SelectedWord1", "LLEQSET_Naming_Word1Empty");
+DB_LLEQSET_Naming_CommonWordVariables(1, "LLEQSET_Naming_Word2_3de95984-7f32-48a8-a6e1-9fdc8db0923c", "LLEQSET_Naming_SelectedWord2", "LLEQSET_Naming_Word2Empty");
+DB_LLEQSET_Naming_CommonWordVariables(2, "LLEQSET_Naming_Word3_ffbe6471-325f-45db-9ef2-cd936ec44629", "LLEQSET_Naming_SelectedWord3", "LLEQSET_Naming_Word3Empty");
+DB_LLEQSET_Naming_CommonWordVariables(3, "LLEQSET_Naming_Word4_9bfe7a46-71f4-480f-8820-303898a36b8b", "LLEQSET_Naming_SelectedWord4", "LLEQSET_Naming_Word4Empty");
+DB_LLEQSET_Naming_CommonWordVariables(4, "LLEQSET_Naming_Word5_40e7b21f-ee75-4c90-8ced-a884924c72e9", "LLEQSET_Naming_SelectedWord5", "LLEQSET_Naming_Word5Empty");
+DB_LLEQSET_Naming_CommonWordVariables(5, "LLEQSET_Naming_Word6_ff231f70-36cf-42ae-8bce-47d9bd8c0487", "LLEQSET_Naming_SelectedWord6", "LLEQSET_Naming_Word6Empty");
+DB_LLEQSET_Naming_CommonWordVariables(6, "LLEQSET_Naming_Word7_0d997a83-39e7-473b-9b13-39c8fd6c148a", "LLEQSET_Naming_SelectedWord7", "LLEQSET_Naming_Word7Empty");
+DB_LLEQSET_Naming_CommonWordVariables(7, "LLEQSET_Naming_Word8_a906a9bd-790d-4a4b-83d0-a8c0c3fa11d9", "LLEQSET_Naming_SelectedWord8", "LLEQSET_Naming_Word8Empty");
+DB_LLEQSET_Naming_CommonWordVariables(8, "LLEQSET_Naming_Word9_1785e926-439a-43f4-9602-a67abfa875fc", "LLEQSET_Naming_SelectedWord9", "LLEQSET_Naming_Word9Empty");
+
+PROC
+LLEQSET_System_UpdateDatabases()
+THEN
+LLEQSET_Naming_Words_InitializeSettings();
+
+PROC
+LLEQSET_System_ClearDatabases()
+THEN
+SysClear("DB_LLEQSET_Naming_CommonWords", 2);
+SysClear("DB_LLEQSET_Naming_CommonWordVariables", 3);
+SysClear("DB_LLEQSET_Naming_WordPageSettings", 1);
+SysClear("DB_LLEQSET_Naming_MaxWordPage", 3);
+SysClear("DB_LLEQSET_Naming_LastWord", 2);
+SysClear("DB_LLEQSET_Naming_CurrentWordPage", 2);
+SysClear("DB_LLEQSET_Temp_TotalNamingWordVariables", 1);
+SysClear("DB_LLEQSET_Temp_CurrentWordVariableIndex", 1);
+SysClear("DB_LLEQSET_Temp_WordVariableValue", 2);
+
+DebugBreak("[LLEQSET] Naming_Words databases cleared.");
+//END_REGION
+
+//REGION VARIABLE_INITIALIZATION
+PROC
+LLEQSET_Naming_Words_CalculateMaxPage()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_MaxWordPage", 3);
+
+PROC
+LLEQSET_Naming_Words_CalculateMaxPage()
+AND
+SysCount("DB_LLEQSET_Naming_CommonWords", 2, _TotalWords)
+AND
+DB_LLEQSET_Naming_WordPageSettings(_WordsPerPage)
+AND
+IntegerSubtract(_WordsPerPage, 1, _Variance)
+AND
+IntegerSum(_TotalWords, _Variance, _PageNumToDivide)
+AND
+IntegerDivide(_PageNumToDivide, _WordsPerPage, _MaxPage)
+AND
+IntegerSubtract(_TotalWords, 1, _LastIndex)
+AND
+IntegerSubtract(_MaxPage, 1, _LastPageIndex)
+THEN
+DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage);
+
+IF
+DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
+AND
+IntegertoString(_LastIndex, _LastIndexStr)
+AND
+IntegertoString(_MaxPage, _MaxPageStr)
+AND
+IntegertoString(_LastPageIndex, _LastPageIndexStr)
+AND
+StringConcatenate("[LLEQSET:Naming_Words] Page values calculated: MaxPage:[", _MaxPageStr, _Str1)
+AND
+StringConcatenate(_Str1, "] LastWordIndex[", _Str2)
+AND
+StringConcatenate(_Str2, _LastIndexStr, _Str3)
+AND
+StringConcatenate(_Str3, "] LastPageIndex[", _Str4)
+AND
+StringConcatenate(_Str4, _LastPageIndexStr, _Str5)
+AND
+StringConcatenate(_Str5, "]", _Str6)
+THEN
+DebugBreak(_Str6);
+
+PROC
+LLEQSET_Naming_Words_CalculateMaxPage()
+THEN
+LLEQSET_System_Debug_DatabaseCount("DB_LLEQSET_Naming_CommonWords", 2);
+LLEQSET_System_Debug_DatabaseCount("DB_LLEQSET_Naming_CommonWordVariables", 3);
+
+PROC
+LLEQSET_Naming_Words_SetWordIterator()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_WordIterator", 1);
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_TotalNamingWordVariables", 1);
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_CurrentWordVariableIndex", 1);
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_WordVariableValue", 2);
+
+PROC
+LLEQSET_Naming_Words_SetWordIterator()
+AND
+SysCount("DB_LLEQSET_Naming_CommonWordVariables", 4, _Total)
+THEN
+DB_LLEQSET_Temp_TotalNamingWordVariables(_Total);
+DB_LLEQSET_Temp_CurrentWordVariableIndex(0);
+DB_LLEQSET_Naming_WordIterator(0);
+TimerLaunch("LLEQSET_Timers_Naming_WordIteratorConfigurator", 100);
+
+IF
+TimerFinished("LLEQSET_Timers_Naming_WordIteratorConfigurator")
+AND
+DB_LLEQSET_Temp_TotalNamingWordVariables(_Total)
+AND
+DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index)
+AND
+_Index < _Total
+AND
+IntegerSum(_Index, 1, _NextIndex)
+THEN
+NOT DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index);
+DB_LLEQSET_Temp_CurrentWordVariableIndex(_NextIndex);
+DB_LLEQSET_Naming_WordIterator(_NextIndex);
+TimerLaunch("LLEQSET_Timers_Naming_WordIteratorConfigurator", 100);
+
+IF
+DB_LLEQSET_Naming_WordIterator(_WordIndex)
+AND
+DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index)
+AND
+DB_LLEQSET_Temp_TotalNamingWordVariables(_Total)
+AND
+_Index >= _Total
+THEN
+NOT DB_LLEQSET_Temp_CurrentWordVariableIndex(_Index);
+NOT DB_LLEQSET_Temp_TotalNamingWordVariables(_Total);
+LLEQSET_System_Debug_DatabaseCount("DB_LLEQSET_Naming_WordIterator", 1);
+
+PROC
+LLEQSET_Naming_Words_InitializeSettings()
+THEN
+LLEQSET_Naming_Words_CalculateMaxPage();
+LLEQSET_Naming_Words_SetWordIterator();
+//END_REGION
+
 //REGION CLEAR
 PROC
 LLEQSET_Naming_Words_ResetPlayerPage((CHARACTERGUID)_Player)
 AND
-DB_LLEQSET_Naming_CurrentWordPage(Player, _Page)
+DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page)
 THEN
-NOT DB_LLEQSET_Naming_CurrentWordPage(Player, _Page);
-DB_LLEQSET_Naming_CurrentWordPage(Player, 0);
+NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page);
+DB_LLEQSET_Naming_CurrentWordPage(_Player, 0);
 
 PROC
 LLEQSET_Naming_Words_ResetPlayerPage((CHARACTERGUID)_Player)
 AND
-NOT DB_LLEQSET_Naming_CurrentWordPage(Player, _)
+NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _)
 THEN
-DB_LLEQSET_Naming_CurrentWordPage(Player, 0);
-//END_REGION
-
-//REGION PAGE_VARIABLES
-PROC
-LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
-AND
-DB_LLEQSET_Temp_WordVariableValue(_WordIndex, _Word)
-THEN
-NOT DB_LLEQSET_Temp_WordVariableValue(_WordIndex, _Word);
-
-PROC
-LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
-AND
-DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page)
-AND
-DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
-AND
-DB_LLEQSET_Naming_WordIterator(_WordIndex)
-AND
-DB_LLEQSET_Naming_CommonWordVariables(_WordIndex, _DialogVar, _SelectFlag)
-AND
-IntegerProduct(_Page, _MaxPage, _StartIndex)
-AND
-IntegerSum(_StartIndex, _WordIndex, _Index)
-AND
-DB_LLEQSET_Naming_CommonWords(_Index, _Word)
-THEN
-DialogSetVariableStringForInstance(_Instance, _DialogVar, _Word);
-DB_LLEQSET_Temp_WordVariableValue(_WordIndex, _Word);
+DB_LLEQSET_Naming_CurrentWordPage(_Player, 0);
 //END_REGION
 
 //REGION PAGE_TURNING
+PROC
+LLEQSET_Naming_Words_SetPage((CHARACTERGUID)_Player, (INTEGER)_Page, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CurrentWordPage(_Player, _CurrentPage)
+THEN
+NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _CurrentPage);
+
+PROC
+LLEQSET_Naming_Words_SetPage((CHARACTERGUID)_Player, (INTEGER)_Page, (INTEGER)_Instance)
+THEN
+DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page);
+
 PROC
 LLEQSET_Naming_Words_NextPage((CHARACTERGUID)_Player, (INTEGER)_Instance)
 AND
@@ -299,8 +278,7 @@ _Page < _MaxPage
 AND
 IntegerSum(_Page, 1, _NextPage)
 THEN
-NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page);
-DB_LLEQSET_Naming_CurrentWordPage(_Player, _NextPage);
+LLEQSET_Naming_Words_SetPage(_Player, _NextPage, _Instance);
 
 PROC
 LLEQSET_Naming_Words_NextPage((CHARACTERGUID)_Player, (INTEGER)_Instance)
@@ -311,8 +289,7 @@ DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
 AND
 _Page >= _MaxPage
 THEN
-NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page);
-DB_LLEQSET_Naming_CurrentWordPage(_Player, 0);
+LLEQSET_Naming_Words_SetPage(_Player, 0, _Instance);
 
 PROC
 LLEQSET_Naming_Words_PreviousPage((CHARACTERGUID)_Player, (INTEGER)_Instance)
@@ -325,8 +302,7 @@ _Page > 0
 AND
 IntegerSubtract(_Page, 1, _NextPage)
 THEN
-NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page);
-DB_LLEQSET_Naming_CurrentWordPage(_Player, _NextPage);
+LLEQSET_Naming_Words_SetPage(_Player, _NextPage, _Instance);
 
 PROC
 LLEQSET_Naming_Words_PreviousPage((CHARACTERGUID)_Player, (INTEGER)_Instance)
@@ -337,8 +313,98 @@ DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
 AND
 _Page <= 0
 THEN
-NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page);
-DB_LLEQSET_Naming_CurrentWordPage(_Player, _LastPageIndex);
+LLEQSET_Naming_Words_SetPage(_Player, _LastPageIndex, _Instance);
+//END_REGION
+
+//REGION PAGE_VARIABLES
+PROC
+LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _)
+THEN
+DB_LLEQSET_Naming_CurrentWordPage(_Player, 0);
+DebugBreak("[LLEQSET:Naming_Words][ERROR] Page not set for some reason. Setting to page 0.");
+
+PROC
+LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_MaxWordPage(_,_,_)
+THEN
+DebugBreak("[LLEQSET:Naming_Words][ERROR] Max page settings not set. Reconfiguring.");
+LLEQSET_Naming_Words_CalculateMaxPage();
+
+PROC
+LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_WordIterator(_)
+THEN
+DebugBreak("[LLEQSET:Naming_Words][ERROR] Word iterator not set. Reconfiguring.");
+DB_LLEQSET_Naming_Words_SetWordIterator();
+
+PROC
+LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Temp_WordVariableValue(_WordIndex, _Word)
+THEN
+NOT DB_LLEQSET_Temp_WordVariableValue(_WordIndex, _Word);
+
+QRY
+LLEQSET_QRY_Naming_DisableWordIfNotAvailable((CHARACTERGUID)_Player, (INTEGER)_Index, (STRING)_DisabledFlag)
+AND
+NOT DB_LLEQSET_Naming_CommonWords(_Index, _)
+AND
+ObjectGetFlag(_Player, _DisabledFlag, 0)
+THEN
+ObjectSetFlag(_Player, _DisabledFlag);
+
+QRY
+LLEQSET_QRY_Naming_DisableWordIfNotAvailable((CHARACTERGUID)_Player, (INTEGER)_Index, (STRING)_DisabledFlag)
+AND
+DB_LLEQSET_Naming_CommonWords(_Index, _Word)
+AND
+ObjectGetFlag(_Player, _DisabledFlag, 1)
+THEN
+ObjectClearFlag(_Player, _DisabledFlag);
+
+PROC
+LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page)
+AND
+DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
+AND
+DB_LLEQSET_Naming_WordIterator(_WordIndex)
+AND
+DB_LLEQSET_Naming_CommonWordVariables(_WordIndex, _DialogVar, _SelectFlag, _DisabledFlag)
+AND
+IntegerSum(_MaxPage, 1, _StartOffset)
+AND
+IntegerProduct(_Page, _StartOffset, _StartIndex)
+AND
+IntegerSum(_StartIndex, _WordIndex, _Index)
+AND
+LLEQSET_QRY_Naming_DisableWordIfNotAvailable(_Player, _Index, _DisabledFlag)
+AND
+DB_LLEQSET_Naming_CommonWords(_Index, _Word)
+THEN
+DialogSetVariableStringForInstance(_Instance, _DialogVar, _Word);
+DB_LLEQSET_Temp_WordVariableValue(_WordIndex, _Word);
+
+PROC
+LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
+THEN
+DialogSetVariableIntForInstance(_Instance, "LLEQSET_Naming_LastPage_c160c3ea-eac5-46d1-b156-8be40f6d0e59", _MaxPage);
+
+PROC
+LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CurrentWordPage(_Player, _Page)
+AND
+IntegerSum(_Page, 1, _DisplayedPage)
+THEN
+DialogSetVariableIntForInstance(_Instance, "LLEQSET_Naming_CurrentPage_c0fa11d6-068b-436d-8f85-6ab2f41025f0", _DisplayedPage);
 //END_REGION
 
 //REGION HELPERS
@@ -354,6 +420,7 @@ LLEQSET_Naming_Words_SetLastWord((CHARACTERGUID)_Player, (STRING)_Word, (INTEGER
 THEN
 DB_LLEQSET_Naming_LastWord(_Player, _Word);
 DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_WordLast_2627b712-41e0-4883-9208-1f5fb5c3ff05", _Word);
+ObjectSetFlag(_Player, "LLEQSET_Naming_LastWordExists");
 
 PROC
 LLEQSET_Naming_Words_LoadLastWord((CHARACTERGUID)_Player, (INTEGER)_Instance)
@@ -361,13 +428,23 @@ AND
 DB_LLEQSET_Naming_LastWord(_Player, _Word)
 THEN
 DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_WordLast_2627b712-41e0-4883-9208-1f5fb5c3ff05", _Word);
+ObjectSetFlag(_Player, "LLEQSET_Naming_LastWordExists");
+
+PROC
+LLEQSET_Naming_Words_LoadLastWord((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_LastWord(_Player, _)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_LastWordExists", 1)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Naming_LastWordExists");
 //END_REGION
 
 //REGION FLAG_ACTIONS
 IF
 ObjectFlagSet("LLEQSET_Naming_NextWordPage", (CHARACTERGUID)_Player, _Instance)
 AND
-LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_NextWordPage")
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_NextWordPage")
 THEN
 LLEQSET_Naming_Words_NextPage(_Player, _Instance);
 LLEQSET_Naming_Words_LoadPageVariables(_Player, _Instance);
@@ -375,9 +452,27 @@ LLEQSET_Naming_Words_LoadPageVariables(_Player, _Instance);
 IF
 ObjectFlagSet("LLEQSET_Naming_PreviousWordPage", (CHARACTERGUID)_Player, _Instance)
 AND
-LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_PreviousWordPage")
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_PreviousWordPage")
 THEN
 LLEQSET_Naming_Words_PreviousPage(_Player, _Instance);
+LLEQSET_Naming_Words_LoadPageVariables(_Player, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_FirstWordPage", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_FirstWordPage")
+THEN
+LLEQSET_Naming_Words_SetPage(_Player, 0, _Instance);
+LLEQSET_Naming_Words_LoadPageVariables(_Player, _Instance);
+
+IF
+ObjectFlagSet("LLEQSET_Naming_LastWordPage", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_LastWordPage")
+AND
+DB_LLEQSET_Naming_MaxWordPage(_LastIndex, _LastPageIndex, _MaxPage)
+THEN
+LLEQSET_Naming_Words_SetPage(_Player, _LastPageIndex, _Instance);
 LLEQSET_Naming_Words_LoadPageVariables(_Player, _Instance);
 
 IF
@@ -399,9 +494,16 @@ THEN
 LLEQSET_Naming_AppendWord(_LastWord, _Instance);
 
 IF
+ObjectFlagSet("LLEQSET_Naming_RemoveLastWord", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_RemoveLastWord")
+THEN
+LLEQSET_Naming_UndoLast(_Instance);
+
+IF
 ObjectFlagSet(_SelectFlag, (CHARACTERGUID)_Player, _Instance)
 AND
-DB_LLEQSET_Naming_CommonWordVariables(_WordIndex, _DialogVar, _SelectFlag)
+DB_LLEQSET_Naming_CommonWordVariables(_WordIndex, _DialogVar, _SelectFlag, _DisabledFlag)
 AND
 LLEQSET_QRY_ClearObjectFlag(_Player, _SelectFlag)
 AND
@@ -409,6 +511,7 @@ DB_LLEQSET_Temp_WordVariableValue(_WordIndex, _Word)
 THEN
 LLEQSET_Naming_AppendWord(_Word, _Instance);
 LLEQSET_Naming_Words_SetLastWord(_Player, _Word, _Instance);
+//DebugBreak("[LLEQSET] User appended word.");
 //END_REGION
 EXITSECTION
 

@@ -96,6 +96,21 @@ AND
 _Count > 0
 THEN
 SysClear(_DatabaseName, _Arity);
+
+PROC
+LLEQSET_System_Debug_DatabaseCount((STRING)_DatabaseName, (INTEGER)_Arity)
+AND
+SysCount(_DatabaseName, _Arity, _Total)
+AND
+IntegertoString(_Total, _TotalStr)
+AND
+StringConcatenate("[LLEQSET] '", _DatabaseName, _Str1)
+AND
+StringConcatenate(_Str1, "' Total Entries: ", _Str2)
+AND
+StringConcatenate(_Str2, _TotalStr, _Str3)
+THEN
+DebugBreak(_Str3);
 //END_REGION
 
 //REGION MESSAGE_HELPERS
