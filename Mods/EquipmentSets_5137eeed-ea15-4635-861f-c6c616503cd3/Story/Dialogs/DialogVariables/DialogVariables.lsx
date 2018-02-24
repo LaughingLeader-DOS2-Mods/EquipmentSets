@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <save>
-    <header version="2" time="1519415413" />
+    <header version="2" time="1519430687" />
     <version major="3" minor="1" revision="6" build="0" />
     <region id="DialogVariables">
         <node id="root">
@@ -129,6 +129,13 @@
                     <attribute id="Description" value="" type="23" />
                     <attribute id="UUID" value="1785e926-439a-43f4-9602-a67abfa875fc" type="31" />
                     <attribute id="name" value="LLEQSET_Naming_Word9" type="22" />
+                    <attribute id="type" value="String" type="23" />
+                </node>
+                <node id="DialogVariable">
+                    <attribute id="DefaultValue" value="" type="23" />
+                    <attribute id="Description" value="" type="23" />
+                    <attribute id="UUID" value="2627b712-41e0-4883-9208-1f5fb5c3ff05" type="31" />
+                    <attribute id="name" value="LLEQSET_Naming_WordLast" type="22" />
                     <attribute id="type" value="String" type="23" />
                 </node>
                 <node id="DialogVariable">

@@ -7,8 +7,6 @@ LLEQSET_Naming_InitializeSettings();
 //DB_LLEQSET_Naming_FinishedText(_Text, _Player, _Length);
 //DB_LLEQSET_Naming_LastFinishedText(_Text, _Player, _Length);
 //DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
-//DB_LLEQSET_Naming_CommonWords(_Index, _Word)
-//DB_LLEQSET_Naming_CommonWordVariables(_Index, _DialogVar, _SelectFlag)
 
 //DB_LLEQSET_Naming_Groups(_Index, _Group)
 //DB_LLEQSET_Naming_CurrentGroup(_Index, _Instance)
@@ -99,91 +97,6 @@ DB_LLEQSET_Naming_Letters("Number", 6, "6");
 DB_LLEQSET_Naming_Letters("Number", 7, "7");
 DB_LLEQSET_Naming_Letters("Number", 8, "8");
 DB_LLEQSET_Naming_Letters("Number", 9, "9");
-//END_REGION
-
-//REGION SETTINGS_COMMON_WORDS
-PROC
-LLEQSET_Naming_InitializeSettings()
-THEN
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_CommonWordVariables", 3);
-DB_LLEQSET_Naming_CommonWordVariables(0, "LLEQSET_Naming_Word1_9bddecd9-c5ed-4758-939b-af4430f643c8", "LLEQSET_Naming_SelectedWord1");
-DB_LLEQSET_Naming_CommonWordVariables(1, "LLEQSET_Naming_Word2_3de95984-7f32-48a8-a6e1-9fdc8db0923c", "LLEQSET_Naming_SelectedWord2");
-DB_LLEQSET_Naming_CommonWordVariables(2, "LLEQSET_Naming_Word3_ffbe6471-325f-45db-9ef2-cd936ec44629", "LLEQSET_Naming_SelectedWord3");
-DB_LLEQSET_Naming_CommonWordVariables(3, "LLEQSET_Naming_Word4_9bfe7a46-71f4-480f-8820-303898a36b8b", "LLEQSET_Naming_SelectedWord4");
-DB_LLEQSET_Naming_CommonWordVariables(4, "LLEQSET_Naming_Word5_40e7b21f-ee75-4c90-8ced-a884924c72e9", "LLEQSET_Naming_SelectedWord5");
-DB_LLEQSET_Naming_CommonWordVariables(5, "LLEQSET_Naming_Word6_ff231f70-36cf-42ae-8bce-47d9bd8c0487", "LLEQSET_Naming_SelectedWord6");
-DB_LLEQSET_Naming_CommonWordVariables(6, "LLEQSET_Naming_Word7_0d997a83-39e7-473b-9b13-39c8fd6c148a", "LLEQSET_Naming_SelectedWord7");
-DB_LLEQSET_Naming_CommonWordVariables(7, "LLEQSET_Naming_Word8_a906a9bd-790d-4a4b-83d0-a8c0c3fa11d9", "LLEQSET_Naming_SelectedWord8");
-DB_LLEQSET_Naming_CommonWordVariables(8, "LLEQSET_Naming_Word9_1785e926-439a-43f4-9602-a67abfa875fc", "LLEQSET_Naming_SelectedWord9");
-
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Naming_CommonWords", 2);
-DB_LLEQSET_Naming_CommonWords(0, "Aerothurge");
-DB_LLEQSET_Naming_CommonWords(1, "Armor");
-DB_LLEQSET_Naming_CommonWords(2, "Axe");
-DB_LLEQSET_Naming_CommonWords(3, "Barter");
-DB_LLEQSET_Naming_CommonWords(4, "Battle");
-DB_LLEQSET_Naming_CommonWords(5, "Bow");
-DB_LLEQSET_Naming_CommonWords(6, "Charisma");
-DB_LLEQSET_Naming_CommonWords(7, "Class");
-DB_LLEQSET_Naming_CommonWords(8, "Cloth");
-DB_LLEQSET_Naming_CommonWords(9, "Combat");
-DB_LLEQSET_Naming_CommonWords(10, "Common");
-DB_LLEQSET_Naming_CommonWords(11, "Crafting");
-DB_LLEQSET_Naming_CommonWords(12, "Crossbow");
-DB_LLEQSET_Naming_CommonWords(13, "Custom");
-DB_LLEQSET_Naming_CommonWords(14, "DualWielding");
-DB_LLEQSET_Naming_CommonWords(15, "Epic");
-DB_LLEQSET_Naming_CommonWords(16, "Geomancer");
-DB_LLEQSET_Naming_CommonWords(17, "Healer");
-DB_LLEQSET_Naming_CommonWords(18, "Huntsman");
-DB_LLEQSET_Naming_CommonWords(19, "Hydrosophist");
-DB_LLEQSET_Naming_CommonWords(20, "Junk");
-DB_LLEQSET_Naming_CommonWords(21, "Knight");
-DB_LLEQSET_Naming_CommonWords(22, "Leadership");
-DB_LLEQSET_Naming_CommonWords(23, "Leather");
-DB_LLEQSET_Naming_CommonWords(24, "Legendary");
-DB_LLEQSET_Naming_CommonWords(25, "Loremaster");
-DB_LLEQSET_Naming_CommonWords(26, "Luck");
-DB_LLEQSET_Naming_CommonWords(27, "Mace");
-DB_LLEQSET_Naming_CommonWords(28, "Mage");
-DB_LLEQSET_Naming_CommonWords(29, "Magic");
-DB_LLEQSET_Naming_CommonWords(30, "Magic Armor");
-DB_LLEQSET_Naming_CommonWords(31, "Metal");
-DB_LLEQSET_Naming_CommonWords(32, "Necromancy");
-DB_LLEQSET_Naming_CommonWords(33, "Paladin");
-DB_LLEQSET_Naming_CommonWords(34, "Perseverance");
-DB_LLEQSET_Naming_CommonWords(35, "Persuasion");
-DB_LLEQSET_Naming_CommonWords(36, "Physical");
-DB_LLEQSET_Naming_CommonWords(37, "Physical Armor");
-DB_LLEQSET_Naming_CommonWords(38, "Pickpocket");
-DB_LLEQSET_Naming_CommonWords(39, "Polymorph");
-DB_LLEQSET_Naming_CommonWords(40, "Priest");
-DB_LLEQSET_Naming_CommonWords(41, "Pyrokinetic");
-DB_LLEQSET_Naming_CommonWords(42, "Ranged");
-DB_LLEQSET_Naming_CommonWords(43, "Ranger");
-DB_LLEQSET_Naming_CommonWords(44, "Rare");
-DB_LLEQSET_Naming_CommonWords(45, "Retribution");
-DB_LLEQSET_Naming_CommonWords(46, "Rogue");
-DB_LLEQSET_Naming_CommonWords(47, "Running");
-DB_LLEQSET_Naming_CommonWords(48, "Scoundrel");
-DB_LLEQSET_Naming_CommonWords(49, "Shield");
-DB_LLEQSET_Naming_CommonWords(50, "SingleHanded");
-DB_LLEQSET_Naming_CommonWords(51, "Sneaking");
-DB_LLEQSET_Naming_CommonWords(52, "Sourcery");
-DB_LLEQSET_Naming_CommonWords(53, "Spear");
-DB_LLEQSET_Naming_CommonWords(54, "Speed");
-DB_LLEQSET_Naming_CommonWords(55, "Staff");
-DB_LLEQSET_Naming_CommonWords(56, "Summoning");
-DB_LLEQSET_Naming_CommonWords(57, "Sword");
-DB_LLEQSET_Naming_CommonWords(58, "Telekinesis");
-DB_LLEQSET_Naming_CommonWords(59, "Thievery");
-DB_LLEQSET_Naming_CommonWords(60, "Town");
-DB_LLEQSET_Naming_CommonWords(61, "TwoHanded");
-DB_LLEQSET_Naming_CommonWords(62, "Uncommon");
-DB_LLEQSET_Naming_CommonWords(63, "Unique");
-DB_LLEQSET_Naming_CommonWords(64, "Vitality");
-DB_LLEQSET_Naming_CommonWords(65, "Wand");
-DB_LLEQSET_Naming_CommonWords(66, "Warfare");
 //END_REGION
 
 //REGION SETTINGS_COUNTING
@@ -368,6 +281,24 @@ AND
 StringSub(_Text, 0, _Length, _NewText)
 THEN
 LLEQSET_Naming_SetText(_NewText, _Instance);
+
+PROC
+LLEQSET_Naming_AppendWord((STRING)_Word, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
+AND
+StringConcatenate(_Text, _Word, _NextText)
+THEN
+LLEQSET_Naming_SetText(_NextText, _Instance);
+LLEQSET_Naming_RecalculateTextLength(_Instance);
+
+PROC
+LLEQSET_Naming_AppendWord((STRING)_Word, (INTEGER)_Instance)
+AND
+NOT DB_LLEQSET_Naming_VisibleText(_,_Instance)
+THEN
+LLEQSET_Naming_SetText(_Word, _Instance);
+LLEQSET_Naming_RecalculateTextLength(_Instance);
 //END_REGION
 
 //REGION LETTER_CYCLING
@@ -512,7 +443,7 @@ THEN
 ObjectClearFlag(_Player, "LLEQSET_Naming_LimitReached");
 
 PROC
-LLEQSET_Naming_CharTotalIncrement((STRING)_Text, (INTEGER)_Instance)
+LLEQSET_Naming_FUNC_CharTotalIncrement((STRING)_Text, (INTEGER)_Instance)
 AND
 DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _Length)
 AND
@@ -522,14 +453,14 @@ NOT DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _Length);
 DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _NewLength);
 
 PROC
-LLEQSET_Naming_CharTotalIncrement((STRING)_Text, (INTEGER)_Instance)
+LLEQSET_Naming_FUNC_CharTotalIncrement((STRING)_Text, (INTEGER)_Instance)
 AND
 NOT DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, _)
 THEN
 DB_LLEQSET_Naming_Temp_TextLength(_Text, _Instance, 1);
 
 QRY
-LLEQSET_QRY_Naming_CharCount((STRING)_Text, (INTEGER)_Instance)
+LLEQSET_QRY_Naming_FUNC_CharCount((STRING)_Text, (INTEGER)_Instance)
 AND
 DB_LLEQSET_Naming_CharIndex(_Index)
 AND
@@ -537,12 +468,24 @@ StringSub(_Text, _Index, 1, _Result)
 AND
 _Result != ""
 THEN
-LLEQSET_Naming_CharTotalIncrement(_Text, _Instance);
+LLEQSET_Naming_FUNC_CharTotalIncrement(_Text, _Instance);
 
 QRY
-LLEQSET_QRY_Naming_CharCount((STRING)_Text, (INTEGER)_Instance)
+LLEQSET_QRY_Naming_FUNC_CharCount((STRING)_Text, (INTEGER)_Instance)
 THEN
 DB_NOOP(1);
+
+PROC
+LLEQSET_Naming_RecalculateTextLength((INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
+AND
+LLEQSET_QRY_Naming_FUNC_CharCount(_Text, _Instance)
+AND
+DB_LLEQSET_Naming_Temp_TextLength(_Name, _Instance, _Length)
+THEN
+LLEQSET_Naming_SetLength(_Length, _Instance);
+NOT DB_LLEQSET_Naming_Temp_TextLength(_Name, _Instance, _Length);
 //END_REGION
 
 //REGION NAMING_ACTIONS
@@ -665,6 +608,13 @@ DB_LLEQSET_Naming_LastFinishedText(_Text, _Player, _Length);
 
 //REGION FLAG_EVENTS
 IF
+ObjectFlagSet("LLEQSET_Naming_AddSpace", _Speaker, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_AddSpace")
+THEN
+LLEQSET_Naming_AppendLetter(" ", _Instance);
+
+IF
 ObjectFlagSet("LLEQSET_Naming_AddLetter", _Speaker, _Instance)
 AND
 LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_AddLetter")
@@ -763,7 +713,7 @@ LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_CountText")
 AND
 DB_LLEQSET_Naming_VisibleText(_Text, _Instance)
 AND
-LLEQSET_QRY_Naming_CharCount(_Text, _Instance)
+LLEQSET_QRY_Naming_FUNC_CharCount(_Text, _Instance)
 AND
 DB_LLEQSET_Naming_Temp_TextLength(_Name, _Instance, _Length)
 THEN
