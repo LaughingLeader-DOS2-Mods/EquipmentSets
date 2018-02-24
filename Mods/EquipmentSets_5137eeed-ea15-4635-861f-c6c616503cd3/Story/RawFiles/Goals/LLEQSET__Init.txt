@@ -4,30 +4,22 @@ INITSECTION
 //DB_LLEQSET_EquipmentSlots(_Slot)
 //DB_LLEQSET_SystemColors(_Color, _ColorValue)
 //DB_LLEQSET_DefaultColors(_Index, _ColorName, _ColorValue)
-//DB_LLEQSET_PlayerSetColors(_Player, _SetID, _Color)
+//DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue)
 //DB_LLEQSET_MenuSkill(_Skill)
 //DB_LLEQSET_MenuItem(_Template)
 
+//DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _ColorValue)
+//DB_LLEQSET_Temp_OutVariable(_ID, _Value)
+//DB_LLEQSET_Temp_TracedCharacterValue(_Character, _Value)
+//DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot)
+
+DB_LLEQSET_PlayerColors((CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000, "Default", "White");
 LLEQSET_System_InitializeSettings();
 KBSECTION
-//REGION SETTINGS
-
+//REGION SETTINGS_COLORS
 PROC
-LLEQSET_System_InitializeSettings()
+LLEQSET_System_InitColors()
 THEN
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_EquipmentSlots", 1);
-DB_LLEQSET_EquipmentSlots("Weapon");
-DB_LLEQSET_EquipmentSlots("Shield");
-DB_LLEQSET_EquipmentSlots("Helmet");
-DB_LLEQSET_EquipmentSlots("Breast");
-DB_LLEQSET_EquipmentSlots("Leggings");
-DB_LLEQSET_EquipmentSlots("Ring");
-DB_LLEQSET_EquipmentSlots("Belt");
-DB_LLEQSET_EquipmentSlots("Boots");
-DB_LLEQSET_EquipmentSlots("Gloves");
-DB_LLEQSET_EquipmentSlots("Amulet");
-DB_LLEQSET_EquipmentSlots("Ring2");
-
 LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_SystemColors", 2);
 DB_LLEQSET_SystemColors("FriendlyText", "00FA9A");
 DB_LLEQSET_SystemColors("SetSaved", "00BFFF");
@@ -62,12 +54,39 @@ DB_LLEQSET_DefaultColors(15, "White", "FFFFFF");
 DB_LLEQSET_DefaultColors(16, "Azure", "F0FFFF");
 DB_LLEQSET_DefaultColors(17, "Gray", "808080");
 DB_LLEQSET_DefaultColors(18, "Black", "000000");
+//END_REGION
+
+//REGION SETTINGS
+
+PROC
+LLEQSET_System_InitializeSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_EquipmentSlots", 1);
+DB_LLEQSET_EquipmentSlots("Weapon");
+DB_LLEQSET_EquipmentSlots("Shield");
+DB_LLEQSET_EquipmentSlots("Helmet");
+DB_LLEQSET_EquipmentSlots("Breast");
+DB_LLEQSET_EquipmentSlots("Leggings");
+DB_LLEQSET_EquipmentSlots("Ring");
+DB_LLEQSET_EquipmentSlots("Belt");
+DB_LLEQSET_EquipmentSlots("Boots");
+DB_LLEQSET_EquipmentSlots("Gloves");
+DB_LLEQSET_EquipmentSlots("Amulet");
+DB_LLEQSET_EquipmentSlots("Ring2");
+
+LLEQSET_System_InitColors();
 
 LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_MenuSkill", 1);
 DB_LLEQSET_MenuSkill("Shout_LLEQSET_OpenSetMenu");
 
 LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_MenuItem", 1);
 DB_LLEQSET_MenuItem("LLEQSET_BOOK_MenuBook_42227c69-e194-4de6-9771-c05f39aa3f46");
+
+SysClear("DB_LLEQSET_Temp_NextMessageColor", 3);
+SysClear("DB_LLEQSET_Temp_OutVariable", 2);
+SysClear("DB_LLEQSET_Temp_TracedCharacterValue", 2);
+SysClear("DB_LLEQSET_Temp_ItemSlot", 3);
+
 PROC
 LLEQSET_System_UpdateDatabases()
 THEN
@@ -79,10 +98,15 @@ THEN
 SysClear("DB_LLEQSET_EquipmentSlots", 1);
 SysClear("DB_LLEQSET_SystemColors", 2);
 SysClear("DB_LLEQSET_DefaultColors", 3);
-SysClear("DB_LLEQSET_PlayerSetColors", 3);
+SysClear("DB_LLEQSET_PlayerColors", 3);
 SysClear("DB_LLEQSET_MenuSkill", 1);
 SysClear("DB_LLEQSET_MenuItem", 1);
 SysClear("DB_LLEQSET_System_PlayerInitialized", 1);
+SysClear("DB_LLEQSET_Temp_NextMessageColor", 3);
+SysClear("DB_LLEQSET_Temp_OutVariable", 2);
+SysClear("DB_LLEQSET_Temp_TracedCharacterValue", 2);
+SysClear("DB_LLEQSET_Temp_ItemSlot", 3);
+
 DebugBreak("[LLEQSET] System databases cleared.");
 
 //END_REGION
@@ -113,25 +137,192 @@ THEN
 DebugBreak(_Str3);
 //END_REGION
 
-//REGION MESSAGE_HELPERS
+//REGION CHARACTER_TRACING
+QRY
+LLEQSET_System_GetTracedCharacterValue((CHARACTERGUID)_Character, (STRING)_ValueName)
+AND
+DB_LLEQSET_Temp_TracedCharacterValue(_Character, _Value)
+THEN
+NOT DB_LLEQSET_Temp_TracedCharacterValue(_Character, _Value);
+
+QRY
+LLEQSET_System_GetTracedCharacterValue((CHARACTERGUID)_Character, "nameref")
+AND
+CharacterGetDisplayName(_Character, _Handle, _Ref)
+THEN
+DB_LLEQSET_Temp_TracedCharacterValue(_Character, _Ref);
+
+QRY
+LLEQSET_System_GetTracedCharacterValue((CHARACTERGUID)_Character, "namehandle")
+AND
+CharacterGetDisplayName(_Character, _Handle, _Ref)
+THEN
+DB_LLEQSET_Temp_TracedCharacterValue(_Character, _Handle);
+
+QRY
+LLEQSET_System_GetTracedCharacterValue((CHARACTERGUID)_Character, "id")
+AND
+GetUUID(_Character, _ID)
+THEN
+DB_LLEQSET_Temp_TracedCharacterValue(_Character, _ID);
+
+QRY
+LLEQSET_System_GetTracedCharacterValue((CHARACTERGUID)_Character, "template")
+AND
+GetTemplate(_Character, _Template)
+THEN
+DB_LLEQSET_Temp_TracedCharacterValue(_Character, _Template);
+//END_REGION
+
+//REGION TEMP_VARIABLES
 PROC
-LLEQSET_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
+LLEQSET_SetTemporaryVariable((STRING)_ID, (STRING)_Value)
+AND
+DB_LLEQSET_Temp_OutVariable(_ID, _CurrentValue)
+THEN
+NOT DB_LLEQSET_Temp_OutVariable(_ID, _CurrentValue);
+
+PROC
+LLEQSET_SetTemporaryVariable((STRING)_ID, (STRING)_Value)
+THEN
+DB_LLEQSET_Temp_OutVariable(_ID, _Value);
+
+QRY
+LLEQSET_QRY_SetTemporaryVariable((STRING)_ID, (STRING)_Value)
+THEN
+LLEQSET_SetTemporaryVariable(_ID, _Value);
+//END_REGION
+
+//REGION COLOR_FETCHING_SYSTEM
+QRY
+LLEQSET_QRY_ColorExists((STRING)_ColorName)
+AND
+DB_LLEQSET_SystemColors(_ColorName, _)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_ColorExists((STRING)_ColorName)
+AND
+DB_LLEQSET_DefaultColors(_, _ColorName, _)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_ColorExists((CHARACTERGUID)_Player, (STRING)_ColorName)
+AND
+DB_LLEQSET_PlayerColors(_,_,_ColorName)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_FetchColor((STRING)_ID, (STRING)_Color)
 AND
 DB_LLEQSET_SystemColors(_Color, _ColorValue)
 THEN
-LLEQSET_Internal_ColorStatusText(_Player, _Message, _ColorValue);
+LLEQSET_SetTemporaryVariable(_ID, _ColorValue);
 
-PROC
-LLEQSET_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
+QRY
+LLEQSET_QRY_FetchColor((STRING)_ID, (STRING)_Color)
 AND
-NOT DB_LLEQSET_SystemColors(_Color, _)
+DB_LLEQSET_DefaultColors(_Index, _Color, _ColorValue)
 THEN
-LLEQSET_Internal_ColorStatusText(_Player, _Message, _Color);
+LLEQSET_SetTemporaryVariable(_ID, _ColorValue);
 
+//END_REGION
+
+//REGION COLOR_FETCHING_PLAYER
+QRY
+LLEQSET_QRY_FetchPlayerColor((CHARACTERGUID)_Player, (STRING)_ColorID)
+AND
+DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _Value)
+THEN
+NOT DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _Value);
+
+// Check for a color name first
+QRY
+LLEQSET_QRY_FetchPlayerColor((CHARACTERGUID)_Player, (STRING)_ColorID)
+AND
+DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue)
+AND
+GetUUID(_Player, _ID)
+AND
+LLEQSET_QRY_FetchColor(_ID, _ColorValue)
+AND
+DB_LLEQSET_Temp_OutVariable(_ID, _Value)
+THEN
+DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _Value);
+NOT DB_LLEQSET_Temp_OutVariable(_ID, _Value);
+
+//If the stored value isn't a color name, use it explicitly instead
+QRY
+LLEQSET_QRY_FetchPlayerColor((CHARACTERGUID)_Player, (STRING)_ColorID)
+AND
+DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue)
+AND
+GetUUID(_Player, _ID)
+AND
+NOT LLEQSET_QRY_FetchColor(_ID, _ColorValue)
+THEN
+DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _ColorValue);
+
+//Use a color value if no player color exists
+QRY
+LLEQSET_QRY_FetchPlayerColor((CHARACTERGUID)_Player, (STRING)_ColorID)
+AND
+NOT DB_LLEQSET_PlayerColors(_Player, _ColorID,_)
+AND
+GetUUID(_Player, _ID)
+AND
+LLEQSET_QRY_FetchColor(_ID, _ColorID)
+AND
+DB_LLEQSET_Temp_OutVariable(_ID, _Value)
+THEN
+DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _Value);
+NOT DB_LLEQSET_Temp_OutVariable(_ID, _Value);
+
+//Use the value supplied if it's not a color name
+QRY
+LLEQSET_QRY_FetchPlayerColor((CHARACTERGUID)_Player, (STRING)_ColorID)
+AND
+NOT DB_LLEQSET_PlayerColors(_Player, _ColorID,_)
+AND
+GetUUID(_Player, _ID)
+AND
+NOT LLEQSET_QRY_FetchColor(_ID, _ColorID)
+THEN
+DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _ColorID);
+
+QRY
+LLEQSET_QRY_System_RegisterColor((CHARACTERGUID)_Player, (STRING)_ColorID, (STRING)_ColorValue)
+AND
+NOT DB_LLEQSET_PlayerColors(_Player, _ColorID,_)
+AND
+LLEQSET_System_GetTracedCharacterValue(_Player, "nameref")
+AND
+DB_LLEQSET_Temp_TracedCharacterValue(_Player, _Name)
+THEN
+DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue);
+LLEQSET_DebugLog("[LLEQSET:System] Player [",_Name,"] color [", _ColorID, "] registered.");
+NOT DB_LLEQSET_Temp_TracedCharacterValue(_Player, _Name);
+
+//END_REGION
+
+//REGION MESSAGE_METHODS
 QRY
 LLEQSET_QRY_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
 THEN
 LLEQSET_ColorStatusText(_Player, _Message, _Color);
+
+PROC
+LLEQSET_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
+AND
+LLEQSET_QRY_FetchPlayerColor(_Player, _Color)
+AND
+DB_LLEQSET_Temp_NextMessageColor(_Player, _Color, _ColorValue)
+THEN
+LLEQSET_Internal_ColorStatusText(_Player, _Message, _ColorValue);
+NOT DB_LLEQSET_Temp_NextMessageColor(_Player, _Color, _ColorValue);
 
 PROC
 LLEQSET_Internal_ColorStatusText((CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
@@ -145,6 +336,66 @@ AND
 StringConcatenate(_Str3, "</font>", _Str4)
 THEN
 CharacterStatusText(_Player, _Str4);
+
+QRY
+LLEQSET_QRY_ColorSetText((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Color, (STRING)_Prefix, (STRING)_Suffix)
+THEN
+LLEQSET_ColorSetText(_Player, _SetID, _Color, _Prefix, _Suffix);
+
+PROC
+LLEQSET_ColorSetText((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Color, (STRING)_Prefix, (STRING)_Suffix)
+AND
+LLEQSET_QRY_Helpers_GetSetName(_Player, _SetID)
+AND
+DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName)
+AND
+LLEQSET_QRY_FetchPlayerColor(_Player, _SetID)
+AND
+DB_LLEQSET_Temp_NextMessageColor(_Player, _SetID, _ColorValue)
+AND
+//SET_COLORING_START
+StringConcatenate("<font color='#", _ColorValue, _SetStr1)
+AND
+StringConcatenate(_SetStr1, "' size='24'>", _SetStr2)
+AND
+StringConcatenate(_SetStr2, _SetName, _SetStr3)
+AND
+StringConcatenate(_SetStr3, "</font>", _SetStrFinal)
+//SET_COLORING_END
+AND
+//PREFIX_COLORING
+LLEQSET_QRY_FetchPlayerColor(_Player, _Color)
+AND
+DB_LLEQSET_Temp_NextMessageColor(_Player, _Color, _MessageColor)
+AND
+StringConcatenate("<font color='#", _MessageColor, _PrefixStr1)
+AND
+StringConcatenate(_PrefixStr1, "'>", _PrefixStr2)
+AND
+StringConcatenate(_PrefixStr2, _Prefix, _PrefixStr3)
+AND
+StringConcatenate(_PrefixStr3, "</font>", _PrefixStrFinal)
+//PREFIX_END
+AND
+//SUFFIX_START
+StringConcatenate("<font color='#", _MessageColor, _SuffixStr1)
+AND
+StringConcatenate(_SuffixStr1, "'>", _SuffixStr2)
+AND
+StringConcatenate(_SuffixStr2, _Suffix, _SuffixStr3)
+AND
+StringConcatenate(_SuffixStr3, "</font>", _SuffixStrFinal)
+//SUFFIX_END
+AND
+//FINAL_COMBINING
+StringConcatenate(_PrefixStrFinal, _SetStrFinal, _FinalStr1)
+AND
+StringConcatenate(_FinalStr1, _SuffixStrFinal, _FinalStr2)
+THEN
+CharacterStatusText(_Player, _FinalStr2);
+NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
+NOT DB_LLEQSET_Temp_NextMessageColor(_Player, _SetID, _ColorValue);
+NOT DB_LLEQSET_Temp_NextMessageColor(_Player, _Color, _MessageColor);
 //END_REGION
 
 //REGION FLAG_HELPERS
@@ -179,6 +430,22 @@ AND
 DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
 THEN
 DB_LLEQSET_Temp_SetName(_Player, _SetID, _Name);
+
+QRY
+LLEQSET_QRY_GetSlot((CHARACTERGUID)_Player, (ITEMGUID)_Item)
+AND
+DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot)
+THEN
+NOT DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);
+
+QRY
+LLEQSET_QRY_GetSlot((CHARACTERGUID)_Player, (ITEMGUID)_Item)
+AND
+DB_LLEQSET_EquipmentSlots(_Slot)
+AND
+CharacterGetEquippedItem(_Player, _Slot, _Item)
+THEN
+DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);
 //END_REGION
 
 //REGION HOST_FLAGGING

@@ -37,12 +37,12 @@ LLEQSET_System_UpdateDatabases();
 PROC
 LLEQSET_System_UpdateDatabases()
 THEN
-DebugBreak("[LLEQSET] Databases updated.");
+LLEQSET_DebugLog("[Updater] Databases updated.");
 
 PROC
 LLEQSET_System_ClearDatabases()
 THEN
-DebugBreak("[LLEQSET] Databases cleared.");
+LLEQSET_DebugLog("[Updater] Databases cleared.");
 //END_REGION
 EXITSECTION
 

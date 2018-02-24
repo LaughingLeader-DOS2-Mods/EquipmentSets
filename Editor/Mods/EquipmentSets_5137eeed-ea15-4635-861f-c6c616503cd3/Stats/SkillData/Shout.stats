@@ -21,7 +21,6 @@
         <field name="PrepareAnimationLoop" type="StringStatObjectFieldDefinition" clear_inherited_value="false" value="noprepare" />
         <field name="CastAnimation" type="StringStatObjectFieldDefinition" clear_inherited_value="false" value="skill_cast_shout_01_cast" />
         <field name="CastTextEvent" type="StringStatObjectFieldDefinition" clear_inherited_value="false" value="cast" />
-        <field name="CastEffect" type="StringStatObjectFieldDefinition" clear_inherited_value="false" value="LLEQSET_FX_SwitchSet_Overlay_01:Dummy_Root:shout;LLEQSET_FX_SwitchSet_Cast_01:Dummy_Root:cast" />
         <field name="Memory Cost" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
         <field name="Magic Cost" type="IntegerStatObjectFieldDefinition" clear_inherited_value="false" value="0" />
       </fields>

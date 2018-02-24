@@ -18,7 +18,7 @@ data "PrepareAnimationInit" "noprepare"
 data "PrepareAnimationLoop" "noprepare"
 data "CastAnimation" "skill_cast_shout_01_cast"
 data "CastTextEvent" "cast"
-data "CastEffect" "LLEQSET_FX_SwitchSet_Overlay_01:Dummy_Root:shout;LLEQSET_FX_SwitchSet_Cast_01:Dummy_Root:cast"
+data "CastEffect" ""
 data "Memory Cost" "0"
 data "Magic Cost" "0"
 
@@ -82,4 +82,3 @@ data "PrepareAnimationLoop" "noprepare"
 data "CastAnimation" "Portret_Still_01"
 data "Memory Cost" "0"
 data "Magic Cost" "0"
-

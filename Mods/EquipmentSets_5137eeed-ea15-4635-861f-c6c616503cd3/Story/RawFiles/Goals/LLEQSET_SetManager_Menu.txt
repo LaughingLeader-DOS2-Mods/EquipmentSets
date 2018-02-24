@@ -17,7 +17,7 @@ LLEQSET_Menu_InitializeSettings();
 PROC
 LLEQSET_System_ClearDatabases()
 THEN
-DebugBreak("[LLEQSET] Menu databases cleared.");
+LLEQSET_DebugLog("[SetManager_Menu] Databases cleared.");
 //END_REGION
 
 //REGION HELPERS
@@ -208,7 +208,7 @@ LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_SaveCurrentEquipment")
 AND
 DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 THEN
-LLEQSET_SetManager_RegisterEquipment(_Player, _SetID);
+LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
 
 IF
 ObjectFlagSet("LLEQSET_Actions_ClearSelectedSetEquipment", (CHARACTERGUID)_Player, _Instance)
@@ -242,7 +242,7 @@ THEN
 ItemTemplateAddTo(_ItemTemplate, _Player, 1);
 //END_REGION
 
-//REGION COMMANDS
+//REGION FLAG_COMMANDS
 IF
 ObjectFlagSet("LLEQSET_Actions_GiveAllSetSkills", (CHARACTERGUID)_Player, _Instance)
 AND

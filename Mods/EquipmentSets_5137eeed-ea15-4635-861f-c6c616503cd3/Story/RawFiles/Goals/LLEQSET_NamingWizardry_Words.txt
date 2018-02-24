@@ -126,7 +126,7 @@ SysClear("DB_LLEQSET_Temp_TotalNamingWordVariables", 1);
 SysClear("DB_LLEQSET_Temp_CurrentWordVariableIndex", 1);
 SysClear("DB_LLEQSET_Temp_WordVariableValue", 2);
 
-DebugBreak("[LLEQSET] Naming_Words databases cleared.");
+LLEQSET_DebugLog("[Naming_Words] Databases cleared.");
 //END_REGION
 
 //REGION VARIABLE_INITIALIZATION
@@ -163,7 +163,7 @@ IntegertoString(_MaxPage, _MaxPageStr)
 AND
 IntegertoString(_LastPageIndex, _LastPageIndexStr)
 AND
-StringConcatenate("[LLEQSET:Naming_Words] Page values calculated: MaxPage:[", _MaxPageStr, _Str1)
+StringConcatenate("[Naming_Words] Page values calculated: MaxPage:[", _MaxPageStr, _Str1)
 AND
 StringConcatenate(_Str1, "] LastWordIndex[", _Str2)
 AND
@@ -175,7 +175,7 @@ StringConcatenate(_Str4, _LastPageIndexStr, _Str5)
 AND
 StringConcatenate(_Str5, "]", _Str6)
 THEN
-DebugBreak(_Str6);
+LLEQSET_DebugLog(_Str6);
 
 PROC
 LLEQSET_Naming_Words_CalculateMaxPage()
@@ -323,14 +323,14 @@ AND
 NOT DB_LLEQSET_Naming_CurrentWordPage(_Player, _)
 THEN
 DB_LLEQSET_Naming_CurrentWordPage(_Player, 0);
-DebugBreak("[LLEQSET:Naming_Words][ERROR] Page not set for some reason. Setting to page 0.");
+LLEQSET_DebugLog("[Naming_Words][ERROR] Page not set for some reason. Setting to page 0.");
 
 PROC
 LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
 AND
 NOT DB_LLEQSET_Naming_MaxWordPage(_,_,_)
 THEN
-DebugBreak("[LLEQSET:Naming_Words][ERROR] Max page settings not set. Reconfiguring.");
+LLEQSET_DebugLog("[Naming_Words][ERROR] Max page settings not set. Reconfiguring.");
 LLEQSET_Naming_Words_CalculateMaxPage();
 
 PROC
@@ -338,7 +338,7 @@ LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instanc
 AND
 NOT DB_LLEQSET_Naming_WordIterator(_)
 THEN
-DebugBreak("[LLEQSET:Naming_Words][ERROR] Word iterator not set. Reconfiguring.");
+LLEQSET_DebugLog("[Naming_Words][ERROR] Word iterator not set. Reconfiguring.");
 DB_LLEQSET_Naming_Words_SetWordIterator();
 
 PROC
