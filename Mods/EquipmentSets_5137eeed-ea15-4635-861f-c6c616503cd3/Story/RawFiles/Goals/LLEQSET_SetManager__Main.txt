@@ -9,7 +9,12 @@ INITSECTION
 //DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
 //DB_LLEQSET_SetManager_Variables(_SetID, _DialogNameVar, _SelectFlag, _EquipSetFlag
 
+//DB_LLEQSET_SetManager_DelayIncrement(_DelayInc);
+
 //DB_LLEQSET_Temp_SetManager_UnequippedSet(_Player, _SetID);
+//DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay);
+//DB_LLEQSET_Temp_SetManager_EquipDelayTimer(_TimerName, _Player, _Slot, _Item)
+//DB_LLEQSET_Temp_SetManager_UnequipDelayTimer(_TimerName, _Player, _Slot, _Item)
 
 //Type setting
 DB_LLEQSET_SavedSets((CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000, "", "", (ITEMGUID)NULL_00000000-0000-0000-0000-000000000000);
@@ -36,6 +41,13 @@ DB_LLEQSET_SetManager_Variables("Set3", "LLEQSET_Set3_Name_11964073-abcf-4d8e-b5
 DB_LLEQSET_SetManager_Variables("Set4", "LLEQSET_Set4_Name_b099c556-cd9b-4764-b8e8-21151e9d0d73", "LLEQSET_Actions_SelectSet4", "LLEQSET_Actions_EquipSet4");
 DB_LLEQSET_SetManager_Variables("Set5", "LLEQSET_Set5_Name_96b8dacd-3eaf-4b43-bb88-ea1af58840e2", "LLEQSET_Actions_SelectSet5", "LLEQSET_Actions_EquipSet5");
 
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_SetManager_DelayIncrement", 1);
+DB_LLEQSET_SetManager_DelayIncrement(100);
+
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_SetManager_EquipDelay", 2);
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_SetManager_EquipDelayTimer", 4);
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_SetManager_UnequipDelayTimer", 4);
+
 PROC
 LLEQSET_SetManager_ClearDatabases()
 THEN
@@ -46,6 +58,10 @@ SysClear("DB_LLEQSET_SetManager_SavedSets", 4);
 SysClear("DB_LLEQSET_SetManager_SetNames", 4);
 SysClear("DB_LLEQSET_SetManager_SetConfig", 4);
 SysClear("DB_LLEQSET_SetManager_Variables", 4);
+SysClear("DB_LLEQSET_SetManager_DelayIncrement", 1);
+SysClear("DB_LLEQSET_Temp_SetManager_EquipDelay", 2);
+SysClear("DB_LLEQSET_Temp_SetManager_EquipDelayTimer", 4);
+SysClear("DB_LLEQSET_Temp_SetManager_UnequipDelayTimer", 4);
 LLEQSET_DebugLog("[SetManager_Main] Databases cleared.");
 
 PROC
@@ -236,17 +252,145 @@ LLEQSET_SetManager_SetLastSet(_Player, _SetID);
 NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID);
 //END_REGION
 
-//REGION EQUIPMENT_METHODS
+//REGION EQUIPPING
+QRY
+LLEQSET_QRY_SetManager_GetEquipDelay((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay)
+AND
+DB_LLEQSET_SetManager_DelayIncrement(_DelayInc)
+AND
+IntegerSum(_Delay, _DelayInc, _NewDelay)
+THEN
+NOT DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay);
+DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _NewDelay);
+
+QRY
+LLEQSET_QRY_SetManager_GetEquipDelay((CHARACTERGUID)_Player)
+AND
+NOT DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _)
+THEN
+DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, 1);
+
+QRY
+LLEQSET_QRY_SetManager_ResetEquipDelay((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay)
+THEN
+NOT DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay);
+
+QRY
+LLEQSET_QRY_SetManager_ResetEquipDelay((CHARACTERGUID)_Player)
+THEN
+DB_NOOP(1);
+
+PROC
+LLEQSET_SetManager_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+LLEQSET_QRY_SetManager_GetEquipDelay(_Player)
+AND
+DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay)
+AND
+IntegertoString(_Delay, _DelayStr)
+AND
+GetUUID(_Player, _ID)
+AND
+StringConcatenate(_ID, "_", _TimerStr1)
+AND
+StringConcatenate(_TimerStr1, _Slot, _TimerStr2)
+AND
+StringConcatenate("LLEQSET_Timers_EquipTimer_", _TimerStr2, _TimerName)
+THEN
+DB_LLEQSET_Temp_SetManager_EquipDelayTimer(_TimerName, _Player, _Slot, _Item);
+TimerLaunch(_TimerName, _Delay);
+
+IF
+TimerFinished(_TimerName)
+AND
+DB_LLEQSET_Temp_SetManager_EquipDelayTimer(_TimerName, _Player, _Slot, _Item)
+THEN
+NOT DB_LLEQSET_Temp_SetManager_EquipDelayTimer(_TimerName, _Player, _Slot, _Item);
+LLEQSET_SetManager_Internal_EquipItem(_Player, _Slot, _Item);
+
+PROC
+LLEQSET_SetManager_Internal_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+ItemIsInCharacterInventory(_Item, _Player, 0)
+AND
+StringConcatenate("Missing item for slot ", _Slot, _Message)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, "Error");
+
+PROC
+LLEQSET_SetManager_Internal_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+ItemIsInCharacterInventory(_Item, _Player, 1)
+THEN
+LLEQSET_SetManager_UnequipItemInSlot_NoDelay(_Player, _Slot);
+CharacterEquipItem(_Player, _Item);
+
+PROC
+LLEQSET_SetManager_Internal_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item == NULL_00000000-0000-0000-0000-000000000000
+AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_IgnoreEmptySlot", 0)
+THEN
+LLEQSET_SetManager_UnequipItemInSlot_NoDelay(_Player, _Slot);
+//END_REGION
+
+//REGION UNEQUIPPING
 PROC
 LLEQSET_SetManager_UnequipItemInSlot((CHARACTERGUID)_Player, (STRING)_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
+AND
+LLEQSET_QRY_SetManager_GetEquipDelay(_Player)
+AND
+DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay)
+AND
+IntegertoString(_Delay, _DelayStr)
+AND
+GetUUID(_Player, _ID)
+AND
+StringConcatenate(_ID, "_", _TimerStr1)
+AND
+StringConcatenate(_TimerStr1, _Slot, _TimerStr2)
+AND
+StringConcatenate("LLEQSET_Timers_UnequipTimer_", _TimerStr2, _TimerName)
+THEN
+DB_LLEQSET_Temp_SetManager_UnequipDelayTimer(_TimerName, _Player, _Slot, _Item);
+TimerLaunch(_TimerName, _Delay);
+
+IF
+TimerFinished(_TimerName)
+AND
+DB_LLEQSET_Temp_SetManager_UnequipDelayTimer(_TimerName, _Player, _Slot, _Item)
+THEN
+NOT DB_LLEQSET_Temp_SetManager_UnequipDelayTimer(_TimerName, _Player, _Slot, _Item);
+LLEQSET_SetManager_Internal_UnequipItem(_Player, _Item);
+
+PROC
+LLEQSET_SetManager_UnequipItemInSlot_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot)
+AND
+CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
+THEN
+LLEQSET_SetManager_Internal_UnequipItem(_Player, _Item);
+
+PROC
+LLEQSET_SetManager_Internal_UnequipItem((CHARACTERGUID)_Player, (ITEMGUID)_Item)
 THEN
 CharacterUnequipItem(_Player, _Item);
 LLEQSET_SetManager_StoreInBackpack(_Player, _Item);
 
 PROC
 LLEQSET_SetManager_UnequipSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetManager_ResetEquipDelay(_Player)
 AND
 DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
 THEN
@@ -261,37 +405,9 @@ DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_ClearCurrentSet(_Player);
 LLEQSET_ColorSetText(_Player, _SetID, "UnequippedAll", "Unequipped ", "");
+//END_REGION
 
-PROC
-LLEQSET_SetManager_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
-AND
-_Item != NULL_00000000-0000-0000-0000-000000000000
-AND
-ItemIsInCharacterInventory(_Item, _Player, 0)
-AND
-StringConcatenate("Missing item for slot ", _Slot, _Message)
-THEN
-LLEQSET_ColorStatusText(_Player, _Message, "Error");
-
-PROC
-LLEQSET_SetManager_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
-AND
-_Item != NULL_00000000-0000-0000-0000-000000000000
-AND
-ItemIsInCharacterInventory(_Item, _Player, 1)
-THEN
-LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
-CharacterEquipItem(_Player, _Item);
-
-PROC
-LLEQSET_SetManager_EquipItem((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
-AND
-_Item == NULL_00000000-0000-0000-0000-000000000000
-AND
-ObjectGetFlag(_Player, "LLEQSET_Settings_IgnoreEmptySlot", 0)
-THEN
-LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
-
+//REGION EQUIPMENT_METHODS
 PROC
 LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
@@ -315,6 +431,8 @@ LLEQSET_QRY_SetManager_SetCurrentSet(_Player, _SetID)
 AND
 LLEQSET_QRY_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to ", "")
 AND
+LLEQSET_QRY_SetManager_ResetEquipDelay(_Player)
+AND
 DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
 THEN
 LLEQSET_SetManager_EquipItem(_Player, _Slot, _Item);
@@ -325,6 +443,8 @@ AND
 NOT LLEQSET_QRY_SetExists(_Player,_SetID)
 THEN
 LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
+LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
+LLEQSET_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to ", "");
 //LLEQSET_ColorSetText(_Player, _SetID, "Error", "", " has not been saved!");
 
 PROC
@@ -370,6 +490,15 @@ AND
 LLEQSET_QRY_SetExists(_Player,_SetID)
 THEN
 LLEQSET_SetManager_ClearSavedInSlot(_Player, _SetID, _Slot);
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
+
+PROC
+LLEQSET_SetManager_RegisterEquipment((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+NOT LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID,_,_,_)
+THEN
 DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
 //END_REGION
 
@@ -440,6 +569,13 @@ ObjectFlagCleared("LLEQSET_Settings_AutoSaveEnabled", (CHARACTERGUID)_Player, _I
 THEN
 LLEQSET_ColorStatusText(_Player, "Equipment Sets Auto-Save Disabled", "Warning");
 
+QRY
+LLEQSET_QRY_SetManager_ClearSavedSlot((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Slot)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
+THEN
+NOT DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
+
 IF
 ItemEquipped(_Item, _Player)
 AND
@@ -450,8 +586,6 @@ AND
 LLEQSET_QRY_GetSlot(_Player, _Item)
 AND
 DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot)
-AND
-NOT DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
 THEN
 LLEQSET_SetManager_RegisterEquipment(_Player, _SetID, _Slot, _Item);
 NOT DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);

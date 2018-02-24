@@ -426,8 +426,7 @@ _Index <= _Max
 AND
 DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance);
+LLEQSET_Naming_SetSelectedLetter(_Index, _Group, _Instance);
 
 PROC
 LLEQSET_Naming_MoveLetterForward((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
@@ -446,8 +445,7 @@ DB_LLEQSET_Naming_CurrentGroup(_GroupIndex, _Instance)
 AND
 DB_LLEQSET_Naming_Groups(_GroupIndex, _NextGroup)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(0, _NextGroup, _Instance);
+LLEQSET_Naming_SetSelectedLetter(0, _NextGroup, _Instance);
 
 PROC
 LLEQSET_Naming_MoveLetterBackward((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
@@ -456,8 +454,7 @@ _Index >= 0
 AND
 DB_LLEQSET_Naming_Letters(_Group, _Index, _Letter)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance);
+LLEQSET_Naming_SetSelectedLetter(_Index, _Group, _Instance);
 
 PROC
 LLEQSET_Naming_MoveLetterBackward((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
@@ -476,8 +473,7 @@ DB_LLEQSET_Naming_Groups(_GroupIndex, _NextGroup)
 AND
 DB_LLEQSET_Naming_GroupMax(_NextGroup, _Max)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(_Max, _NextGroup, _Instance);
+LLEQSET_Naming_SetSelectedLetter(_Max, _NextGroup, _Instance);
 //END_REGION
 
 //REGION LETTER_COUNTING
@@ -585,8 +581,7 @@ DB_LLEQSET_Naming_SelectedLetter(_Max, _Group, _Instance)
 AND
 DB_LLEQSET_Naming_GroupMax(_Group, _Max)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(_Max, _Group, _Instance);
+LLEQSET_Naming_SetSelectedLetter(_Max, _Group, _Instance);
 LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
 
 PROC
@@ -594,26 +589,24 @@ LLEQSET_Naming_ChangeCasing((INTEGER)_Instance, "Upper")
 AND
 DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(_Index, "Lower", _Instance);
+LLEQSET_Naming_SetSelectedLetter(_Index, "Lower", _Instance);
 
 PROC
 LLEQSET_Naming_ChangeCasing((INTEGER)_Instance, "Lower")
 AND
 DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(_Index, "Upper", _Instance);
+LLEQSET_Naming_SetSelectedLetter(_Index, "Upper", _Instance);
 
 PROC
 LLEQSET_Naming_ChangeCasing((INTEGER)_Instance, (STRING)_Current)
 AND
 DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
 AND
-DB_LLEQSET_Naming_CurrentCasing(_CurrentGroup)
+DB_LLEQSET_Naming_CurrentCasing(_CurrentGroup, _Instance)
 THEN
-NOT DB_LLEQSET_Naming_CurrentCasing(_CurrentGroup);
-DB_LLEQSET_Naming_CurrentCasing(_Group);
+NOT DB_LLEQSET_Naming_CurrentCasing(_CurrentGroup, _Instance);
+DB_LLEQSET_Naming_CurrentCasing(_Group, _Instance);
 
 PROC
 LLEQSET_Naming_SetWordState((INTEGER)_Instance, (STRING)_ExtraText)
@@ -744,8 +737,7 @@ LLEQSET_QRY_ClearObjectFlag(_Speaker, "LLEQSET_Naming_LetterStart")
 AND
 DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
 THEN
-LLEQSET_Naming_ClearSelectedLetter(_Instance);
-DB_LLEQSET_Naming_SelectedLetter(0, _Group, _Instance);
+LLEQSET_Naming_SetSelectedLetter(0, _Group, _Instance);
 LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
 
 IF
@@ -834,7 +826,7 @@ LLEQSET_Naming_InitVariables((INTEGER)_Instance)
 AND
 NOT DB_LLEQSET_Naming_SelectedLetter(_,_,_Instance)
 THEN
-DB_LLEQSET_Naming_SelectedLetter(0, "Upper", _Instance);
+LLEQSET_Naming_SetSelectedLetter(0, "Upper", _Instance);
 LLEQSET_Naming_ClearCurrentGroup(_Instance);
 DB_LLEQSET_Naming_CurrentGroup(0, _Instance);
 LLEQSET_Naming_UpdateSelectedLetterVariable(_Instance);
@@ -874,6 +866,7 @@ Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);
 //END_REGION
 
 //REGION LETTER_SETTING
+/*
 IF
 DB_LLEQSET_Naming_SelectedLetter(_Index, "Letters", _Instance)
 AND
@@ -881,9 +874,26 @@ DB_LLEQSET_Naming_CurrentCasing(_ActualGroup, _Instance)
 THEN
 NOT DB_LLEQSET_Naming_SelectedLetter(_Index, "Letters", _Instance);
 DB_LLEQSET_Naming_SelectedLetter(_Index, _ActualGroup, _Instance);
+*/
 
-IF
-DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+PROC
+LLEQSET_Naming_SetSelectedLetter((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
+AND
+_Group != "Letters"
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance);
+
+PROC
+LLEQSET_Naming_SetSelectedLetter((INTEGER)_Index, "Letters", (INTEGER)_Instance)
+AND
+DB_LLEQSET_Naming_CurrentCasing(_Group, _Instance)
+THEN
+LLEQSET_Naming_ClearSelectedLetter(_Instance);
+DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance);
+
+PROC
+LLEQSET_Naming_SetSelectedLetter((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
 AND
 _Group != "Number"
 AND
@@ -891,8 +901,8 @@ DialogGetInvolvedPlayer(_Instance, 1, _Player)
 THEN
 ObjectSetFlag(_Player, "LLEQSET_Naming_GroupIsLetter");
 
-IF
-DB_LLEQSET_Naming_SelectedLetter(_Index, _Group, _Instance)
+PROC
+LLEQSET_Naming_SetSelectedLetter((INTEGER)_Index, (STRING)_Group, (INTEGER)_Instance)
 AND
 _Group == "Number"
 AND
