@@ -813,6 +813,12 @@ LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_TextSaved")
 THEN
 LLEQSET_Naming_ClearInstanceVariables(_Instance);
 
+IF
+ObjectFlagSet("LLEQSET_Naming_UndoLast", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_UndoLast")
+THEN
+LLEQSET_Naming_UndoLast(_Instance);
 //END_REGION
 
 //REGION DIALOG_EVENTS

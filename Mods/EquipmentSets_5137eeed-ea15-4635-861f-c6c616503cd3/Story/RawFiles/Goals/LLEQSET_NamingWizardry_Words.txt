@@ -117,7 +117,7 @@ PROC
 LLEQSET_System_ClearDatabases()
 THEN
 SysClear("DB_LLEQSET_Naming_CommonWords", 2);
-SysClear("DB_LLEQSET_Naming_CommonWordVariables", 3);
+SysClear("DB_LLEQSET_Naming_CommonWordVariables", 4);
 SysClear("DB_LLEQSET_Naming_WordPageSettings", 1);
 SysClear("DB_LLEQSET_Naming_MaxWordPage", 3);
 SysClear("DB_LLEQSET_Naming_LastWord", 2);
@@ -181,7 +181,7 @@ PROC
 LLEQSET_Naming_Words_CalculateMaxPage()
 THEN
 LLEQSET_System_Debug_DatabaseCount("DB_LLEQSET_Naming_CommonWords", 2);
-LLEQSET_System_Debug_DatabaseCount("DB_LLEQSET_Naming_CommonWordVariables", 3);
+LLEQSET_System_Debug_DatabaseCount("DB_LLEQSET_Naming_CommonWordVariables", 4);
 
 PROC
 LLEQSET_Naming_Words_SetWordIterator()
@@ -365,6 +365,11 @@ AND
 ObjectGetFlag(_Player, _DisabledFlag, 1)
 THEN
 ObjectClearFlag(_Player, _DisabledFlag);
+
+QRY
+LLEQSET_QRY_Naming_DisableWordIfNotAvailable((CHARACTERGUID)_Player, (INTEGER)_Index, (STRING)_DisabledFlag)
+THEN
+DB_NOOP(1);
 
 PROC
 LLEQSET_Naming_Words_LoadPageVariables((CHARACTERGUID)_Player, (INTEGER)_Instance)
