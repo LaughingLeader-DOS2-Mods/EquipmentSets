@@ -1,8 +1,19 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
+LLEQSET_Updater_InitSettings();
 LLEQSET_Updater_RegisterMod("0.9.0.0");
+
+//DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 KBSECTION
+//REGION SETTINGS
+PROC
+LLEQSET_Updater_InitSettings()
+THEN
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Dependencies", 2);
+DB_LLEQSET_Dependencies("NamingWizard", "LaughingLeader", "LLEQSET_Global_NamingWizardFound");
+//END_REGION
+
 //REGION MOD_UPDATING
 PROC
 LLEQSET_Updater_ClearPreviousVersions()
@@ -26,14 +37,6 @@ NOT DB_Mods_RegisteredMod("EquipmentSets", _NewVersion, "LaughingLeader")
 THEN
 DB_NOOP(1);
 
-IF
-GameStarted(_,_)
-AND
-LLEQSET_QRY_Updater_ModUpdateNeeded("0.9.0.0")
-THEN
-LLEQSET_Updater_RegisterMod("0.9.0.0");
-LLEQSET_System_UpdateDatabases();
-
 PROC
 LLEQSET_System_UpdateDatabases()
 THEN
@@ -43,8 +46,56 @@ PROC
 LLEQSET_System_ClearDatabases()
 THEN
 LLEQSET_DebugLog("[Updater] Databases cleared.");
-//END_REGION
-EXITSECTION
 
+PROC
+LLEQSET_System_UnregisterMod()
+AND
+DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader")
+THEN
+NOT DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader");
+//END_REGION
+
+//REGION MOD_DETECTION
+PROC
+LLEQSET_Updater_CheckDependencies()
+AND
+DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
+AND
+DB_Mods_RegisteredMod(_Mod, _Version, _Author)
+THEN
+LLEQSET_DebugLog("[Updater] Mod ",_Mod,"(",_Version,") by ", _Author," found.");
+GlobalSetFlag(_GlobalFlag);
+
+PROC
+LLEQSET_Updater_CheckDependencies()
+AND
+DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
+AND
+NOT DB_Mods_RegisteredMod(_Mod, _, _Author)
+THEN
+LLEQSET_DebugLog("[Updater] Mod ",_Mod," by ", _Author," not found.");
+GlobalClearFlag(_GlobalFlag);
+//END_REGION
+
+//UPDATE_EVENT
+IF
+GameStarted(_,_)
+AND
+LLEQSET_QRY_Updater_ModUpdateNeeded("0.9.0.0")
+THEN
+LLEQSET_Updater_RegisterMod("0.9.0.0");
+LLEQSET_System_UpdateDatabases();
+
+IF
+GameStarted(_,_)
+THEN
+TimerLaunch("LLEQSET_Timers_CheckDependencies", 500);
+
+IF
+TimerFinished("LLEQSET_Timers_CheckDependencies")
+THEN
+LLEQSET_Updater_CheckDependencies();
+EXITSECTION
+LLEQSET_System_UnregisterMod();
 ENDEXITSECTION
 ParentTargetEdge "LaughingLeader_EquipmentSets"

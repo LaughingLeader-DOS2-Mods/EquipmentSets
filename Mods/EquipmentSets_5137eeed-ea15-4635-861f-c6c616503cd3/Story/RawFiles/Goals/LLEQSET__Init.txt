@@ -7,7 +7,7 @@ INITSECTION
 //DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue)
 //DB_LLEQSET_MenuSkill(_Skill)
 //DB_LLEQSET_MenuItem(_Template)
-
+//DB_LLEQSET_Timers_DelayedMessage(_TimerName, _Player, _Message, _Color)
 //DB_LLEQSET_Temp_NextMessageColor(_Player, _ColorID, _ColorValue)
 //DB_LLEQSET_Temp_OutVariable(_ID, _Value)
 //DB_LLEQSET_Temp_TracedCharacterValue(_Character, _Value)
@@ -416,7 +416,7 @@ NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
 QRY
 LLEQSET_QRY_Helpers_GetSetName((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID,_,_)
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID,_)
 AND
 StringSub(_SetID, 3, 1, _SetNumber)
 AND
@@ -427,7 +427,7 @@ DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
 QRY
 LLEQSET_QRY_Helpers_GetSetName((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 THEN
 DB_LLEQSET_Temp_SetName(_Player, _SetID, _Name);
 
@@ -446,6 +446,16 @@ AND
 CharacterGetEquippedItem(_Player, _Slot, _Item)
 THEN
 DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);
+//END_REGION
+
+//REGION TIMER_HELPERS
+IF
+TimerFinished(_TimerName)
+AND
+DB_LLEQSET_Timers_DelayedMessage(_TimerName, _Player, _Message, _Color)
+THEN
+LLEQSET_ColorStatusText(_Player, _Message, _Color);
+NOT DB_LLEQSET_Timers_DelayedMessage(_TimerName, _Player, _Message, _Color);
 //END_REGION
 
 //REGION HOST_FLAGGING
@@ -502,8 +512,15 @@ LLEQSET_System_InitialSetup(_Player);
 //REGION DEBUG
 IF
 CharacterUsedItem(_Player, ITEMGUID_Lever_OpenNamingMenu_4289a1de-0d4b-43b0-9c38-0d796dff1d43)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+AND
+GetItemForItemTemplateInInventory(_Player, _BackpackTemplate, _Backpack)
+AND
+GetPosition(_Player, _x,_y,_z)
 THEN
-Proc_StartDialog(0, "LLEQSET_NamingMenu", _Player, _Player);
+TeleportToPosition(_Backpack,  _x,_y,_z, "", 0);
+//SetStoryEvent(_Player, "LLNWIZ_Events_OpenNamingWizard_PlayerOnly");
 
 IF
 CharacterUsedItem(_Player, ITEMGUID_Lever_OpenMainMenu_bac439cf-9197-49f1-8b5a-91ca40d050ec)

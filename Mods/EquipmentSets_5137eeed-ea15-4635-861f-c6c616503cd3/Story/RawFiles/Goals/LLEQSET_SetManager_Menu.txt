@@ -28,20 +28,47 @@ LLEQSET_DebugLog("[SetManager_Menu] Databases cleared.");
 PROC
 LLEQSET_Menu_ClearSetName((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 THEN
-NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength);
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name);
 //END_REGION
 
 //REGION DIALOG_VARS
 PROC
 LLEQSET_Menu_LoadSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
 AND
-DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 AND
 DB_LLEQSET_SetManager_Variables(_SetID, _DialogNameVar, _SelectFlag, _EquipSetFlag)
 THEN
 DialogSetVariableStringForInstance(_Instance, _DialogNameVar, _Name);
+
+PROC
+LLEQSET_Menu_SetCurrentSetName((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+THEN
+LLEQSET_Menu_SetCurrentSetName(_Player, _Instance, _SetID);
+
+PROC
+LLEQSET_Menu_SetCurrentSetName((CHARACTERGUID)_Player, (INTEGER)_Instance, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
+AND
+StringConcatenate(_Name, " (", _Str1)
+AND
+StringConcatenate(_Str1, _SetID, _Str2)
+AND
+StringConcatenate(_Str2, ")", _DisplayedName)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_CurrentSetName_89e7900d-a560-496f-83d8-9d6593bc0f3e", _DisplayedName);
+
+PROC
+LLEQSET_Menu_SetCurrentSetName((CHARACTERGUID)_Player, (INTEGER)_Instance, (STRING)_SetID)
+AND
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Menu_CurrentSetName_89e7900d-a560-496f-83d8-9d6593bc0f3e", _SetID);
 
 PROC
 LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
@@ -55,7 +82,7 @@ LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
 AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 AND
-DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 AND
 StringConcatenate("Current: ", _Name, _SetName)
 THEN
@@ -66,7 +93,7 @@ LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
 AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 AND
-NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _, _)
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID,_)
 AND
 StringConcatenate("Current: ", _SetID, _SetName)
 THEN
@@ -84,7 +111,7 @@ LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
 AND
 DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
 AND
-DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 AND
 StringConcatenate("Last: ", _Name, _SetName)
 THEN
@@ -95,7 +122,7 @@ LLEQSET_Menu_SetActiveSetNames((CHARACTERGUID)_Player, (INTEGER)_Instance)
 AND
 DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
 AND
-NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _, _)
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID,_)
 AND
 StringConcatenate("Last: ", _SetID, _SetName)
 THEN
@@ -181,6 +208,7 @@ LLEQSET_QRY_ClearObjectFlag(_Player, _SelectFlag)
 THEN
 LLEQSET_Menu_SelectSet(_Player, _SetID);
 LLEQSET_Menu_SetSwitcherVars(_Player, _SetID, _Instance);
+LLEQSET_Menu_SetCurrentSetName(_Player, _Instance, _SetID);
 
 IF
 ObjectFlagSet(_EquipSetFlag, (CHARACTERGUID)_Player, _Instance)
@@ -290,9 +318,9 @@ ObjectFlagSet("LLEQSET_Actions_ClearAllSetNames", (CHARACTERGUID)_Player, _Insta
 AND
 LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_ClearAllSetNames")
 AND
-DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 THEN
-NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength);
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name);
 
 IF
 ObjectFlagSet("LLEQSET_Actions_UnequipEverything", (CHARACTERGUID)_Player, _Instance)
@@ -390,31 +418,21 @@ LLEQSET_Menu_InitMenuFlags(_Player, _Instance);
 
 //REGION NAMING
 IF
-DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)
-AND
-DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
-AND
-ObjectGetFlag(_Player, "LLEQSET_Naming_TextSaved", 1)
-AND
-DB_LLEQSET_Naming_FinishedText(_Text, _Player, _Length)
-THEN
-DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_FinalText_7a7aaab8-c19d-4af5-9d1b-9a1b5d7a47c0", _Text);
-
-IF
 ObjectFlagSet("LLEQSET_Menu_ConfirmName", (CHARACTERGUID)_Player, _Instance)
 AND
 LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_ConfirmName")
 AND
 LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_TextSaved")
 AND
-DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length)
+DB_LLEQSET_Naming_FinishedText(_Name, _Player)
 AND
 DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 THEN
 LLEQSET_Menu_ClearSetName(_Player, _SetID);
-DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _Length);
-NOT DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length);
+LLEQSET_SetManager_RegisterSetName(_Player, _SetID, _Name);
 LLEQSET_Menu_LoadSetNames(_Player, _Instance);
+LLEQSET_Menu_SetCurrentSetName(_Player, _Instance, _SetID);
+NOT DB_LLEQSET_Naming_FinishedText(_Name, _Player);
 
 IF
 ObjectFlagSet("LLEQSET_Menu_CancelName", (CHARACTERGUID)_Player, _Instance)
@@ -423,9 +441,9 @@ LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_CancelName")
 AND
 LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Naming_TextSaved")
 AND
-DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length)
+DB_LLEQSET_Naming_FinishedText(_Name, _Player)
 THEN
-NOT DB_LLEQSET_Naming_FinishedText(_Name, _Player, _Length);
+NOT DB_LLEQSET_Naming_FinishedText(_Name, _Player);
 
 IF
 DialogEnded("LLEQSET_EquipmentSetMenu", _Instance)
@@ -436,7 +454,7 @@ ObjectGetFlag(_Player, "LLEQSET_Menu_OpenNamingMenu", 1)
 AND
 LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_OpenNamingMenu")
 THEN
-Proc_StartDialog(0, "LLEQSET_NamingMenu", _Player, _Player);
+SetStoryEvent(_Player, "LLNWIZ_Events_OpenNamingWizard_PlayerOnly");
 //END_REGION
 EXITSECTION
 

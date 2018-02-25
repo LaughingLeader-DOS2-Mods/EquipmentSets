@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <save>
-    <header version="2" time="1519444731" />
+    <header version="2" time="1519586375" />
     <version major="3" minor="1" revision="6" build="0" />
     <region id="DialogVariables">
         <node id="root">
@@ -10,6 +10,13 @@
                     <attribute id="Description" value="The current equipped set&apos;s name." type="23" />
                     <attribute id="UUID" value="b7d19a06-c548-4fad-91b7-19f0fbeea6d2" type="31" />
                     <attribute id="name" value="LLEQSET_Menu_CurrentSet" type="22" />
+                    <attribute id="type" value="String" type="23" />
+                </node>
+                <node id="DialogVariable">
+                    <attribute id="DefaultValue" value="Set" type="23" />
+                    <attribute id="Description" value="" type="23" />
+                    <attribute id="UUID" value="89e7900d-a560-496f-83d8-9d6593bc0f3e" type="31" />
+                    <attribute id="name" value="LLEQSET_Menu_CurrentSetName" type="22" />
                     <attribute id="type" value="String" type="23" />
                 </node>
                 <node id="DialogVariable">
@@ -48,122 +55,10 @@
                     <attribute id="type" value="Int" type="23" />
                 </node>
                 <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="0" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="c0fa11d6-068b-436d-8f85-6ab2f41025f0" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_CurrentPage" type="22" />
-                    <attribute id="type" value="Int" type="23" />
-                </node>
-                <node id="DialogVariable">
                     <attribute id="DefaultValue" value="" type="23" />
                     <attribute id="Description" value="" type="23" />
                     <attribute id="UUID" value="7a7aaab8-c19d-4af5-9d1b-9a1b5d7a47c0" type="31" />
                     <attribute id="name" value="LLEQSET_Naming_FinalText" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="0" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="c160c3ea-eac5-46d1-b156-8be40f6d0e59" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_LastPage" type="22" />
-                    <attribute id="type" value="Int" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="8aeb4b2a-b0c5-418d-89ff-d93f326c3e6c" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_SelectedLetter" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="dfe56575-ce41-425e-a0cd-89b271eeeeb4" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_SelectedSet" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value=" " type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="9bddecd9-c5ed-4758-939b-af4430f643c8" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Text" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="b3da63bf-bdab-4c02-83a1-12db2c46f1e9" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word1" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="3de95984-7f32-48a8-a6e1-9fdc8db0923c" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word2" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="ffbe6471-325f-45db-9ef2-cd936ec44629" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word3" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="9bfe7a46-71f4-480f-8820-303898a36b8b" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word4" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="40e7b21f-ee75-4c90-8ced-a884924c72e9" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word5" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="ff231f70-36cf-42ae-8bce-47d9bd8c0487" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word6" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="0d997a83-39e7-473b-9b13-39c8fd6c148a" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word7" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="a906a9bd-790d-4a4b-83d0-a8c0c3fa11d9" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word8" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="1785e926-439a-43f4-9602-a67abfa875fc" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_Word9" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="None" type="23" />
-                    <attribute id="Description" value="" type="23" />
-                    <attribute id="UUID" value="2627b712-41e0-4883-9208-1f5fb5c3ff05" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_WordLast" type="22" />
-                    <attribute id="type" value="String" type="23" />
-                </node>
-                <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
-                    <attribute id="Description" value="Displays information on the current character count / limit." type="23" />
-                    <attribute id="UUID" value="89c105f6-b29f-4391-a1dd-ecd151487505" type="31" />
-                    <attribute id="name" value="LLEQSET_Naming_WordStateText" type="22" />
                     <attribute id="type" value="String" type="23" />
                 </node>
                 <node id="DialogVariable">

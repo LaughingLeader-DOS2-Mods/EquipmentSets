@@ -5,7 +5,7 @@ INITSECTION
 //DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 //DB_LLEQSET_SetManager_LastSet(_Player, _SetID)
 //DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
-//DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name, _NameLength)
+//DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 //DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
 //DB_LLEQSET_SetManager_Variables(_SetID, _DialogNameVar, _SelectFlag, _EquipSetFlag
 
@@ -15,6 +15,8 @@ INITSECTION
 //DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay);
 //DB_LLEQSET_Temp_SetManager_EquipDelayTimer(_TimerName, _Player, _Slot, _Item)
 //DB_LLEQSET_Temp_SetManager_UnequipDelayTimer(_TimerName, _Player, _Slot, _Item)
+
+//DB_LLEQSET_SetManager_BackpackContents(_Player, _Backpack, _Item)
 
 //Type setting
 DB_LLEQSET_SavedSets((CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000, "", "", (ITEMGUID)NULL_00000000-0000-0000-0000-000000000000);
@@ -55,7 +57,7 @@ SysClear("DB_LLEQSET_Menu_SelectedSet", 2);
 SysClear("DB_LLEQSET_SetManager_CurrentSet", 2);
 SysClear("DB_LLEQSET_SetManager_LastSet", 2);
 SysClear("DB_LLEQSET_SetManager_SavedSets", 4);
-SysClear("DB_LLEQSET_SetManager_SetNames", 4);
+SysClear("DB_LLEQSET_SetManager_SetNames", 3);
 SysClear("DB_LLEQSET_SetManager_SetConfig", 4);
 SysClear("DB_LLEQSET_SetManager_Variables", 4);
 SysClear("DB_LLEQSET_SetManager_DelayIncrement", 1);
@@ -83,6 +85,7 @@ AND
 DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
 THEN
 NOT DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
+LLEQSET_SetManager_RemoveFromBackpack(_Player, _SetID, _Item);
 
 PROC
 LLEQSET_SetManager_ClearSet((CHARACTERGUID)_Player, (STRING)_SetID)
@@ -102,6 +105,7 @@ AND
 DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
 THEN
 NOT DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
+LLEQSET_SetManager_RemoveFromBackpack(_Player, _SetID, _Item);
 //END_REGION
 
 //REGION SET_QUERIES
@@ -140,7 +144,7 @@ THEN
 DB_NOOP(1);
 //END_REGION
 
-//REGION HELPERS
+//REGION BACKPACKS
 QRY
 LLEQSET_QRY_SetManager_CreateBackpackIfMissing((CHARACTERGUID)_Player, (STRING)_BackpackTemplate)
 AND
@@ -207,6 +211,28 @@ ItemToInventory(_Item, _Backpack, 1, 0, 0);
 NOT DB_LLEQSET_Temp_TargetBackpack(_Player, _BackpackTemplate);
 
 PROC
+LLEQSET_SetManager_RemoveFromBackpack((CHARACTERGUID)_Player, (STRING)_SetID, (ITEMGUID)_Item)
+AND
+DB_LLEQSET_SetManager_BackpackContents(_Player, _Backpack, _Item)
+THEN
+ItemToInventory(_Item, _Player, 1, 0, 0);
+NOT DB_LLEQSET_SetManager_BackpackContents(_Player, _Backpack, _Item);
+
+PROC
+LLEQSET_SetManager_RemoveFromBackpack((CHARACTERGUID)_Player, (STRING)_SetID, (ITEMGUID)_Item)
+AND
+NOT DB_LLEQSET_Timers_DelayedMessage(_,_Player,"Previous Set Items Removed from Backpack",_)
+AND
+GetUUID(_Player, _ID)
+AND
+StringConcatenate("LLEQSET_Timers_SetManager_BackpackItemRemoval_", _ID, _TimerName)
+THEN
+DB_LLEQSET_Timers_DelayedMessage(_TimerName, _Player,"Previous Set Items Removed from Backpack", "Warning");
+TimerLaunch(_TimerName, 500);
+//END_REGION
+
+//REGION HELPERS
+PROC
 LLEQSET_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_NextSetID)
 AND
 NOT DB_LLEQSET_SetManager_LastSet(_Player, _)
@@ -250,6 +276,18 @@ DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_SetLastSet(_Player, _SetID);
 NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_RegisterSetName((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Name)
+AND
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _CurrentName)
+THEN
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _CurrentName);
+
+PROC
+LLEQSET_SetManager_RegisterSetName((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Name)
+THEN
+DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name);
 //END_REGION
 
 //REGION EQUIPPING
@@ -560,6 +598,24 @@ PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Cast_01", "Dummy_Root");
 
 //REGION AUTO_SAVING
 IF
+ItemAddedToContainer(_Item, _Backpack)
+AND
+DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+AND
+GetTemplate(_Backpack, _BackpackTemplate)
+THEN
+DB_LLEQSET_SetManager_BackpackContents(_Player, _Backpack, _Item);
+
+IF
+ItemRemovedFromContainer(_Item, _Backpack)
+AND
+DB_LLEQSET_SetManager_BackpackContents(_Player, _Backpack, _Item)
+THEN
+NOT DB_LLEQSET_SetManager_BackpackContents(_Player, _Backpack, _Item);
+
+IF
 ObjectFlagSet("LLEQSET_Settings_AutoSaveEnabled", (CHARACTERGUID)_Player, _Instance)
 THEN
 LLEQSET_ColorStatusText(_Player, "Equipment Sets Auto-Save Enabled", "SetSaved");
@@ -568,13 +624,6 @@ IF
 ObjectFlagCleared("LLEQSET_Settings_AutoSaveEnabled", (CHARACTERGUID)_Player, _Instance)
 THEN
 LLEQSET_ColorStatusText(_Player, "Equipment Sets Auto-Save Disabled", "Warning");
-
-QRY
-LLEQSET_QRY_SetManager_ClearSavedSlot((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Slot)
-AND
-DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
-THEN
-NOT DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item);
 
 IF
 ItemEquipped(_Item, _Player)
@@ -601,7 +650,7 @@ AND
 DB_LLEQSET_SetManager_SavedSets(_Player, _SetID, _Slot, _Item)
 THEN
 LLEQSET_SetManager_ClearSavedInSlot(_Player, _SetID, _Slot);
-LLEQSET_DebugLog("[SetManager] Auto-saved enabled, clear item in Set [",_SetID,"] from slot[",_Slot,"]");
+LLEQSET_DebugLog("[SetManager] Auto-saved enabled, cleared item in Set [",_SetID,"] from slot[",_Slot,"]");
 //END_REGION
 EXITSECTION
 

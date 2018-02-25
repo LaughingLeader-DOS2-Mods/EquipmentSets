@@ -1,0 +1,43 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+//REGION SETTINGS
+PROC
+LLEQSET_NamingInterface_InitSettings()
+THEN
+DB_NOOP(1);
+//END_REGION
+
+IF
+StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingWizardOpened")
+THEN
+ObjectSetFlag(_Player, "LLEQSET_NamingWizard_Running");
+
+IF
+StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingFinished")
+AND
+ObjectGetFlag(_Player, "LLEQSET_NamingWizard_Running", 1)
+AND
+GetVarString(_Player, "LLNWIZ_FinalText", _Text)
+THEN
+DB_LLEQSET_Naming_FinishedText(_Text, _Player);
+ObjectSetFlag(_Player, "LLEQSET_Naming_TextSaved");
+ObjectClearFlag(_Player, "LLEQSET_NamingWizard_Running");
+Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);
+
+IF
+DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Naming_TextSaved", 1)
+AND
+DB_LLEQSET_Naming_FinishedText(_Text, _Player)
+THEN
+DialogSetVariableStringForInstance(_Instance, "LLEQSET_Naming_FinalText_7a7aaab8-c19d-4af5-9d1b-9a1b5d7a47c0", _Text);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"

@@ -1,7 +1,7 @@
 {
    "save" : {
       "header" : {
-         "time" : 1519510357,
+         "time" : 1519587885,
          "version" : "2.0.8.2"
       },
       "regions" : {
@@ -156,7 +156,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "Settings"
+                                                   "value" : "Settings Menu"
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
@@ -2019,42 +2019,6 @@
                         "waittime" : {"type" : 6, "value" : 0.1000000014901161}
                      },
                      {
-                        "ShowOnce" : {"type" : 19, "value" : 0},
-                        "Tags" : [ {} ],
-                        "UUID" : {"type" : 22, "value" : "4736a5ef-7c60-45e3-886c-e843e1c97ebe"},
-                        "children" : [ {} ],
-                        "constructor" : {"type" : 22, "value" : "Jump"},
-                        "editorData" : [
-                           {
-                              "data" : [
-                                 {
-                                    "key" : {"type" : 22, "value" : "collapsed"},
-                                    "val" : {"type" : 23, "value" : "False"}
-                                 },
-                                 {
-                                    "key" : {"type" : 22, "value" : "logicalname"},
-                                    "val" : {"type" : 23, "value" : "Jump"}
-                                 },
-                                 {
-                                    "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;-1080"}
-                                 },
-                                 {
-                                    "key" : {"type" : 22, "value" : "sourcetemplate"},
-                                    "val" : {"type" : 23, "value" : ""}
-                                 }
-                              ]
-                           }
-                        ],
-                        "endnode" : {"type" : 19, "value" : 0},
-                        "exclusive" : {"type" : 19, "value" : 0},
-                        "jumptarget" : {"type" : 22, "value" : "b9566bbe-f5d0-4492-8590-85b9a0ea64cf"},
-                        "jumptargetpoint" : {"type" : 1, "value" : 1},
-                        "optional" : {"type" : 19, "value" : 0},
-                        "transitionmode" : {"type" : 1, "value" : 0},
-                        "waittime" : {"type" : 6, "value" : -1.0}
-                     },
-                     {
                         "GameData" : [
                            {
                               "AiPersonalities" : [ {} ],
@@ -3313,7 +3277,7 @@
                            {
                               "child" : [
                                  {
-                                    "UUID" : {"type" : 22, "value" : "4736a5ef-7c60-45e3-886c-e843e1c97ebe"}
+                                    "UUID" : {"type" : 22, "value" : "a3df3c67-121c-4984-a5ef-88db4193942b"}
                                  }
                               ]
                            }
@@ -4595,6 +4559,42 @@
                         "waittime" : {"type" : 6, "value" : -1.0}
                      },
                      {
+                        "ShowOnce" : {"type" : 19, "value" : 0},
+                        "Tags" : [ {} ],
+                        "UUID" : {"type" : 22, "value" : "a3df3c67-121c-4984-a5ef-88db4193942b"},
+                        "children" : [ {} ],
+                        "constructor" : {"type" : 22, "value" : "Jump"},
+                        "editorData" : [
+                           {
+                              "data" : [
+                                 {
+                                    "key" : {"type" : 22, "value" : "collapsed"},
+                                    "val" : {"type" : 23, "value" : "False"}
+                                 },
+                                 {
+                                    "key" : {"type" : 22, "value" : "logicalname"},
+                                    "val" : {"type" : 23, "value" : "Jump"}
+                                 },
+                                 {
+                                    "key" : {"type" : 22, "value" : "position"},
+                                    "val" : {"type" : 23, "value" : "4815;-1080"}
+                                 },
+                                 {
+                                    "key" : {"type" : 22, "value" : "sourcetemplate"},
+                                    "val" : {"type" : 23, "value" : ""}
+                                 }
+                              ]
+                           }
+                        ],
+                        "endnode" : {"type" : 19, "value" : 0},
+                        "exclusive" : {"type" : 19, "value" : 0},
+                        "jumptarget" : {"type" : 22, "value" : "4167b228-492f-4f83-ab1c-4a3b9dd6fe18"},
+                        "jumptargetpoint" : {"type" : 1, "value" : 1},
+                        "optional" : {"type" : 19, "value" : 0},
+                        "transitionmode" : {"type" : 1, "value" : 0},
+                        "waittime" : {"type" : 6, "value" : -1.0}
+                     },
+                     {
                         "GameData" : [
                            {
                               "AiPersonalities" : [ {} ],
@@ -4972,10 +4972,15 @@
                                        {
                                           "TagText" : [
                                              {
+                                                "DialogVariables" : [
+                                                   {
+                                                      "DialogVariables" : {"type" : 22, "value" : "89e7900d-a560-496f-83d8-9d6593bc0f3e"}
+                                                   }
+                                                ],
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "Set Menu"
+                                                   "value" : "[LLEQSET_Menu_CurrentSetName_89e7900d-a560-496f-83d8-9d6593bc0f3e] Menu"
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
@@ -5327,7 +5332,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "Equipment Sets Main Menu<br>[LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2]<br>[LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22]"
+                                                   "value" : "<i>Equipment Sets</i> - Main Menu<br>[LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2]<br>[LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22]"
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
@@ -6949,7 +6954,7 @@
                               "SoundEvent" : {"type" : 23, "value" : ""}
                            }
                         ],
-                        "ShowOnce" : {"type" : 19, "value" : 1},
+                        "ShowOnce" : {"type" : 19, "value" : 0},
                         "TaggedTexts" : [
                            {
                               "TaggedText" : [

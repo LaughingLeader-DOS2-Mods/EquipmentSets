@@ -377,10 +377,25 @@ LLEQSET_DebugLog(_Str1, _Str2, _Str3, "", "");
 PROC
 LLEQSET_DebugLog((STRING)_Str1, (STRING)_Str2, (STRING)_Str3, (STRING)_Str4)
 THEN
-LLEQSET_DebugLog(_Str1, _Str2, _Str3, _Str4, "");
+LLEQSET_DebugLog(_Str1, _Str2, _Str3, _Str4, "", "", "", "");
 
 PROC
 LLEQSET_DebugLog((STRING)_Str1, (STRING)_Str2, (STRING)_Str3, (STRING)_Str4, (STRING)_Str5)
+THEN
+LLEQSET_DebugLog(_Str1, _Str2, _Str3, _Str4, _Str5, "", "", "");
+
+PROC
+LLEQSET_DebugLog((STRING)_Str1, (STRING)_Str2, (STRING)_Str3, (STRING)_Str4, (STRING)_Str5, (STRING)_Str6)
+THEN
+LLEQSET_DebugLog(_Str1, _Str2, _Str3, _Str4, _Str5, _Str6, "", "");
+
+PROC
+LLEQSET_DebugLog((STRING)_Str1, (STRING)_Str2, (STRING)_Str3, (STRING)_Str4, (STRING)_Str5, (STRING)_Str6, (STRING)_Str7)
+THEN
+LLEQSET_DebugLog(_Str1, _Str2, _Str3, _Str4, _Str5, _Str6, _Str7, "");
+
+PROC
+LLEQSET_DebugLog((STRING)_Str1, (STRING)_Str2, (STRING)_Str3, (STRING)_Str4, (STRING)_Str5, (STRING)_Str6, (STRING)_Str7, (STRING)_Str8)
 AND
 StringConcatenate(_Str1, _Str2, _Msg1)
 AND
@@ -390,7 +405,13 @@ StringConcatenate(_Msg2, _Str4, _Msg3)
 AND
 StringConcatenate(_Msg3, _Str5, _Msg4)
 AND
-StringConcatenate("[LLEQSET:Debug]", _Msg4, _DebugLoggedMessage)
+StringConcatenate(_Msg4, _Str6, _Msg5)
+AND
+StringConcatenate(_Msg5, _Str7, _Msg6)
+AND
+StringConcatenate(_Msg6, _Str8, _Msg7)
+AND
+StringConcatenate("[LLEQSET:Debug]", _Msg7, _DebugLoggedMessage)
 THEN
 DebugBreak(_DebugLoggedMessage);
 //END_REGION
