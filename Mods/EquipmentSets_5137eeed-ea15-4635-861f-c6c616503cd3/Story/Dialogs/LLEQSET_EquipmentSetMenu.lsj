@@ -1,7 +1,7 @@
 {
    "save" : {
       "header" : {
-         "time" : 1520471354,
+         "time" : 1520476961,
          "version" : "2.0.8.2"
       },
       "regions" : {
@@ -178,6 +178,12 @@
                                     "UUID" : {"type" : 22, "value" : "b1b7dfc2-87b6-42cb-be50-a91bde603c2a"}
                                  },
                                  {
+                                    "UUID" : {"type" : 22, "value" : "c95b804f-8799-4215-b6c2-6aa30587ac56"}
+                                 },
+                                 {
+                                    "UUID" : {"type" : 22, "value" : "b1adb5c1-5f15-48ee-a07c-ae992d04eff4"}
+                                 },
+                                 {
                                     "UUID" : {"type" : 22, "value" : "929117ae-1b6c-4f60-9d41-258bbf613d48"}
                                  },
                                  {
@@ -188,12 +194,6 @@
                                  },
                                  {
                                     "UUID" : {"type" : 22, "value" : "38a61b18-1354-49ef-890d-4c5cb0cc79c8"}
-                                 },
-                                 {
-                                    "UUID" : {"type" : 22, "value" : "c95b804f-8799-4215-b6c2-6aa30587ac56"}
-                                 },
-                                 {
-                                    "UUID" : {"type" : 22, "value" : "b1adb5c1-5f15-48ee-a07c-ae992d04eff4"}
                                  },
                                  {
                                     "UUID" : {"type" : 22, "value" : "9afee75c-be56-4b02-a309-b37b97de03e9"}
@@ -531,7 +531,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;2862"}
+                                    "val" : {"type" : 23, "value" : "3215;3081"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -632,7 +632,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3535;2643"}
+                                    "val" : {"type" : 23, "value" : "3535;2862"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -864,7 +864,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4175;2862"}
+                                    "val" : {"type" : 23, "value" : "4175;3081"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1197,7 +1197,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;672"}
+                                    "val" : {"type" : 23, "value" : "3215;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1298,7 +1298,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3535;2862"}
+                                    "val" : {"type" : 23, "value" : "3535;3081"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1445,7 +1445,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "1935;1986"}
+                                    "val" : {"type" : 23, "value" : "1935;2424"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1556,7 +1556,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3855;2862"}
+                                    "val" : {"type" : 23, "value" : "3855;3081"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2199,7 +2199,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3855;2643"}
+                                    "val" : {"type" : 23, "value" : "3855;2862"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2650,7 +2650,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;2424"}
+                                    "val" : {"type" : 23, "value" : "3215;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2761,7 +2761,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3535;1110"}
+                                    "val" : {"type" : 23, "value" : "3535;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2817,7 +2817,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "Ignore Empty Slots - Equipment slots that were saved as empty won't be unequipped when loading sets."
+                                                   "value" : "Ignore Empty Slots - Equipment slots that are empty won't be saved to equipment sets."
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
@@ -2837,9 +2837,9 @@
                                  {
                                     "flag" : [
                                        {
-                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_IgnoreEmptySlot"},
+                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_SaveEmptySlots"},
                                           "paramval" : {"type" : 4, "value" : 1},
-                                          "value" : {"type" : 19, "value" : 0}
+                                          "value" : {"type" : 19, "value" : 1}
                                        }
                                     ],"type" : {"type" : 22, "value" : "Character"}}
                               ]
@@ -2872,7 +2872,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "1935;1548"}
+                                    "val" : {"type" : 23, "value" : "1935;1986"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2890,9 +2890,9 @@
                                  {
                                     "flag" : [
                                        {
-                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_IgnoreEmptySlot"},
+                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_SaveEmptySlots"},
                                           "paramval" : {"type" : 4, "value" : 1},
-                                          "value" : {"type" : 19, "value" : 1}
+                                          "value" : {"type" : 19, "value" : 0}
                                        }
                                     ],"type" : {"type" : 22, "value" : "Character"}}
                               ]
@@ -3359,7 +3359,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4175;2643"}
+                                    "val" : {"type" : 23, "value" : "4175;2862"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3581,7 +3581,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;1329"}
+                                    "val" : {"type" : 23, "value" : "3215;1548"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3631,7 +3631,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;2424"}
+                                    "val" : {"type" : 23, "value" : "4495;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3899,7 +3899,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3535;672"}
+                                    "val" : {"type" : 23, "value" : "3535;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3954,7 +3954,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "Unequip Empty Slots - This will remove equipment from a slot that was saved as empty."
+                                                   "value" : "Save Empty Slots - Empty slots will be saved to equipment sets."
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
@@ -3974,9 +3974,9 @@
                                  {
                                     "flag" : [
                                        {
-                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_IgnoreEmptySlot"},
+                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_SaveEmptySlots"},
                                           "paramval" : {"type" : 4, "value" : 1},
-                                          "value" : {"type" : 19, "value" : 1}
+                                          "value" : {"type" : 19, "value" : 0}
                                        }
                                     ],"type" : {"type" : 22, "value" : "Character"}}
                               ]
@@ -4009,7 +4009,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "1935;1329"}
+                                    "val" : {"type" : 23, "value" : "1935;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4027,9 +4027,9 @@
                                  {
                                     "flag" : [
                                        {
-                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_IgnoreEmptySlot"},
+                                          "name" : {"type" : 22, "value" : "LLEQSET_Settings_SaveEmptySlots"},
                                           "paramval" : {"type" : 4, "value" : 1},
-                                          "value" : {"type" : 19, "value" : 0}
+                                          "value" : {"type" : 19, "value" : 1}
                                        }
                                     ],"type" : {"type" : 22, "value" : "Character"}}
                               ]
@@ -4333,7 +4333,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;3300"}
+                                    "val" : {"type" : 23, "value" : "3215;3519"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4431,7 +4431,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;1986"}
+                                    "val" : {"type" : 23, "value" : "3215;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4542,7 +4542,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;2205"}
+                                    "val" : {"type" : 23, "value" : "3215;2424"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4592,7 +4592,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3855;1110"}
+                                    "val" : {"type" : 23, "value" : "3855;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4957,7 +4957,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;3081"}
+                                    "val" : {"type" : 23, "value" : "3215;3300"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5327,7 +5327,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "1935;2424"}
+                                    "val" : {"type" : 23, "value" : "1935;1548"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5909,7 +5909,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "1935;2205"}
+                                    "val" : {"type" : 23, "value" : "1935;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6574,7 +6574,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3855;2424"}
+                                    "val" : {"type" : 23, "value" : "3855;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6783,7 +6783,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;1548"}
+                                    "val" : {"type" : 23, "value" : "3215;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -7118,7 +7118,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;1767"}
+                                    "val" : {"type" : 23, "value" : "3215;1986"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -7549,7 +7549,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "1935;1767"}
+                                    "val" : {"type" : 23, "value" : "1935;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -7768,7 +7768,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;1110"}
+                                    "val" : {"type" : 23, "value" : "3215;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -8088,7 +8088,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;2643"}
+                                    "val" : {"type" : 23, "value" : "3215;2862"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},

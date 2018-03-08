@@ -162,7 +162,7 @@ DB_LLEQSET_Menu_SelectedSet(_Player, _SetID);
 PROC
 LLEQSET_Menu_SelectSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLEQSET_SetManager_SavedSets(_Player, _SetID,_,_)
+DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID,_,_)
 AND
 ObjectGetFlag(_Player, "LLEQSET_Menu_CurrentSetSaved", 0)
 THEN
