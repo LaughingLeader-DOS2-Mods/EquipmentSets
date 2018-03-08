@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <save>
-    <header version="2" time="1519586375" />
-    <version major="3" minor="1" revision="6" build="0" />
+    <header version="2" time="1520470933" />
+    <version major="3" minor="1" revision="7" build="0" />
     <region id="DialogVariables">
         <node id="root">
             <children>
@@ -41,7 +41,7 @@
                     <attribute id="type" value="Int" type="23" />
                 </node>
                 <node id="DialogVariable">
-                    <attribute id="DefaultValue" value="" type="23" />
+                    <attribute id="DefaultValue" value="LLEQSET_SetSwitcher_Set1_0730aca7-6ffd-4206-a0bf-6c454d0017f1" type="23" />
                     <attribute id="Description" value="" type="23" />
                     <attribute id="UUID" value="e65c5fe3-a8f4-451e-b647-dfee50984e44" type="31" />
                     <attribute id="name" value="LLEQSET_Menu_SetSwitcherTemplate" type="22" />

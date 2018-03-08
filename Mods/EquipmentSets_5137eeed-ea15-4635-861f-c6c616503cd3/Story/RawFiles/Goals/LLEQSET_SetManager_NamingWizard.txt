@@ -1,7 +1,7 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-
+//DB_LLEQSET_NamingWizard_UsingWizard(_Player, _TimerActive);
 KBSECTION
 //REGION SETTINGS
 PROC
@@ -10,21 +10,65 @@ THEN
 DB_NOOP(1);
 //END_REGION
 
+//Open Naming Wizard
 IF
-StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingWizardOpened")
+DialogEnded("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Menu_OpenNamingMenu", 1)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_OpenNamingMenu")
 THEN
 ObjectSetFlag(_Player, "LLEQSET_NamingWizard_Running");
+SetStoryEvent(_Player, "LLNWIZ_Events_OpenNamingWizard");
+DB_LLEQSET_NamingWizard_UsingWizard(_Player, 1);
 
 IF
-StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingFinished")
+StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingWizardOpened")
+AND
+ObjectGetFlag(_Player, "LLEQSET_NamingWizard_Running", 1)
+THEN
+TimerLaunch("LLEQSET_NamingWizard_Timeout", 5000);
+
+IF
+DialogStarted("LLNWIZ_NamingWizard", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_NamingWizard_Running", 1)
+AND
+DB_LLEQSET_NamingWizard_UsingWizard(_Player, _TimerActive)
+THEN
+NOT DB_LLEQSET_NamingWizard_UsingWizard(_Player, _TimerActive);
+DB_LLEQSET_NamingWizard_UsingWizard(_Player, 0);
+TimerCancel("LLEQSET_NamingWizard_Timeout");
+
+IF
+TimerFinished("LLEQSET_NamingWizard_Timeout")
+AND
+DB_LLEQSET_NamingWizard_UsingWizard(_Player, 1)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_NamingWizard_Running");
+ObjectClearFlag(_Player, "LLEQSET_Naming_TextSaved");
+NOT DB_LLEQSET_NamingWizard_UsingWizard(_Player, 1);
+LLEQSET_DebugLog("[NamingWizard:Timeout] LLNWIZ_NamingWizard dialog failed to start.");
+Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);
+
+IF
+StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingComplete")
 AND
 ObjectGetFlag(_Player, "LLEQSET_NamingWizard_Running", 1)
 AND
 GetVarString(_Player, "LLNWIZ_FinalText", _Text)
+AND
+DB_LLEQSET_NamingWizard_UsingWizard(_Player, _TimerActive)
 THEN
 DB_LLEQSET_Naming_FinishedText(_Text, _Player);
 ObjectSetFlag(_Player, "LLEQSET_Naming_TextSaved");
 ObjectClearFlag(_Player, "LLEQSET_NamingWizard_Running");
+SetVarString(_Player, "LLNWIZ_FinalText", "");
+NOT DB_LLEQSET_NamingWizard_UsingWizard(_Player, _TimerActive);
 Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);
 
 IF

@@ -444,17 +444,6 @@ AND
 DB_LLEQSET_Naming_FinishedText(_Name, _Player)
 THEN
 NOT DB_LLEQSET_Naming_FinishedText(_Name, _Player);
-
-IF
-DialogEnded("LLEQSET_EquipmentSetMenu", _Instance)
-AND
-DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
-AND
-ObjectGetFlag(_Player, "LLEQSET_Menu_OpenNamingMenu", 1)
-AND
-LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Menu_OpenNamingMenu")
-THEN
-SetStoryEvent(_Player, "LLNWIZ_Events_OpenNamingWizard_PlayerOnly");
 //END_REGION
 EXITSECTION
 
