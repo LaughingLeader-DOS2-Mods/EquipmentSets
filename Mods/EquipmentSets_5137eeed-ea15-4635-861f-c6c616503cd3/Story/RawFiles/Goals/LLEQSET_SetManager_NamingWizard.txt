@@ -1,6 +1,7 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
+LLEQSET_NamingInterface_InitSettings();
 //DB_LLEQSET_NamingWizard_UsingWizard(_Player, _TimerActive);
 KBSECTION
 //REGION SETTINGS
@@ -52,7 +53,7 @@ THEN
 ObjectClearFlag(_Player, "LLEQSET_NamingWizard_Running");
 ObjectClearFlag(_Player, "LLEQSET_Naming_TextSaved");
 NOT DB_LLEQSET_NamingWizard_UsingWizard(_Player, 1);
-LLEQSET_DebugLog("[NamingWizard:Timeout] LLNWIZ_NamingWizard dialog failed to start.");
+LeaderLog_Log("DEBUG","[LLEQSET:NamingWizard:Timeout] LLNWIZ_NamingWizard dialog failed to start.");
 Proc_StartDialog(0, "LLEQSET_EquipmentSetMenu", _Player, _Player);
 
 IF

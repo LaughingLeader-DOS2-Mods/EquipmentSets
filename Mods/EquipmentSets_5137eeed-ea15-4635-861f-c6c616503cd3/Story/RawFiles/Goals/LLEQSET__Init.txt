@@ -303,7 +303,7 @@ AND
 DB_LLEQSET_Temp_TracedCharacterValue(_Player, _Name)
 THEN
 DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue);
-LLEQSET_DebugLog("[LLEQSET:System] Player [",_Name,"] color [", _ColorID, "] registered.");
+LeaderLog_Log("DEBUG","[LLEQSET:System] Player [",_Name,"] color [", _ColorID, "] registered.");
 NOT DB_LLEQSET_Temp_TracedCharacterValue(_Player, _Name);
 
 //END_REGION

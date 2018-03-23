@@ -2,7 +2,7 @@ Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
 LLEQSET_Updater_InitSettings();
-LLEQSET_Updater_RegisterMod("0.9.0.0");
+LeaderUpdater_RegisterMod("EquipmentSets", "0.9.0.0",  "LaughingLeader");
 
 //DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 KBSECTION
@@ -16,43 +16,29 @@ DB_LLEQSET_Dependencies("NamingWizard", "LaughingLeader", "LLEQSET_Global_Naming
 
 //REGION MOD_UPDATING
 PROC
-LLEQSET_Updater_ClearPreviousVersions()
-AND
-DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader")
-THEN
-NOT DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader");
-
-PROC
-LLEQSET_Updater_RegisterMod((STRING)_Version)
-AND
-NOT DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader")
-THEN
-LLEQSET_Updater_ClearPreviousVersions();
-DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader");
-
-QRY
-LLEQSET_QRY_Updater_ModUpdateNeeded((STRING)_NewVersion)
-AND
-NOT DB_Mods_RegisteredMod("EquipmentSets", _NewVersion, "LaughingLeader")
-THEN
-DB_NOOP(1);
-
-PROC
 LLEQSET_System_UpdateDatabases()
 THEN
-LLEQSET_DebugLog("[Updater] Databases updated.");
+LeaderLog_Log("DEBUG","[LLEQSET][Updater] Databases updated.");
 
 PROC
 LLEQSET_System_ClearDatabases()
 THEN
-LLEQSET_DebugLog("[Updater] Databases cleared.");
+LeaderLog_Log("DEBUG","[LLEQSET][Updater] Databases cleared.");
 
 PROC
-LLEQSET_System_UnregisterMod()
-AND
-DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader")
+LLEQSET_Updater_UnregisterMod()
 THEN
-NOT DB_Mods_RegisteredMod("EquipmentSets", _Version, "LaughingLeader");
+LeaderUpdater_UnregisterMod("EquipmentSets", "LaughingLeader");
+//END_REGION
+
+//REGION UPDATE_EVENT
+IF
+GameStarted(_,_)
+AND
+LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "0.9.0.0", "LaughingLeader")
+THEN
+LeaderUpdater_RegisterMod("EquipmentSets", "0.9.0.0", "LaughingLeader");
+LLEQSET_System_UpdateDatabases();
 //END_REGION
 
 //REGION MOD_DETECTION
@@ -61,9 +47,9 @@ LLEQSET_Updater_CheckDependencies()
 AND
 DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 AND
-DB_Mods_RegisteredMod(_Mod, _Version, _Author)
+LeaderUpdater_QRY_ModIsActive(_Mod, _Author)
 THEN
-LLEQSET_DebugLog("[Updater] Mod ",_Mod,"(",_Version,") by ", _Author," found.");
+LeaderLog_Log("DEBUG","[LLEQSET][Updater] Mod ",_Mod," by ", _Author," is active.");
 GlobalSetFlag(_GlobalFlag);
 
 PROC
@@ -71,21 +57,13 @@ LLEQSET_Updater_CheckDependencies()
 AND
 DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 AND
-NOT DB_Mods_RegisteredMod(_Mod, _, _Author)
+NOT LeaderUpdater_QRY_ModIsActive(_Mod, _Author)
 THEN
-LLEQSET_DebugLog("[Updater] Mod ",_Mod," by ", _Author," not found.");
+LeaderLog_Log("DEBUG","[LLEQSET][Updater] Mod ",_Mod," by ", _Author," not active.");
 GlobalClearFlag(_GlobalFlag);
 //END_REGION
 
-//UPDATE_EVENT
-IF
-GameStarted(_,_)
-AND
-LLEQSET_QRY_Updater_ModUpdateNeeded("0.9.0.0")
-THEN
-LLEQSET_Updater_RegisterMod("0.9.0.0");
-LLEQSET_System_UpdateDatabases();
-
+//DEPENDENCY_CHECK_EVENT
 IF
 GameStarted(_,_)
 THEN
@@ -96,6 +74,6 @@ TimerFinished("LLEQSET_Timers_CheckDependencies")
 THEN
 LLEQSET_Updater_CheckDependencies();
 EXITSECTION
-LLEQSET_System_UnregisterMod();
+LLEQSET_Updater_UnregisterMod();
 ENDEXITSECTION
 ParentTargetEdge "LaughingLeader_EquipmentSets"

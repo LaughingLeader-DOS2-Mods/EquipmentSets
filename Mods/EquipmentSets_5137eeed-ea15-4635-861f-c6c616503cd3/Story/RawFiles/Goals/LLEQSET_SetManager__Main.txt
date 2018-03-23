@@ -66,7 +66,7 @@ SysClear("DB_LLEQSET_SetManager_DelayIncrement", 1);
 SysClear("DB_LLEQSET_Temp_SetManager_EquipDelay", 2);
 SysClear("DB_LLEQSET_Temp_SetManager_EquipDelayTimer", 4);
 SysClear("DB_LLEQSET_Temp_SetManager_UnequipDelayTimer", 4);
-LLEQSET_DebugLog("[SetManager_Main] Databases cleared.");
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager_Main] Databases cleared.");
 
 PROC
 LLEQSET_System_UpdateDatabases()
@@ -630,7 +630,7 @@ AND
 ObjectGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
 THEN
 DB_LLEQSET_Temp_SetManager_Equipping(_Player, _SetID, 0, 0);
-LLEQSET_DebugLog("[SetManager] Disabling auto-save while set is equipped.");
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager] Disabling auto-save while set is equipped.");
 
 QRY
 LLEQSET_QRY_SetManager_PrepareEquippingCount((CHARACTERGUID)_Player, (STRING)_SetID)
@@ -660,7 +660,7 @@ _Current > 0
 THEN
 NOT DB_LLEQSET_Temp_SetManager_DisableAutoSave(_Player);
 NOT DB_LLEQSET_Temp_SetManager_Equipping(_Player, _SetID, _Current, _Total);
-LLEQSET_DebugLog("[SetManager] Auto-save re-enabled.");
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager] Auto-save re-enabled.");
 
 IF
 ItemAddedToContainer(_Item, _Backpack)
@@ -705,7 +705,7 @@ DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot)
 THEN
 LLEQSET_SetManager_RegisterEquipment(_Player, _SetID, _Slot, _Item);
 NOT DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);
-LLEQSET_DebugLog("[SetManager] Auto-saved item to Set [",_SetID,"] in slot[",_Slot,"]");
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager] Auto-saved item to Set [",_SetID,"] in slot[",_Slot,"]");
 
 IF
 ItemUnEquipped(_Item, _Player)
@@ -719,7 +719,7 @@ AND
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
 THEN
 LLEQSET_SetManager_ClearSavedInSlot(_Player, _SetID, _Slot);
-LLEQSET_DebugLog("[SetManager] Auto-saved enabled, cleared item in Set [",_SetID,"] from slot[",_Slot,"]");
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager] Auto-saved enabled, cleared item in Set [",_SetID,"] from slot[",_Slot,"]");
 //END_REGION
 EXITSECTION
 

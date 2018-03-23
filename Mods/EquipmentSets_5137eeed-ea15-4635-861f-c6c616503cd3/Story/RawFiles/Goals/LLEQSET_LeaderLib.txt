@@ -1,0 +1,36 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+//DB_LLNWIZ_RegisteredLeaderLibSettings(_Val)
+KBSECTION
+IF
+StoryEvent(_, "LeaderLib_Initialized")
+AND
+NOT DB_LLNWIZ_RegisteredLeaderLibSettings(_)
+THEN
+LLEQSET_LeaderLib_RegisterSettings();
+DB_LLNWIZ_RegisteredLeaderLibSettings(1);
+
+PROC
+LLEQSET_LeaderLib_RegisterSettings()
+THEN
+LeaderLib_RegisterModMenu("LaughingLeader_EquipmentSets", "[Equipment Sets] Settings", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
+LeaderUpdater_RegisterModActiveGoal("EquipmentSets", "LaughingLeader", "LLEQSET_LeaderLib");
+
+PROC
+LLEQSET_LeaderLib_RegisterSettings()
+AND
+DB_LLEQSET_MenuItem(_Template)
+THEN
+LLLIB_Treasure_AddTreasureItemTemplate("LLLIB_LeaderTrader_ModBooks", _Template, 1);
+
+PROC
+LLEQSET_LeaderLib_RegisterSettings()
+THEN
+LLLIB_Trader_Register_Position("LLLIB_LeaderTrader", "TestLevel_EquipmentSets", 15.70, 0.0, 3.19);
+LLLIB_Trader_Register_StartingGold("LLLIB_LeaderTrader", "TestLevel_EquipmentSets", 11000);
+//LLLIB_Trader_Register_PositionObject("LLLIB_LeaderTrader", "LLNWIZ_DebugLevel", ITEMGUID_WPN_Dwarves_Shield_A_000_ef289002-e5b3-4a3e-8ad5-1d68ac847f67);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"

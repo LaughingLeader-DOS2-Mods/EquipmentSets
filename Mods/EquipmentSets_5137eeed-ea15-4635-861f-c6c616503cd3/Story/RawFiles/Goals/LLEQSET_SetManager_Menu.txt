@@ -17,7 +17,7 @@ LLEQSET_Menu_InitializeSettings();
 PROC
 LLEQSET_System_ClearDatabases()
 THEN
-LLEQSET_DebugLog("[SetManager_Menu] Databases cleared.");
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager_Menu] Databases cleared.");
 //END_REGION
 
 //REGION HELPERS
