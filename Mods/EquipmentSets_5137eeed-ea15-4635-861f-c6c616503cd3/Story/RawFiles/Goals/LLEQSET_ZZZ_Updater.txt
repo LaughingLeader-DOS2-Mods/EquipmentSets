@@ -3,6 +3,7 @@ SubGoalCombiner SGC_AND
 INITSECTION
 LLEQSET_Updater_InitSettings();
 LeaderUpdater_RegisterMod("EquipmentSets", "0.9.0.0",  "LaughingLeader");
+LeaderUpdater_RegisterActiveGoal("EquipmentSets", "LaughingLeader", "LLEQSET_LeaderLib");
 
 //DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 KBSECTION
