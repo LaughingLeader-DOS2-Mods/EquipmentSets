@@ -53,12 +53,6 @@ LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_SetManager_EquipDelayTimer
 LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_SetManager_UnequipDelayTimer", 4);
 
 PROC
-LLEQSET_SetManager_ClearDatabases()
-THEN
-
-LeaderLog_Log("DEBUG","[LLEQSET:SetManager_Main] Databases cleared.");
-
-PROC
 LLEQSET_System_UpdateDatabases()
 THEN
 LLEQSET_SetManager_InitializeSettings();

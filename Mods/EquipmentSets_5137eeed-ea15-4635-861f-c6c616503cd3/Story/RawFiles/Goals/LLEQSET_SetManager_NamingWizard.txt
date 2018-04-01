@@ -15,8 +15,8 @@ DB_NOOP(1);
 PROC
 LLEQSET_System_RegisterDatabases()
 THEN
-//LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_", 0);
-LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Databases registered.");
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_NamingWizard", "DB_LLEQSET_NamingWizard_UsingWizard", 2);
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager:NamingWizard] Databases registered.");
 //END_REGION
 
 //Open Naming Wizard
