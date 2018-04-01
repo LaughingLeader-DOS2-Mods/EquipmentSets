@@ -93,21 +93,20 @@ THEN
 LLEQSET_System_InitializeSettings();
 
 PROC
-LLEQSET_System_ClearDatabases()
+LLEQSET_System_RegisterDatabases()
 THEN
-SysClear("DB_LLEQSET_EquipmentSlots", 1);
-SysClear("DB_LLEQSET_SystemColors", 2);
-SysClear("DB_LLEQSET_DefaultColors", 3);
-SysClear("DB_LLEQSET_PlayerColors", 3);
-SysClear("DB_LLEQSET_MenuSkill", 1);
-SysClear("DB_LLEQSET_MenuItem", 1);
-SysClear("DB_LLEQSET_System_PlayerInitialized", 1);
-SysClear("DB_LLEQSET_Temp_NextMessageColor", 3);
-SysClear("DB_LLEQSET_Temp_OutVariable", 2);
-SysClear("DB_LLEQSET_Temp_TracedCharacterValue", 2);
-SysClear("DB_LLEQSET_Temp_ItemSlot", 3);
-
-DebugBreak("[LLEQSET] System databases cleared.");
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_EquipmentSlots", 1);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_SystemColors", 2);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_DefaultColors", 3);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_PlayerColors", 3);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_MenuSkill", 1);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_MenuItem", 1);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_System_PlayerInitialized", 1);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_NextMessageColor", 3);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_OutVariable", 2);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_TracedCharacterValue", 2);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_ItemSlot", 3);
+LeaderLog_Log("DEBUG","[LLEQSET:System] Databases registered.");
 
 //END_REGION
 

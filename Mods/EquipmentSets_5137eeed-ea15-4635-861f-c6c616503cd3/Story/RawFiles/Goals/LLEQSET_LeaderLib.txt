@@ -5,6 +5,11 @@ INITSECTION
 KBSECTION
 IF
 StoryEvent(_, "LeaderLib_Initialized")
+THEN
+GlobalSetFlag("LeaderLog_Debug_Enabled");
+
+IF
+StoryEvent(_, "LeaderLib_Initialized")
 AND
 NOT DB_LLNWIZ_RegisteredLeaderLibSettings(_)
 THEN
@@ -15,7 +20,6 @@ PROC
 LLEQSET_LeaderLib_RegisterSettings()
 THEN
 LeaderLib_RegisterModMenu("LaughingLeader_EquipmentSets", "[Equipment Sets] Settings", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
-
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()

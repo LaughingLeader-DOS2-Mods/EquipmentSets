@@ -15,9 +15,10 @@ THEN
 LLEQSET_Menu_InitializeSettings();
 
 PROC
-LLEQSET_System_ClearDatabases()
+LLEQSET_System_RegisterDatabases()
 THEN
-LeaderLog_Log("DEBUG","[LLEQSET:SetManager_Menu] Databases cleared.");
+//LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_", 0);
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Databases registered.");
 //END_REGION
 
 //REGION HELPERS

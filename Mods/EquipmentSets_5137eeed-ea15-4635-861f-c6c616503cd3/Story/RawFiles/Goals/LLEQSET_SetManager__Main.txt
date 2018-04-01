@@ -55,17 +55,7 @@ LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Temp_SetManager_UnequipDelayTim
 PROC
 LLEQSET_SetManager_ClearDatabases()
 THEN
-SysClear("DB_LLEQSET_Menu_SelectedSet", 2);
-SysClear("DB_LLEQSET_SetManager_CurrentSet", 2);
-SysClear("DB_LLEQSET_SetManager_LastSet", 2);
-SysClear("DB_LLEQSET_SetManager_SavedSetEquipment", 4);
-SysClear("DB_LLEQSET_SetManager_SetNames", 3);
-SysClear("DB_LLEQSET_SetManager_SetConfig", 4);
-SysClear("DB_LLEQSET_SetManager_Variables", 4);
-SysClear("DB_LLEQSET_SetManager_DelayIncrement", 1);
-SysClear("DB_LLEQSET_Temp_SetManager_EquipDelay", 2);
-SysClear("DB_LLEQSET_Temp_SetManager_EquipDelayTimer", 4);
-SysClear("DB_LLEQSET_Temp_SetManager_UnequipDelayTimer", 4);
+
 LeaderLog_Log("DEBUG","[LLEQSET:SetManager_Main] Databases cleared.");
 
 PROC
@@ -74,10 +64,20 @@ THEN
 LLEQSET_SetManager_InitializeSettings();
 
 PROC
-LLEQSET_System_ClearDatabases()
+LLEQSET_System_RegisterDatabases()
 THEN
-LLEQSET_SetManager_ClearDatabases();
-
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Menu_SelectedSet", 2);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_CurrentSet", 2);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_LastSet", 2);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_SavedSetEquipment", 4);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_SetNames", 3);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_SetConfig", 4);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_Variables", 4);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_DelayIncrement", 1);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Temp_SetManager_EquipDelay", 2);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Temp_SetManager_EquipDelayTimer", 4);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Temp_SetManager_UnequipDelayTimer", 4);
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Main] Databases registered.");
 //END_REGION
 
 //REGION CLEAR

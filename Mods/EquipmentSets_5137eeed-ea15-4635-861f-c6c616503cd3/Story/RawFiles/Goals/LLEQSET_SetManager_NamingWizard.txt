@@ -11,6 +11,14 @@ THEN
 DB_NOOP(1);
 //END_REGION
 
+//REGION UPDATER
+PROC
+LLEQSET_System_RegisterDatabases()
+THEN
+//LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_", 0);
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Databases registered.");
+//END_REGION
+
 //Open Naming Wizard
 IF
 DialogEnded("LLEQSET_EquipmentSetMenu", _Instance)

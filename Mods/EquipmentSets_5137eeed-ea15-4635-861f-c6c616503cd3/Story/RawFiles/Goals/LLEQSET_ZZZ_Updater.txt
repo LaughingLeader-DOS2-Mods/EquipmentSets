@@ -2,8 +2,8 @@ Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
 LLEQSET_Updater_InitSettings();
-LeaderUpdater_RegisterMod("EquipmentSets", "0.9.0.0",  "LaughingLeader");
-LeaderUpdater_RegisterActiveGoal("EquipmentSets", "LaughingLeader", "LLEQSET_LeaderLib");
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "0.9.0.0");
+LeaderUpdater_Register_ActiveGoal("EquipmentSets", "LaughingLeader", "LLEQSET_LeaderLib");
 
 //DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 KBSECTION
@@ -22,9 +22,9 @@ THEN
 LeaderLog_Log("DEBUG","[LLEQSET][Updater] Databases updated.");
 
 PROC
-LLEQSET_System_ClearDatabases()
+LLEQSET_System_RegisterDatabases()
 THEN
-LeaderLog_Log("DEBUG","[LLEQSET][Updater] Databases cleared.");
+LeaderLog_Log("DEBUG","[LLEQSET][Updater] Databases registered.");
 
 PROC
 LLEQSET_Updater_UnregisterMod()
@@ -36,9 +36,9 @@ LeaderUpdater_UnregisterMod("EquipmentSets", "LaughingLeader");
 IF
 GameStarted(_,_)
 AND
-LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "0.9.0.0", "LaughingLeader")
+LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", "0.9.0.0")
 THEN
-LeaderUpdater_RegisterMod("EquipmentSets", "0.9.0.0", "LaughingLeader");
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "0.9.0.0");
 LLEQSET_System_UpdateDatabases();
 //END_REGION
 
@@ -75,6 +75,6 @@ TimerFinished("LLEQSET_Timers_CheckDependencies")
 THEN
 LLEQSET_Updater_CheckDependencies();
 EXITSECTION
-LLEQSET_Updater_UnregisterMod();
+
 ENDEXITSECTION
 ParentTargetEdge "LaughingLeader_EquipmentSets"
