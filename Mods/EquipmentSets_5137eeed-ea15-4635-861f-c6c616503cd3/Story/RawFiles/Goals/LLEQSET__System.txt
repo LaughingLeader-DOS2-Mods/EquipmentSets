@@ -80,7 +80,7 @@ LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_MenuSkill", 1);
 DB_LLEQSET_MenuSkill("Shout_LLEQSET_OpenSetMenu");
 
 LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_MenuItem", 1);
-DB_LLEQSET_MenuItem("LLEQSET_BOOK_MenuBook_42227c69-e194-4de6-9771-c05f39aa3f46");
+DB_LLEQSET_MenuItem("BOOK_LLEQSET_MenuBook_42227c69-e194-4de6-9771-c05f39aa3f46");
 
 SysClear("DB_LLEQSET_Temp_NextMessageColor", 3);
 SysClear("DB_LLEQSET_Temp_OutVariable", 2);

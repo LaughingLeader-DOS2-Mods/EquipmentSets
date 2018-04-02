@@ -3,7 +3,7 @@ SubGoalCombiner SGC_AND
 INITSECTION
 LLEQSET_Menu_InitializeSettings();
 KBSECTION
-//REGION SETTINGS
+//REGION SETTINGS_UPDATER
 PROC
 LLEQSET_Menu_InitializeSettings()
 THEN
@@ -19,10 +19,6 @@ LLEQSET_System_RegisterDatabases()
 THEN
 //LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_", 0);
 LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Databases registered.");
-//END_REGION
-
-//REGION HELPERS
-
 //END_REGION
 
 //REGION CLEAR
