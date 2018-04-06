@@ -1,7 +1,7 @@
 {
    "save" : {
       "header" : {
-         "time" : 1521838395,
+         "time" : 1522713383,
          "version" : "2.0.8.2"
       },
       "regions" : {
@@ -3001,7 +3001,7 @@
                                  {
                                     "flag" : [
                                        {
-                                          "name" : {"type" : 22, "value" : "LeaderLib_ModSettingsMenu_ClearMemory"},
+                                          "name" : {"type" : 22, "value" : "LeaderLib_BlockModSettingsMenuReopen"},
                                           "paramval" : {"type" : 4, "value" : 1},
                                           "value" : {"type" : 19, "value" : 1}
                                        }

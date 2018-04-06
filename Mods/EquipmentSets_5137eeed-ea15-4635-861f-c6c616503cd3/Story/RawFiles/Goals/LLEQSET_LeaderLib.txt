@@ -1,25 +1,20 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-//DB_LLNWIZ_RegisteredLeaderLibSettings(_Val)
+//DB_LLEQSET_RegisteredLeaderLibSettings(_Val)
 KBSECTION
 IF
 StoryEvent(_, "LeaderLib_Initialized")
-THEN
-GlobalSetFlag("LeaderLog_Debug_Enabled");
-
-IF
-StoryEvent(_, "LeaderLib_Initialized")
 AND
-NOT DB_LLNWIZ_RegisteredLeaderLibSettings(_)
+NOT DB_LLEQSET_RegisteredLeaderLibSettings(_)
 THEN
 LLEQSET_LeaderLib_RegisterSettings();
-DB_LLNWIZ_RegisteredLeaderLibSettings(1);
+DB_LLEQSET_RegisteredLeaderLibSettings(1);
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
 THEN
-LeaderLib_RegisterModMenu("LaughingLeader_EquipmentSets", "[Equipment Sets] Settings", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
+LeaderLib_Register_ModMenu("LaughingLeader_EquipmentSets", "[Equipment Sets] Settings", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
@@ -27,6 +22,7 @@ AND
 DB_LLEQSET_MenuItem(_Template)
 THEN
 LLLIB_Treasure_AddTreasureItemTemplate("LLLIB_LeaderTrader_ModBooks", _Template, 1);
+LLLIB_Treasure_Configure_AddMaxAmount("LLLIB_LeaderTrader_ModBooks", _Template, 1);
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
