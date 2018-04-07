@@ -14,7 +14,7 @@ DB_LLEQSET_RegisteredLeaderLibSettings(1);
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
 THEN
-LeaderLib_Register_ModMenu("LaughingLeader_EquipmentSets", "[Equipment Sets] Settings", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
+LeaderLib_Register_ModMenu("LaughingLeader_EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()

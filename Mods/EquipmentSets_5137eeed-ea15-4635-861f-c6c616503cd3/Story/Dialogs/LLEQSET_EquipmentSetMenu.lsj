@@ -1,7 +1,7 @@
 {
    "save" : {
       "header" : {
-         "time" : 1522713383,
+         "time" : 1523072769,
          "version" : "2.0.8.2"
       },
       "regions" : {
@@ -5600,7 +5600,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "<i>Equipment Sets</i> - Main Menu<br>[LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2]<br>[LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22]"
+                                                   "value" : "Equipment Sets Main Menu<br>[LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2]<br>[LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22]"
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
