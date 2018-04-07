@@ -452,7 +452,7 @@ AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_ClearCurrentSet(_Player);
-LLEQSET_ColorSetText(_Player, _SetID, "UnequippedAll", "Unequipped ", "");
+LLEQSET_ColorSetText(_Player, _SetID, "UnequippedAll", "Unequipped  ", "");
 //END_REGION
 
 //REGION EQUIPMENT_METHODS
@@ -485,7 +485,7 @@ NOT DB_LLEQSET_Temp_SetManager_UnequippedSet(_Player, _SetID)
 AND
 LLEQSET_QRY_SetManager_SetCurrentSet(_Player, _SetID)
 AND
-LLEQSET_QRY_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to ", "")
+LLEQSET_QRY_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to  ", "")
 AND
 LLEQSET_QRY_SetManager_ResetEquipDelay(_Player)
 AND
@@ -502,7 +502,7 @@ NOT LLEQSET_QRY_SetExists(_Player,_SetID)
 THEN
 LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
 LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
-LLEQSET_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to ", "");
+LLEQSET_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to  ", "");
 //LLEQSET_ColorSetText(_Player, _SetID, "Error", "", " has not been saved!");
 
 PROC
@@ -540,7 +540,7 @@ DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, NULL_00000000-00
 PROC
 LLEQSET_SetManager_RegisterAllEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
 THEN
-LLEQSET_ColorSetText(_Player, _SetID, "SetSaved", "Saved all current equipment to ", "");
+LLEQSET_ColorSetText(_Player, _SetID, "SetSaved", "Saved all current equipment to   ", "");
 
 PROC
 LLEQSET_SetManager_RegisterEquipment((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Slot, (ITEMGUID)_Item)

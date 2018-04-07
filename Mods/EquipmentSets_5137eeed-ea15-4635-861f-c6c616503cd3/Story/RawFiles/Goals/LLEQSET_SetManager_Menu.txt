@@ -2,12 +2,18 @@ Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
 LLEQSET_Menu_InitializeSettings();
+//DB_LLEQSET_SetManager_DefaultSetNames(_SetID, _DefaultName)
 KBSECTION
 //REGION SETTINGS_UPDATER
 PROC
 LLEQSET_Menu_InitializeSettings()
 THEN
-DB_NOOP(1);
+LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_SetManager_DefaultSetNames", 2);
+DB_LLEQSET_SetManager_DefaultSetNames("Set1", "Set 1");
+DB_LLEQSET_SetManager_DefaultSetNames("Set2", "Set 2");
+DB_LLEQSET_SetManager_DefaultSetNames("Set3", "Set 3");
+DB_LLEQSET_SetManager_DefaultSetNames("Set4", "Set 4");
+DB_LLEQSET_SetManager_DefaultSetNames("Set5", "Set 5");
 
 PROC
 LLEQSET_System_UpdateDatabases()
@@ -18,6 +24,7 @@ PROC
 LLEQSET_System_RegisterDatabases()
 THEN
 //LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_", 0);
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_LLEQSET_SetManager_DefaultSetNames", 2);
 LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Databases registered.");
 //END_REGION
 
@@ -52,9 +59,11 @@ LLEQSET_Menu_SetCurrentSetName((CHARACTERGUID)_Player, (INTEGER)_Instance, (STRI
 AND
 DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 AND
+DB_LLEQSET_SetManager_DefaultSetNames(_SetID, _DefaultName)
+AND
 StringConcatenate(_Name, " (", _Str1)
 AND
-StringConcatenate(_Str1, _SetID, _Str2)
+StringConcatenate(_Str1, _DefaultName, _Str2)
 AND
 StringConcatenate(_Str2, ")", _DisplayedName)
 THEN
