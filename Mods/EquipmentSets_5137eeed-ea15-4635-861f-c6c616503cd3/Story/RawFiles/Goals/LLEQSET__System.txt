@@ -1,7 +1,7 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-//DB_LLEQSET_EquipmentSlots(_Slot)
+//DB_LLLIB_EquipmentSlots(_Slot)
 //DB_LLEQSET_SystemColors(_Color, _ColorValue)
 //DB_LLEQSET_DefaultColors(_Index, _ColorName, _ColorValue)
 //DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue)
@@ -61,19 +61,6 @@ DB_LLEQSET_DefaultColors(18, "Black", "000000");
 PROC
 LLEQSET_System_InitializeSettings()
 THEN
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_EquipmentSlots", 1);
-DB_LLEQSET_EquipmentSlots("Weapon");
-DB_LLEQSET_EquipmentSlots("Shield");
-DB_LLEQSET_EquipmentSlots("Helmet");
-DB_LLEQSET_EquipmentSlots("Breast");
-DB_LLEQSET_EquipmentSlots("Leggings");
-DB_LLEQSET_EquipmentSlots("Ring");
-DB_LLEQSET_EquipmentSlots("Belt");
-DB_LLEQSET_EquipmentSlots("Boots");
-DB_LLEQSET_EquipmentSlots("Gloves");
-DB_LLEQSET_EquipmentSlots("Amulet");
-DB_LLEQSET_EquipmentSlots("Ring2");
-
 LLEQSET_System_InitColors();
 
 LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_MenuSkill", 1);
@@ -95,7 +82,6 @@ LLEQSET_System_InitializeSettings();
 PROC
 LLEQSET_System_RegisterDatabases()
 THEN
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_EquipmentSlots", 1);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_SystemColors", 2);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_DefaultColors", 3);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_PlayerColors", 3);
@@ -440,7 +426,7 @@ NOT DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);
 QRY
 LLEQSET_QRY_GetSlot((CHARACTERGUID)_Player, (ITEMGUID)_Item)
 AND
-DB_LLEQSET_EquipmentSlots(_Slot)
+DB_LLLIB_EquipmentSlots(_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, _Item)
 THEN
@@ -457,23 +443,7 @@ LLEQSET_ColorStatusText(_Player, _Message, _Color);
 NOT DB_LLEQSET_Timers_DelayedMessage(_TimerName, _Player, _Message, _Color);
 //END_REGION
 
-//REGION HOST_FLAGGING
-PROC
-LLEQSET_System_MarkHost((CHARACTERGUID)_Player)
-AND
-CharacterGetHostCharacter(_Player)
-THEN
-UserSetFlag(_Player, "LLEQSET_ISHOST");
-
-PROC
-LLEQSET_System_MarkHost((CHARACTERGUID)_Player)
-AND
-NOT CharacterGetHostCharacter(_Player)
-AND
-UserGetFlag(_Player, "LLEQSET_ISHOST", 1)
-THEN
-UserClearFlag(_Player, "LLEQSET_ISHOST", 0);
-
+//REGION INIT
 PROC
 LLEQSET_System_ClearInitialization((CHARACTERGUID)_Player)
 AND
@@ -500,11 +470,10 @@ THEN
 DB_LLEQSET_System_PlayerInitialized(_Player);
 
 IF
-GameStarted(_,_)
+StoryEvent(_, "LeaderLib_Initialized")
 AND
 DB_IsPlayer(_Player)
 THEN
-LLEQSET_System_MarkHost(_Player);
 LLEQSET_System_InitialSetup(_Player);
 //END_REGION
 

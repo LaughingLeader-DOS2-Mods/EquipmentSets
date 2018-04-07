@@ -335,7 +335,7 @@ LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_UnequipEverything")
 AND
 LLEQSET_QRY_ColorStatusText(_Player, "Unequipped all items.", "UnequippedAll")
 AND
-DB_LLEQSET_EquipmentSlots(_Slot)
+DB_LLLIB_EquipmentSlots(_Slot)
 THEN
 LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
 

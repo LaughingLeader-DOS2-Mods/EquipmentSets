@@ -14,6 +14,7 @@ INITSECTION
 //DB_LLEQSET_Temp_SetManager_DisableAutoSave(_Player);
 //DB_LLEQSET_Temp_SetManager_Equipping(_Player, _SetID, _Current, _Total);
 //DB_LLEQSET_Temp_SetManager_UnequippedSet(_Player, _SetID);
+//DB_LLEQSET_Temp_SetManager_UnequippedItemInSet(_Player, _SetID);
 //DB_LLEQSET_Temp_SetManager_EquipDelay(_Player, _Delay);
 //DB_LLEQSET_Temp_SetManager_EquipDelayTimer(_TimerName, _Player, _Slot, _Item)
 //DB_LLEQSET_Temp_SetManager_UnequipDelayTimer(_TimerName, _Player, _Slot, _Item)
@@ -78,13 +79,7 @@ LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Main] Databases registered.");
 PROC
 LLEQSET_SetManager_ClearSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
-THEN
-NOT DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
-LLEQSET_SetManager_RemoveFromBackpack(_Player, _SetID, _Item);
-
-PROC
-LLEQSET_SetManager_ClearSet((CHARACTERGUID)_Player, (STRING)_SetID)
+LLEQSET_QRY_SetNotEmpty(_Player, _SetID)
 AND
 LLEQSET_QRY_Helpers_GetSetName(_Player, _SetID)
 AND
@@ -96,6 +91,14 @@ LLEQSET_ColorStatusText(_Player, _Message, "SetCleared");
 NOT DB_LLEQSET_Temp_SetName(_Player, _SetID, _SetName);
 
 PROC
+LLEQSET_SetManager_ClearSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+THEN
+NOT DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
+LLEQSET_SetManager_RemoveFromBackpack(_Player, _SetID, _Item);
+
+PROC
 LLEQSET_SetManager_ClearSavedInSlot((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Slot)
 AND
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
@@ -104,7 +107,60 @@ NOT DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
 LLEQSET_SetManager_RemoveFromBackpack(_Player, _SetID, _Item);
 //END_REGION
 
+//REGION PLAYER_QUERIES
+QRY
+LLEQSET_QRY_PlayerHasEquipment((CHARACTERGUID)_Player)
+AND
+DB_LLLIB_EquipmentSlots(_Slot)
+AND
+CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
+AND
+_EquippedItem != NULL_00000000-0000-0000-0000-000000000000
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_ItemNotEquippedInSlot((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+NOT CharacterGetEquippedItem(_Player, _Slot, _)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_ItemNotEquippedInSlot((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+CharacterGetEquippedItem(_Player, _Slot, _CurrentItem)
+AND
+_CurrentItem != _Item
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_ItemNotEquippedInSlot((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+AND
+_Item == NULL_00000000-0000-0000-0000-000000000000
+AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 1)
+AND
+CharacterGetEquippedItem(_Player, _Slot, _CurrentItem)
+THEN
+DB_NOOP(1);
+//END_REGION
+
 //REGION SET_QUERIES
+QRY
+LLEQSET_QRY_SetNotEmpty((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+THEN
+DB_NOOP(1);
+
 QRY
 LLEQSET_QRY_SetExists((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
@@ -113,13 +169,22 @@ THEN
 DB_NOOP(1);
 
 QRY
+LLEQSET_QRY_SetManager_WillUnequip((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+CharacterGetEquippedItem(_Player, _Slot, _Item)
+THEN
+DB_NOOP(1);
+
+QRY
 LLEQSET_QRY_SetManager_SetEquipmentMismatch((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
 AND
-CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
-AND
-_EquippedItem != _Item
+LLEQSET_QRY_ItemNotEquippedInSlot(_Player, _Slot, _Item)
 THEN
 DB_NOOP(1);
 
@@ -136,6 +201,30 @@ AND
 LLEQSET_QRY_SetExists(_Player, _SetID)
 AND
 NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_SetManager_ShouldEquipSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetExists(_Player, _SetID)
+AND
+LLEQSET_QRY_SetNotEmpty(_Player, _SetID)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_SetManager_EquipmentIsChanging((CHARACTERGUID)_Player, (STRING)_NextSetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+AND
+_SetID != _NextSetID
+AND
+DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+AND
+DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _NextSetID, _Slot, _NextItem)
+AND
+_NextItem != _Item
 THEN
 DB_NOOP(1);
 //END_REGION
@@ -229,6 +318,11 @@ TimerLaunch(_TimerName, 500);
 //END_REGION
 
 //REGION HELPERS
+QRY
+LLEQSET_QRY_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+THEN
+LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
+
 PROC
 LLEQSET_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_NextSetID)
 AND
@@ -248,11 +342,6 @@ PROC
 LLEQSET_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
 THEN
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID);
-
-QRY
-LLEQSET_QRY_SetManager_SetCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
-THEN
-LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
 
 PROC
 LLEQSET_SetManager_SetLastSet((CHARACTERGUID)_Player, (STRING)_NextSetID)
@@ -441,8 +530,30 @@ AND
 LLEQSET_QRY_SetManager_ResetEquipDelay(_Player)
 AND
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+AND
+_Item != NULL_00000000-0000-0000-0000-000000000000
 THEN
 LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
+LLEQSET_SetManager_Internal_SetHasUnequippedItem(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_Internal_SetHasUnequippedItem((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT DB_LLEQSET_Temp_SetManager_UnequippedItemInSet(_Player, _SetID)
+THEN
+DB_LLEQSET_Temp_SetManager_UnequippedItemInSet(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_UnequipSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetExists(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+AND
+DB_LLEQSET_Temp_SetManager_UnequippedItemInSet(_Player, _SetID)
+THEN
+LLEQSET_ColorSetText(_Player, _SetID, "UnequippedAll", "Unequipped all equipment in ", "");
+NOT DB_LLEQSET_Temp_SetManager_UnequippedItemInSet(_Player, _SetID);
 
 PROC
 LLEQSET_SetManager_UnequipSet((CHARACTERGUID)_Player, (STRING)_SetID)
@@ -452,10 +563,10 @@ AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_ClearCurrentSet(_Player);
-LLEQSET_ColorSetText(_Player, _SetID, "UnequippedAll", "Unequipped  ", "");
+LLEQSET_ColorStatusText(_Player, "Current Set: None", "Warning");
 //END_REGION
 
-//REGION EQUIPMENT_METHODS
+//REGION CHANGE_SET
 PROC
 LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
@@ -468,7 +579,7 @@ LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 LLEQSET_QRY_SetExists(_Player,_SetID)
 AND
-NOT LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_UnequipSet(_Player, _SetID);
 DB_LLEQSET_Temp_SetManager_UnequippedSet(_Player, _SetID);
@@ -482,28 +593,76 @@ AND
 LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
 AND
 NOT DB_LLEQSET_Temp_SetManager_UnequippedSet(_Player, _SetID)
-AND
-LLEQSET_QRY_SetManager_SetCurrentSet(_Player, _SetID)
-AND
-LLEQSET_QRY_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to  ", "")
+THEN
+LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
+LLEQSET_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to  ", "");
+LLEQSET_SetManager_Internal_OnChangeSet(_Player, _SetID);
+
+PROC
+LLEQSET_SetManager_Internal_OnChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 LLEQSET_QRY_SetManager_ResetEquipDelay(_Player)
 AND
 LLEQSET_QRY_SetManager_PrepareEquippingCount(_Player, _SetID)
 AND
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+AND
+LLEQSET_QRY_ItemNotEquippedInSlot(_Player, _Slot, _Item)
 THEN
 LLEQSET_SetManager_EquipItem(_Player, _Slot, _Item);
+
+/*
+PROC
+LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+NOT LLEQSET_QRY_SetNotEmpty(_Player,_SetID) // Set is empty
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+THEN
+LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
+*/
+
+QRY
+LLEQSET_QRY_SetManager_CanSaveEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+LLEQSET_QRY_PlayerHasEquipment(_Player)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_SetManager_CanSaveEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+NOT LLEQSET_QRY_PlayerHasEquipment(_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 1)
+THEN
+DB_NOOP(1);
+
+PROC
+LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+LLEQSET_QRY_SetManager_CanSaveEquipment(_Player,_SetID)
+THEN
+LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
+LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
+LLEQSET_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to  ", "");
 
 PROC
 LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 NOT LLEQSET_QRY_SetExists(_Player,_SetID)
+AND
+NOT LLEQSET_QRY_PlayerHasEquipment(_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 0)
 THEN
-LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
-LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
-LLEQSET_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to  ", "");
-//LLEQSET_ColorSetText(_Player, _SetID, "Error", "", " has not been saved!");
+LLEQSET_ColorStatusText(_Player, "You're completely naked, and this set has not been saved!", "Error");
 
 PROC
 LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
@@ -522,7 +681,7 @@ LLEQSET_SetManager_ClearSet(_Player, _SetID);
 PROC
 LLEQSET_SetManager_RegisterAllEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLEQSET_EquipmentSlots(_Slot)
+DB_LLLIB_EquipmentSlots(_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
 THEN
@@ -531,7 +690,7 @@ DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
 PROC
 LLEQSET_SetManager_RegisterAllEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLEQSET_EquipmentSlots(_Slot)
+DB_LLLIB_EquipmentSlots(_Slot)
 AND
 NOT CharacterGetEquippedItem(_Player, _Slot, _)
 THEN
@@ -577,18 +736,18 @@ CharacterUsedSkill(_Player, _Skill, _)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
 AND
-LLEQSET_QRY_SetExists(_Player, _SetID)
+LLEQSET_QRY_SetManager_ShouldPlayEffect(_Player, _SetID)
 THEN
-PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
+LLEQSET_SetManager_PlayOverlayEffect(_Player, _SetID);
 
 IF
 SkillCast(_Player, _Skill, _)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
 AND
-LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
+LLEQSET_QRY_SetManager_ShouldPlayEffect(_Player, _SetID)
 THEN
-PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Cast_01", "Dummy_Root");
+LLEQSET_SetManager_PlayCastEffect(_Player, _SetID);
 
 IF
 SkillCast(_Player, _Skill, _)
@@ -604,10 +763,10 @@ DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate
 AND
 LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
 AND
-LLEQSET_QRY_SetExists(_Player, _SetID)
+LLEQSET_QRY_SetManager_ShouldPlayEffect(_Player, _SetID)
 THEN
-PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
-PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Cast_01", "Dummy_Root");
+LLEQSET_SetManager_PlayOverlayEffect(_Player, _SetID);
+LLEQSET_SetManager_PlayCastEffect(_Player, _SetID);
 
 IF
 CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
@@ -616,9 +775,9 @@ DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate
 AND
 NOT LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
 AND
-LLEQSET_QRY_SetExists(_Player, _SetID)
+LLEQSET_QRY_SetManager_ShouldPlayEffect(_Player, _SetID)
 THEN
-PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
+LLEQSET_SetManager_PlayOverlayEffect(_Player, _SetID);
 
 IF
 CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
@@ -626,6 +785,52 @@ AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
 THEN
 LLEQSET_SetManager_ChangeSet(_Player, _SetID);
+//END_REGION
+
+//REGION EFFECTS
+//Unequipping will have a visual change
+QRY
+LLEQSET_QRY_SetManager_ShouldPlayEffect((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+AND
+LLEQSET_QRY_SetManager_WillUnequip(_Player, _SetID)
+THEN
+DB_NOOP(1);
+
+//Equipping will have a visual change
+QRY
+LLEQSET_QRY_SetManager_ShouldPlayEffect((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _)
+AND
+LLEQSET_QRY_SetExists(_Player, _SetID)
+AND
+LLEQSET_QRY_SetManager_SetEquipmentMismatch(_Player, _SetID)
+THEN
+DB_NOOP(1);
+
+//Switching to a different set will have a visual change
+QRY
+LLEQSET_QRY_SetManager_ShouldPlayEffect((CHARACTERGUID)_Player, (STRING)_NextSetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _CurrentSetID)
+AND
+_NextSetID != _CurrentSetID
+AND
+LLEQSET_QRY_SetManager_SetEquipmentMismatch(_Player, _NextSetID)
+THEN
+DB_NOOP(1);
+
+PROC
+LLEQSET_SetManager_PlayOverlayEffect((CHARACTERGUID)_Player, (STRING)_SetID)
+THEN
+PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
+
+PROC
+LLEQSET_SetManager_PlayCastEffect((CHARACTERGUID)_Player, (STRING)_SetID)
+THEN
+PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Cast_01", "Dummy_Root");
 //END_REGION
 
 //REGION AUTO_SAVING
