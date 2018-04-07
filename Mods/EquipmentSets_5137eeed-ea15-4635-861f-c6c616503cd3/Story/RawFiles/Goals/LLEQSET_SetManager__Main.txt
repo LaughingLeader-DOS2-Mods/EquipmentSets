@@ -577,7 +577,7 @@ CharacterUsedSkill(_Player, _Skill, _)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
 AND
-LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
+LLEQSET_QRY_SetExists(_Player, _SetID)
 THEN
 PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
 
@@ -601,19 +601,31 @@ IF
 CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+AND
+LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
+AND
+LLEQSET_QRY_SetExists(_Player, _SetID)
 THEN
-LLEQSET_SetManager_ChangeSet(_Player, _SetID);
+PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
+PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Cast_01", "Dummy_Root");
 
 IF
 CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
 AND
-LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
+NOT LLEQSET_QRY_SetManager_ShouldChangeSet(_Player, _SetID)
+AND
+LLEQSET_QRY_SetExists(_Player, _SetID)
 THEN
 PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Overlay_01", "Dummy_Root");
-PlayEffect(_Player, "LLEQSET_FX_SwitchSet_Cast_01", "Dummy_Root");
 
+IF
+CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
+THEN
+LLEQSET_SetManager_ChangeSet(_Player, _SetID);
 //END_REGION
 
 //REGION AUTO_SAVING

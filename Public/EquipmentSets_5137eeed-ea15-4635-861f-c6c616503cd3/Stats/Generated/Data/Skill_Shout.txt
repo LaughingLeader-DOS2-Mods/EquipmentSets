@@ -16,7 +16,7 @@ data "DescriptionRef" "<font color='#00FA9A'>Automatically equip all items saved
 data "FXScale" "100"
 data "PrepareAnimationInit" "noprepare"
 data "PrepareAnimationLoop" "noprepare"
-data "CastAnimation" "skill_cast_shout_01_cast"
+data "CastAnimation" "skill_cast_self_touch_01_cast"
 data "CastTextEvent" "cast"
 data "CastEffect" ""
 data "Memory Cost" "0"
