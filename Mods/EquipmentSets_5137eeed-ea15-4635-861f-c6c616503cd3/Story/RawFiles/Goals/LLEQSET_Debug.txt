@@ -1,0 +1,100 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_LLEQSET_Debug_LoadoutChest(-1, (ITEMGUID)ITEMGUID_LLEQSET_Debug_Chest_Set1_adc31621-4a45-457f-85da-a3cff7e6a85b, "EquipLegendary", "LLEQSET_Debug_Chest1_Iterate", "LLEQSET_Debug_Chest1_IterationDone");
+DB_LLEQSET_Debug_LoadoutChest(1, ITEMGUID_LLEQSET_Debug_Chest_Set2_af6752f6-6357-42b8-a8d4-b9fd5dac7d54, "EquipLegendary", "LLEQSET_Debug_Chest2_Iterate", "LLEQSET_Debug_Chest2_IterationDone");
+DB_LLEQSET_Debug_LoadoutLever(-1, (ITEMGUID)ITEMGUID_LLEQSET_Debug_Lever_Set1_863726c4-2003-43af-8af4-99645fbe6203);
+DB_LLEQSET_Debug_LoadoutLever(1, ITEMGUID_LLEQSET_Debug_Lever_Set2_2bfc7c04-ffbd-42ea-a00e-28943ec3bbd2);
+KBSECTION
+IF
+StoryEvent(_, "LeaderLib_Initialized")
+AND
+DB_LLEQSET_Debug_LoadoutChest(_Num, _Chest, _Treasure, _IterateEvent, _CompleteEvent)
+AND
+String(_Chest, _ID)
+AND
+GetPosition(_Chest, _x,_y,_z)
+AND
+CreateItemTemplateAtPosition("LOOT_BackPack_A_6c70c298-aa29-418f-a659-f8e0b5f5fa60", _x,_y,_z, _Backpack)
+THEN
+GenerateTreasure(_Backpack, _Treasure, 15, NULL_00000000-0000-0000-0000-000000000000);
+MoveAllItemsTo(_Backpack, _Chest, 0, 0, 1);
+ItemDestroy(_Backpack);
+SetOnStage(_Backpack, 0);
+LeaderLog_Log("DEBUG", "[LLEQSET:Debug] Generated treasure [",_Treasure,"] for chest [",_ID,"].");
+ContainerIdentifyAll(_Chest);
+InventoryLaunchIterator(_Chest, _IterateEvent, _CompleteEvent);
+
+IF
+StoryEvent((ITEMGUID)_Item, _IterateEvent)
+AND
+DB_LLEQSET_Debug_LoadoutChest(_Num, _Chest, _Treasure, _IterateEvent, _CompleteEvent)
+THEN
+DB_LLEQSET_Debug_Loadout(_Num, _Item);
+
+IF
+StoryEvent((ITEMGUID)_Item, _CompleteEvent)
+AND
+DB_LLEQSET_Debug_LoadoutChest(_Num, _Chest, _Treasure, _IterateEvent, _CompleteEvent)
+AND
+String(_Chest, _ID)
+THEN
+LeaderLog_Log("DEBUG", "[LLEQSET:Debug:IterationComplete] Finished iterating chest [",_ID,"].");
+
+IF
+CharacterUsedItem(_Player, _Lever)
+AND
+DB_LLEQSET_Debug_LoadoutLever(_Set, _Lever)
+AND
+NOT DB_LLEQSET_Debug_Toggling(_Player)
+AND
+NOT DB_LLEQSET_Debug_LoadoutEquipped(_Player, _Set)
+AND
+IntegerProduct(_Set, -1, _OtherSet)
+THEN
+LLEQSET_Debug_UnequipLoadout(_Player, _OtherSet);
+LLEQSET_Debug_EquipLoadout(_Player, _Set);
+DB_LLEQSET_Debug_Toggling(_Player);
+
+IF
+CharacterUsedItem(_Player, _Lever)
+AND
+DB_LLEQSET_Debug_LoadoutLever(_Set, _Lever)
+AND
+NOT DB_LLEQSET_Debug_Toggling(_Player)
+AND
+DB_LLEQSET_Debug_LoadoutEquipped(_Player, _Set)
+THEN
+LLEQSET_Debug_UnequipLoadout(_Player, _Set);
+DB_LLEQSET_Debug_Toggling(_Player);
+
+PROC
+LLEQSET_Debug_UnequipLoadout((CHARACTERGUID)_Player, (INTEGER)_Set)
+AND
+DB_LLEQSET_Debug_Loadout(_Set, _Item)
+AND
+DB_LLEQSET_Debug_LoadoutChest(_Set, _Chest, _Treasure, _IterateEvent, _CompleteEvent)
+THEN
+CharacterUnequipItem(_Player, _Item);
+ItemToInventory(_Item, _Chest, 1, 1);
+NOT DB_LLEQSET_Debug_LoadoutEquipped(_Player, _Set);
+
+PROC
+LLEQSET_Debug_EquipLoadout((CHARACTERGUID)_Player, (INTEGER)_Set)
+AND
+DB_LLEQSET_Debug_Loadout(_Set, _Item)
+THEN
+ItemToInventory(_Item, _Player, 1, 1);
+CharacterEquipItem(_Player, _Item);
+DB_LLEQSET_Debug_LoadoutEquipped(_Player, _Set);
+
+IF
+CharacterUsedItem(_Player, _Lever)
+AND
+DB_LLEQSET_Debug_LoadoutLever(_Set, _Lever)
+THEN
+NOT DB_LLEQSET_Debug_Toggling(_Player);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LLEQSET_DebugLevel"
