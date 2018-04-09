@@ -33,7 +33,7 @@ PROC
 LLEQSET_System_RegisterDatabases()
 THEN
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "Updater", "DB_LLEQSET_Updater_RegisteredDatabases", 1);
-LeaderLog_Log("DEBUG","[LLEQSET][Updater] Databases registered.");
+LeaderLog_Log("TRACE","[LLEQSET][Updater] Databases registered.");
 
 
 PROC

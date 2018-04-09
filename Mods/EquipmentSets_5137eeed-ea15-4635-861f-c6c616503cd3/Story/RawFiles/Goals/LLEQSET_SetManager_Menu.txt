@@ -25,7 +25,7 @@ LLEQSET_System_RegisterDatabases()
 THEN
 //LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_", 0);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_LLEQSET_SetManager_DefaultSetNames", 2);
-LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Databases registered.");
+LeaderLog_Log("TRACE","[LLEQSET:SetManager:Menu] Databases registered.");
 //END_REGION
 
 //REGION CLEAR

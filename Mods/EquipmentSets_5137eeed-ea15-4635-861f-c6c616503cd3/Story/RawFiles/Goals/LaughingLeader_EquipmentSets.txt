@@ -1,7 +1,7 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-LLEQSET_Internal_StartEquipmentSets();
+
 KBSECTION
 PROC
 LLEQSET_Internal_StartEquipmentSets()
@@ -9,12 +9,10 @@ THEN
 DebugBreak("[LLEQSET] Equipment Sets starting.");
 GoalCompleted;
 
-/*
 IF
-GameModeStarted(_,_)
+GameEventSet("GAMEEVENT_GameStarted")
 THEN
-GoalCompleted;
-*/
+LLEQSET_Internal_StartEquipmentSets();
 EXITSECTION
 
 ENDEXITSECTION

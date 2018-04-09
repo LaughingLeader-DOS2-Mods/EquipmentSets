@@ -65,7 +65,7 @@ LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_M
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_EquipRate", 1);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Temp_EquipTimer", 5);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Temp_EquipTimerActive", 2);
-LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Main] Databases registered.");
+LeaderLog_Log("TRACE","[LLEQSET:SetManager:Main] Databases registered.");
 //END_REGION
 
 //REGION CLEAR

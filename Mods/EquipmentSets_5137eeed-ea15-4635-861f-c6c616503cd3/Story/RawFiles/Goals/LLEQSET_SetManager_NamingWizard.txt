@@ -32,7 +32,7 @@ PROC
 LLEQSET_System_RegisterDatabases()
 THEN
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_NamingWizard", "DB_LLEQSET_NamingWizard_UsingWizard", 2);
-LeaderLog_Log("DEBUG","[LLEQSET:SetManager:NamingWizard] Databases registered.");
+LeaderLog_Log("TRACE","[LLEQSET:SetManager:NamingWizard] Databases registered.");
 //END_REGION
 
 //REGION WORDS

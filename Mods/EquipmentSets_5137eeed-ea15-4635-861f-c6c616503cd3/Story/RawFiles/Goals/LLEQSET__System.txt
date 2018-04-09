@@ -92,7 +92,7 @@ LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_OutVariable", 2);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_TracedCharacterValue", 2);
 LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_ItemSlot", 3);
-LeaderLog_Log("DEBUG","[LLEQSET:System] Databases registered.");
+LeaderLog_Log("TRACE","[LLEQSET:System] Databases registered.");
 
 //END_REGION
 
