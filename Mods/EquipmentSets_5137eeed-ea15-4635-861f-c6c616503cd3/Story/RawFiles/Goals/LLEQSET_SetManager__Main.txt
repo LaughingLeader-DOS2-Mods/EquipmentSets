@@ -436,17 +436,17 @@ AND
 _CurrentIndex >= _Length
 THEN
 NOT DB_LLEQSET_Temp_EquipTimer(_Player, _SetID, _TimerName, _CurrentIndex, _Mode);
-LLEQSET_SetManager_Internal_EquipTimerFinished(_Player, _Mode);
+LLEQSET_SetManager_Internal_EquipTimerFinished(_Player, _SetID, _Mode);
 
 PROC
-LLEQSET_SetManager_Internal_EquipTimerFinished((CHARACTERGUID)_Player, (INTEGER)_Mode)
+LLEQSET_SetManager_Internal_EquipTimerFinished((CHARACTERGUID)_Player, (STRING)_SetID, (INTEGER)_Mode)
 AND
-_Mode > 1
+_Mode > 0
 THEN
 SetStoryEvent(_Player, "EquipmentSets_OnSetEquipped");
 
 PROC
-LLEQSET_SetManager_Internal_EquipTimerFinished((CHARACTERGUID)_Player, (INTEGER)_Mode)
+LLEQSET_SetManager_Internal_EquipTimerFinished((CHARACTERGUID)_Player, (STRING)_SetID, (INTEGER)_Mode)
 AND
 _Mode <= 0
 THEN
