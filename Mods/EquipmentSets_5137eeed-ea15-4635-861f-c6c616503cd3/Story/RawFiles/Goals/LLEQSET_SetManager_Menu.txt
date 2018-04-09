@@ -337,7 +337,7 @@ LLEQSET_QRY_ColorStatusText(_Player, "Unequipped all items.", "UnequippedAll")
 AND
 DB_LLLIB_EquipmentSlots(_Slot)
 THEN
-LLEQSET_SetManager_UnequipItemInSlot(_Player, _Slot);
+LLEQSET_SetManager_UnequipItemInSlot_NoDelay(_Player, _Slot);
 
 IF
 ObjectFlagSet("LLEQSET_Actions_ReInitialize", (CHARACTERGUID)_Player, _Instance)

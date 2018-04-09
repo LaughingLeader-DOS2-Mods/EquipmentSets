@@ -94,6 +94,13 @@ AND
 DB_LLEQSET_Debug_LoadoutLever(_Set, _Lever)
 THEN
 NOT DB_LLEQSET_Debug_Toggling(_Player);
+
+IF
+StoryEvent(_, "LeaderLib_Debug_PlayerDatabaseReady")
+AND
+DB_IsPlayer(_Player)
+THEN
+LLEQSET_System_InitialSetup(_Player);
 EXITSECTION
 
 ENDEXITSECTION
