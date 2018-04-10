@@ -1,0 +1,146 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+LLEQSET_Blacklist_InitBlacklist();
+
+//DB_LLEQSET_Blacklist(_Type, _Val)
+KBSECTION
+//REGION SETTINGS
+PROC
+LLEQSET_Blacklist_InitBlacklist()
+THEN
+LLEQSET_Blacklist_Add_Template("RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1");
+
+//END_REGION
+
+//REGION UPDATER
+PROC
+LLEQSET_System_UpdateDatabases()
+THEN
+LLEQSET_Blacklist_InitBlacklist();
+
+PROC
+LLEQSET_System_RegisterDatabases()
+THEN
+LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "Blacklist", "DB_LLEQSET_Blacklist", 2);
+LeaderLog_Log("TRACE","[LLEQSET:SetManager:Blacklist] Databases registered.");
+//END_REGION
+
+//REGION ADDING
+PROC
+LLEQSET_Blacklist_Add_Template((STRING)_Str)
+AND
+NOT DB_LLEQSET_Blacklist("Template", _Str)
+THEN
+DB_LLEQSET_Blacklist("Template", _Str);
+
+PROC
+LLEQSET_Blacklist_Add_Tag((STRING)_Str)
+AND
+NOT DB_LLEQSET_Blacklist("Tag", _Str)
+THEN
+DB_LLEQSET_Blacklist("Tag", _Str);
+
+PROC
+LLEQSET_Blacklist_Add_Flag((STRING)_Str)
+AND
+NOT DB_LLEQSET_Blacklist("Flag", _Str)
+THEN
+DB_LLEQSET_Blacklist("Flag", _Str);
+
+PROC
+LLEQSET_Blacklist_Add_GUIDSTRING((GUIDSTRING)_Object)
+AND
+String(_Object, _Str)
+AND
+NOT DB_LLEQSET_Blacklist("GUIDSTRING", _Str)
+THEN
+DB_LLEQSET_Blacklist("GUIDSTRING", _Str);
+//END_REGION
+
+//REGION REMOVE
+PROC
+LLEQSET_Blacklist_Remove_Template((STRING)_Str)
+AND
+DB_LLEQSET_Blacklist("Template", _Str)
+THEN
+NOT DB_LLEQSET_Blacklist("Template", _Str);
+
+PROC
+LLEQSET_Blacklist_Remove_Tag((STRING)_Str)
+AND
+DB_LLEQSET_Blacklist("Tag", _Str)
+THEN
+NOT DB_LLEQSET_Blacklist("Tag", _Str);
+
+PROC
+LLEQSET_Blacklist_Remove_Flag((STRING)_Str)
+AND
+DB_LLEQSET_Blacklist("Flag", _Str)
+THEN
+NOT DB_LLEQSET_Blacklist("Flag", _Str);
+
+PROC
+LLEQSET_Blacklist_Remove_GUIDSTRING((GUIDSTRING)_Object)
+AND
+String(_Object, _Str)
+AND
+DB_LLEQSET_Blacklist("GUIDSTRING", _Str)
+THEN
+NOT DB_LLEQSET_Blacklist("GUIDSTRING", _Str);
+//END_REGION
+
+//REGION MATCH_QUERIES
+QRY
+LLEQSET_QRY_Blacklist_NotMatched((ITEMGUID)_Item)
+AND
+NOT LLEQSET_QRY_Blacklist_MatchedTemplate(_Item)
+AND
+NOT LLEQSET_QRY_Blacklist_MatchedTag(_Item)
+AND
+NOT LLEQSET_QRY_Blacklist_MatchedFlag(_Item)
+AND
+NOT LLEQSET_QRY_Blacklist_MatchedObject(_Item)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_Blacklist_MatchedTemplate((ITEMGUID)_Item)
+AND
+GetTemplate(_Item, _Template)
+AND
+DB_LLEQSET_Blacklist("Template", _Template)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_Blacklist_MatchedTag((ITEMGUID)_Item)
+AND
+DB_LLEQSET_Blacklist("Tag", _Tag)
+AND
+IsTagged(_Item, _Tag, 1)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_Blacklist_MatchedFlag((ITEMGUID)_Item)
+AND
+DB_LLEQSET_Blacklist("Flag", _Flag)
+AND
+ObjectGetFlag(_Item, _Flag, 1)
+THEN
+DB_NOOP(1);
+
+QRY
+LLEQSET_QRY_Blacklist_MatchedObject((ITEMGUID)_Item)
+AND
+DB_LLEQSET_Blacklist("GUIDSTRING", _Str)
+AND
+String(_Item, _Str)
+THEN
+DB_NOOP(1);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LaughingLeader_EquipmentSets"

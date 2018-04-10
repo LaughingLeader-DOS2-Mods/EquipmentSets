@@ -113,6 +113,8 @@ AND
 CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
 AND
 _EquippedItem != NULL_00000000-0000-0000-0000-000000000000
+AND
+LLEQSET_QRY_Blacklist_NotMatched(_EquippedItem) // Don't count blacklisted items as equipment
 THEN
 DB_NOOP(1);
 
@@ -775,6 +777,8 @@ PROC
 LLEQSET_SetManager_UnequipItemInSlot_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
+AND
+LLEQSET_QRY_Blacklist_NotMatched(_Item)
 THEN
 LLEQSET_SetManager_Internal_UnequipItem(_Player, _Item);
 
@@ -942,7 +946,9 @@ AND
 ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 0)
 THEN
 LLEQSET_ColorStatusText(_Player, "You're completely naked, and this set has not been saved!", "Error");
+//END_REGION
 
+//REGION REGISTERING
 PROC
 LLEQSET_SetManager_RegisterAllEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
@@ -956,6 +962,8 @@ AND
 DB_LLLIB_EquipmentSlots(_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
+AND
+LLEQSET_QRY_Blacklist_NotMatched(_Item)
 THEN
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
 

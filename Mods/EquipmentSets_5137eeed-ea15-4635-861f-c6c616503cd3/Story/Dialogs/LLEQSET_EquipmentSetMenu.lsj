@@ -1,7 +1,7 @@
 {
    "save" : {
       "header" : {
-         "time" : 1523340829,
+         "time" : 1523400791,
          "version" : "2.0.8.2"
       },
       "regions" : {
@@ -658,7 +658,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;-642"}
+                                    "val" : {"type" : 23, "value" : "3215;453"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -769,7 +769,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;453"}
+                                    "val" : {"type" : 23, "value" : "4815;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -867,7 +867,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11215;234"}
+                                    "val" : {"type" : 23, "value" : "12175;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -968,7 +968,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "12175;15"}
+                                    "val" : {"type" : 23, "value" : "13135;2424"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1005,7 +1005,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "6095;453"}
+                                    "val" : {"type" : 23, "value" : "6095;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1102,7 +1102,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5135;-861"}
+                                    "val" : {"type" : 23, "value" : "5135;453"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1200,7 +1200,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;891"}
+                                    "val" : {"type" : 23, "value" : "4815;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1298,7 +1298,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "12815;234"}
+                                    "val" : {"type" : 23, "value" : "13775;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1401,7 +1401,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;-861"}
+                                    "val" : {"type" : 23, "value" : "3215;234"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1742,7 +1742,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;-1299"}
+                                    "val" : {"type" : 23, "value" : "9935;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1843,7 +1843,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "12175;234"}
+                                    "val" : {"type" : 23, "value" : "13135;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -1959,7 +1959,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;-423"}
+                                    "val" : {"type" : 23, "value" : "4495;891"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2341,7 +2341,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "12495;234"}
+                                    "val" : {"type" : 23, "value" : "13455;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2506,7 +2506,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;-642"}
+                                    "val" : {"type" : 23, "value" : "4495;672"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2666,7 +2666,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;234"}
+                                    "val" : {"type" : 23, "value" : "4495;1548"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2703,7 +2703,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5775;-1299"}
+                                    "val" : {"type" : 23, "value" : "5775;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2826,7 +2826,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "2895;-1299"}
+                                    "val" : {"type" : 23, "value" : "2895;-204"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -2927,7 +2927,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5135;234"}
+                                    "val" : {"type" : 23, "value" : "5135;1548"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3025,7 +3025,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "12495;15"}
+                                    "val" : {"type" : 23, "value" : "13455;2424"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3136,7 +3136,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5455;-1299"}
+                                    "val" : {"type" : 23, "value" : "5455;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3246,7 +3246,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "10895;-1299"}
+                                    "val" : {"type" : 23, "value" : "11855;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3442,7 +3442,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5135;-1080"}
+                                    "val" : {"type" : 23, "value" : "5135;234"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3558,7 +3558,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11215;-1299"}
+                                    "val" : {"type" : 23, "value" : "12175;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3648,7 +3648,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;1110"}
+                                    "val" : {"type" : 23, "value" : "4495;2424"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3772,7 +3772,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5135;-1299"}
+                                    "val" : {"type" : 23, "value" : "5135;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3827,7 +3827,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;15"}
+                                    "val" : {"type" : 23, "value" : "4815;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3924,7 +3924,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;234"}
+                                    "val" : {"type" : 23, "value" : "9935;2643"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -3974,7 +3974,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;-861"}
+                                    "val" : {"type" : 23, "value" : "4815;453"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4071,7 +4071,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "9295;-1080"}
+                                    "val" : {"type" : 23, "value" : "10255;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4407,7 +4407,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;-204"}
+                                    "val" : {"type" : 23, "value" : "4815;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4419,20 +4419,7 @@
                         "endnode" : {"type" : 19, "value" : 0},
                         "exclusive" : {"type" : 19, "value" : 0},
                         "optional" : {"type" : 19, "value" : 0},
-                        "setflags" : [
-                           {
-                              "flaggroup" : [
-                                 {
-                                    "flag" : [
-                                       {
-                                          "name" : {"type" : 22, "value" : "LeaderLib_BlockModSettingsMenuReopen"},
-                                          "paramval" : {"type" : 4, "value" : 1},
-                                          "value" : {"type" : 19, "value" : 1}
-                                       }
-                                    ],"type" : {"type" : 22, "value" : "Character"}}
-                              ]
-                           }
-                        ],
+                        "setflags" : [ {} ],
                         "speaker" : {"type" : 4, "value" : 0},
                         "stub" : {"type" : 19, "value" : 1},
                         "transitionmode" : {"type" : 1, "value" : 1},
@@ -4546,7 +4533,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5135;-204"}
+                                    "val" : {"type" : 23, "value" : "5135;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4657,7 +4644,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;672"}
+                                    "val" : {"type" : 23, "value" : "4495;1986"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4712,7 +4699,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11535;-1299"}
+                                    "val" : {"type" : 23, "value" : "12495;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4767,7 +4754,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "[NAME] Install the <b>Naming Wizard </b>mod to rename this set."
+                                                   "value" : "[NAME-DISABLED] Install the <b>Naming Wizard </b>mod to rename this set."
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
@@ -4819,7 +4806,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;15"}
+                                    "val" : {"type" : 23, "value" : "4495;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -4917,7 +4904,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "12815;15"}
+                                    "val" : {"type" : 23, "value" : "13775;2424"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5113,7 +5100,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;-1299"}
+                                    "val" : {"type" : 23, "value" : "4495;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5237,7 +5224,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;-861"}
+                                    "val" : {"type" : 23, "value" : "9935;1548"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5287,7 +5274,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "13135;-204"}
+                                    "val" : {"type" : 23, "value" : "14095;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5394,7 +5381,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;-204"}
+                                    "val" : {"type" : 23, "value" : "4495;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5413,6 +5400,11 @@
                                     "flag" : [
                                        {
                                           "name" : {"type" : 22, "value" : "LLEQSET_Menu_OpenNamingMenu"},
+                                          "paramval" : {"type" : 4, "value" : 1},
+                                          "value" : {"type" : 19, "value" : 1}
+                                       },
+                                       {
+                                          "name" : {"type" : 22, "value" : "LeaderLib_BlockModSettingsMenuReopen"},
                                           "paramval" : {"type" : 4, "value" : 1},
                                           "value" : {"type" : 19, "value" : 1}
                                        }
@@ -5505,7 +5497,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3535;-1080"}
+                                    "val" : {"type" : 23, "value" : "3535;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5555,7 +5547,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "9295;-1299"}
+                                    "val" : {"type" : 23, "value" : "10255;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5644,7 +5636,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11215;453"}
+                                    "val" : {"type" : 23, "value" : "12175;2862"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -5964,7 +5956,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;-423"}
+                                    "val" : {"type" : 23, "value" : "4815;891"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6086,7 +6078,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8655;-1299"}
+                                    "val" : {"type" : 23, "value" : "9615;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6266,7 +6258,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;453"}
+                                    "val" : {"type" : 23, "value" : "9935;2862"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6364,7 +6356,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;-204"}
+                                    "val" : {"type" : 23, "value" : "9935;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6475,7 +6467,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;15"}
+                                    "val" : {"type" : 23, "value" : "9935;2424"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6525,7 +6517,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11855;-1080"}
+                                    "val" : {"type" : 23, "value" : "12815;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6561,7 +6553,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "9615;-1080"}
+                                    "val" : {"type" : 23, "value" : "10575;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6663,7 +6655,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;-204"}
+                                    "val" : {"type" : 23, "value" : "3215;891"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6790,7 +6782,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;-1080"}
+                                    "val" : {"type" : 23, "value" : "4815;234"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6827,7 +6819,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;-1299"}
+                                    "val" : {"type" : 23, "value" : "4815;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -6929,7 +6921,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;-423"}
+                                    "val" : {"type" : 23, "value" : "3215;672"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -7040,7 +7032,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11215;-1080"}
+                                    "val" : {"type" : 23, "value" : "12175;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -7167,7 +7159,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;-1080"}
+                                    "val" : {"type" : 23, "value" : "4495;234"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -7265,7 +7257,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11535;-1080"}
+                                    "val" : {"type" : 23, "value" : "12495;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -7401,7 +7393,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4175;-1299"}
+                                    "val" : {"type" : 23, "value" : "4175;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -8256,7 +8248,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5775;234"}
+                                    "val" : {"type" : 23, "value" : "5775;1548"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -8580,7 +8572,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;-1080"}
+                                    "val" : {"type" : 23, "value" : "3215;15"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -8691,7 +8683,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;672"}
+                                    "val" : {"type" : 23, "value" : "4815;1986"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9003,7 +8995,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;453"}
+                                    "val" : {"type" : 23, "value" : "4495;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9129,7 +9121,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;891"}
+                                    "val" : {"type" : 23, "value" : "4495;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9240,7 +9232,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "12495;-204"}
+                                    "val" : {"type" : 23, "value" : "13455;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9338,7 +9330,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5775;453"}
+                                    "val" : {"type" : 23, "value" : "5775;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9449,7 +9441,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;-642"}
+                                    "val" : {"type" : 23, "value" : "9935;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9552,7 +9544,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;15"}
+                                    "val" : {"type" : 23, "value" : "3215;1110"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9693,7 +9685,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3535;-1299"}
+                                    "val" : {"type" : 23, "value" : "3535;-204"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9790,7 +9782,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5455;234"}
+                                    "val" : {"type" : 23, "value" : "5455;1548"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -9924,7 +9916,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;-423"}
+                                    "val" : {"type" : 23, "value" : "9935;1986"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -10035,7 +10027,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "3215;-1299"}
+                                    "val" : {"type" : 23, "value" : "3215;-204"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -10231,7 +10223,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "5455;453"}
+                                    "val" : {"type" : 23, "value" : "5455;1767"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -10466,7 +10458,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4815;-642"}
+                                    "val" : {"type" : 23, "value" : "4815;672"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -10574,7 +10566,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "8975;-1080"}
+                                    "val" : {"type" : 23, "value" : "9935;1329"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -10754,7 +10746,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "[SAVE] Enable the \"Save Empty Slots\" option to save current nakedness."
+                                                   "value" : "[SAVE-DISABLED] Enable the \"Save Empty Slots\" option to save current nakedness, or equip something."
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
@@ -10809,7 +10801,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "4495;-861"}
+                                    "val" : {"type" : 23, "value" : "4495;453"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
@@ -11122,7 +11114,7 @@
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "position"},
-                                    "val" : {"type" : 23, "value" : "11215;-204"}
+                                    "val" : {"type" : 23, "value" : "12175;2205"}
                                  },
                                  {
                                     "key" : {"type" : 22, "value" : "sourcetemplate"},
