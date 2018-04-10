@@ -826,7 +826,7 @@ LLEQSET_ColorStatusText(_Player, "Current Set: None", "Warning");
 PROC
 LLEQSET_SetManager_ChangeSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-ObjectGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
+UserGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
 THEN
 DB_LLEQSET_Temp_SetManager_DisableAutoSave(_Player);
 
@@ -878,7 +878,7 @@ LLEQSET_SetManager_Internal_InitEquipTimer(_Player, _SetID, 1);
 PROC
 LLEQSET_SetManager_Internal_OverwriteEmptySlotsInNextSet((CHARACTERGUID)_Player, (STRING)_NextSetID)
 AND
-ObjectGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
+UserGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
 AND
 ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 0)
 AND
@@ -1131,21 +1131,11 @@ THEN
 NOT DB_LLEQSET_SetManager_BackpackContents(_Player, _SetID, _Backpack, _Item);
 
 IF
-ObjectFlagSet("LLEQSET_Settings_AutoSaveEnabled", (CHARACTERGUID)_Player, _Instance)
-THEN
-LLEQSET_ColorStatusText(_Player, "[Equipment Sets] Auto-Save Enabled", "SetSaved");
-
-IF
-ObjectFlagCleared("LLEQSET_Settings_AutoSaveEnabled", (CHARACTERGUID)_Player, _Instance)
-THEN
-LLEQSET_ColorStatusText(_Player, "[Equipment Sets] Auto-Save Disabled", "Warning");
-
-IF
 ItemEquipped(_Item, _Player)
 AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 AND
-ObjectGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
+UserGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
 AND
 NOT DB_LLEQSET_Temp_SetManager_DisableAutoSave(_Player)
 AND
@@ -1164,7 +1154,7 @@ ItemUnEquipped(_Item, _Player)
 AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 AND
-ObjectGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
+UserGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
 AND
 NOT DB_LLEQSET_Temp_SetManager_DisableAutoSave(_Player)
 AND

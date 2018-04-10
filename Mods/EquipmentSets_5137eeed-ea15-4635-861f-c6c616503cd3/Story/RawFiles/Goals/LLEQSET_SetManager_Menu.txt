@@ -3,6 +3,7 @@ SubGoalCombiner SGC_AND
 INITSECTION
 LLEQSET_Menu_InitializeSettings();
 //DB_LLEQSET_SetManager_DefaultSetNames(_SetID, _DefaultName)
+//DB_LLEQSET_SetManager_Temp_ActiveDialog(_Player, _Instance)
 KBSECTION
 //REGION SETTINGS_AND_UPDATER
 PROC
@@ -505,6 +506,7 @@ LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_ReInitialize")
 THEN
 LLEQSET_System_ClearInitialization(_Player);
 LLEQSET_System_InitialSetup(_Player);
+UserClearFlag(_Player, "LLEQSET_Menu_FirstTimeSetupComplete", 0);
 LLEQSET_ColorStatusText(_Player, "Re-Initialized Player", "Warning");
 
 IF
@@ -570,6 +572,22 @@ THEN
 LLEQSET_Menu_OpenMenu(_Player);
 //END_REGION
 
+//REGION FLAG_EVENTS
+IF
+ObjectFlagSet("LLEQSET_Settings_AutoSaveEnabled", (CHARACTERGUID)_Player, _Instance)
+AND
+DB_LLEQSET_SetManager_Temp_ActiveDialog(_Player, _Instance)
+THEN
+LLEQSET_ColorStatusText(_Player, "[Equipment Sets] Auto-Save Enabled", "SetSaved");
+
+IF
+ObjectFlagCleared("LLEQSET_Settings_AutoSaveEnabled", (CHARACTERGUID)_Player, _Instance)
+AND
+DB_LLEQSET_SetManager_Temp_ActiveDialog(_Player, _Instance)
+THEN
+LLEQSET_ColorStatusText(_Player, "[Equipment Sets] Auto-Save Disabled", "Warning");
+//END_REGION
+
 //REGION DIALOG_EVENTS
 IF
 DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)
@@ -579,6 +597,7 @@ THEN
 LLEQSET_Menu_LoadSetNames(_Player, _Instance);
 LLEQSET_Menu_SetActiveSetNames(_Player, _Instance);
 LLEQSET_Menu_InitMenuFlags(_Player, _Instance);
+DB_LLEQSET_SetManager_Temp_ActiveDialog(_Player, _Instance);
 
 IF
 DialogEnded("LLEQSET_EquipmentSetMenu", _Instance)
@@ -586,6 +605,7 @@ AND
 DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
 THEN
 LLEQSET_Menu_ClearMenuFlags(_Player);
+NOT DB_LLEQSET_SetManager_Temp_ActiveDialog(_Player, _Instance);
 //END_REGION
 
 //REGION NAMING
