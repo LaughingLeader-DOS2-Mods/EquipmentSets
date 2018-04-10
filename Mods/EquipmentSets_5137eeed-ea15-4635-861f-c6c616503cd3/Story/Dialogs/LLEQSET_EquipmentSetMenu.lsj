@@ -1,7 +1,7 @@
 {
    "save" : {
       "header" : {
-         "time" : 1523340764,
+         "time" : 1523340829,
          "version" : "2.0.8.2"
       },
       "regions" : {
@@ -7854,7 +7854,7 @@
                                                 "TagText" : {
                                                    "handle" : "ls::TranslatedStringRepository::s_HandleUnknown",
                                                    "type" : 28,
-                                                   "value" : "Enable [Equipment Auto-Saving]? When a set is equipped and you equip a new item, it will automatically be saved to your current set. This is a user-level setting, meaning it applies to all of your controlled characters."
+                                                   "value" : "Enable [Equipment Auto-Saving]? When a set is equipped and you equip a new item, it will automatically be saved to your current set. This is a <b>user-level </b>setting, meaning it applies to all of your controlled characters."
                                                 },
                                                 "stub" : {"type" : 19, "value" : 1}
                                              }
