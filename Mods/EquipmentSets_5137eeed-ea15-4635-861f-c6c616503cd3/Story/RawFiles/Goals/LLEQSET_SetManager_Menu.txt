@@ -4,7 +4,7 @@ INITSECTION
 LLEQSET_Menu_InitializeSettings();
 //DB_LLEQSET_SetManager_DefaultSetNames(_SetID, _DefaultName)
 KBSECTION
-//REGION SETTINGS_UPDATER
+//REGION SETTINGS_AND_UPDATER
 PROC
 LLEQSET_Menu_InitializeSettings()
 THEN
@@ -29,6 +29,13 @@ LeaderLog_Log("TRACE","[LLEQSET:SetManager:Menu] Databases registered.");
 //END_REGION
 
 //REGION CLEAR
+PROC
+LLEQSET_Menu_ClearMenuFlags((CHARACTERGUID)_Player)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Menu_CanSaveSet");
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
+
 PROC
 LLEQSET_Menu_ClearSetName((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
@@ -168,6 +175,20 @@ DB_LLEQSET_Menu_SelectedSet(_Player, _SetID);
 PROC
 LLEQSET_Menu_SelectSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
+
+PROC
+LLEQSET_Menu_SelectSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
+
+PROC
+LLEQSET_Menu_SelectSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID,_,_)
 AND
 ObjectGetFlag(_Player, "LLEQSET_Menu_CurrentSetSaved", 0)
@@ -179,7 +200,36 @@ ObjectFlagCleared("LLEQSET_CurrentMenu_SetMenu", (CHARACTERGUID)_Player, _Instan
 THEN
 DB_LLEQSET_Menu_ClearSelectedSet(_Player);
 ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
 ObjectClearFlag(_Player, "LLEQSET_Menu_HasSelectedSetSkill");
+
+PROC
+LLEQSET_Menu_InitMenuFlags((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+LLEQSET_QRY_PlayerHasEquipment(_Player)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Menu_CanSaveSet");
+
+PROC
+LLEQSET_Menu_InitMenuFlags((CHARACTERGUID)_Player, (INTEGER)_Instance)
+AND
+NOT LLEQSET_QRY_PlayerHasEquipment(_Player)
+AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 1)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Menu_CanSaveSet");
+
+IF
+ObjectFlagSet("LLEQSET_Settings_SaveEmptySlots", (CHARACTERGUID)_Player, _Instance)
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Menu_CanSaveSet");
+
+IF
+ObjectFlagCleared("LLEQSET_Settings_SaveEmptySlots", (CHARACTERGUID)_Player, _Instance)
+AND
+NOT LLEQSET_QRY_PlayerHasEquipment(_Player)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Menu_CanSaveSet");
 
 PROC
 LLEQSET_Menu_InitMenuFlags((CHARACTERGUID)_Player, (INTEGER)_Instance)
@@ -226,14 +276,86 @@ THEN
 LLEQSET_SetManager_ChangeSet(_Player, _SetID);
 
 IF
-ObjectFlagSet("LLEQSET_Actions_LoadSelectedEquipmentSet", (CHARACTERGUID)_Player, _Instance)
+ObjectFlagSet("LLEQSET_Actions_UnequipCurrentSet", (CHARACTERGUID)_Player, _Instance)
 AND
-LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_LoadSelectedEquipmentSet")
+NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _)
+THEN
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] [ERROR] No current set for player.");
+
+IF
+ObjectFlagSet("LLEQSET_Actions_UnequipCurrentSet", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_UnequipCurrentSet")
+THEN
+LLEQSET_Menu_Internal_UnequipCurrentSet(_Player);
+
+/*These CharacterGetEquippedItem queries don't return anything in this context, for some reason.
+PROC
+LLEQSET_Menu_Internal_UnequipCurrentSet((CHARACTERGUID)_Player)
+AND
+DB_LLLIB_EquipmentSlots(_Slot)
+AND
+CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
+THEN
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Item is in slot [",_Slot,"].");
+
+PROC
+LLEQSET_Menu_Internal_UnequipCurrentSet((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+AND
+DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+AND
+GetUUID(_Item, _ItemCheckID)
+AND
+LeaderLog_QRY_Log("DEBUG","[LLEQSET:SetManager:Menu] Checking slot [",_Slot,"] for item [",_ItemCheckID,"] in set [",_SetID,"].")
+AND
+CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
+AND
+GetUUID(_EquippedItem, _ItemID)
+THEN
+LeaderLog_Log("DEBUG","[LLEQSET:SetManager:Menu] Item [",_ItemID,"] is in slot [",_Slot,"] for set [",_SetID,"].");
+*/
+
+PROC
+LLEQSET_Menu_Internal_UnequipCurrentSet((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+AND
+LLEQSET_QRY_SetNotEmpty(_Player, _SetID)
+THEN
+LLEQSET_SetManager_PlayOverlayEffect(_Player, _SetID);
+
+PROC
+LLEQSET_Menu_Internal_UnequipCurrentSet((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+THEN
+LLEQSET_SetManager_UnequipSet(_Player, _SetID);
+LLEQSET_SetManager_ResetCurrentSet(_Player);
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
+
+IF
+ObjectFlagSet("LLEQSET_Actions_EquipCurrentSet", (CHARACTERGUID)_Player, _Instance)
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+AND
+LLEQSET_QRY_SetManager_ShouldPlayEffect(_Player, _SetID)
+THEN
+LLEQSET_SetManager_PlayOverlayEffect(_Player, _SetID);
+LLEQSET_SetManager_PlayCastEffect(_Player, _SetID);
+
+IF
+ObjectFlagSet("LLEQSET_Actions_EquipCurrentSet", (CHARACTERGUID)_Player, _Instance)
+AND
+LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_EquipCurrentSet")
 AND
 DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 THEN
+//LeaderLog_Log("TRACE","[LLEQSET:SetManager:Menu] Equipped current set [",_SetID,"].");
 LLEQSET_SetManager_ChangeSet(_Player, _SetID);
 LLEQSET_Menu_SetActiveSetNames(_Player, _Instance);
+ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
 
 IF
 ObjectFlagSet("LLEQSET_Actions_SaveCurrentEquipment", (CHARACTERGUID)_Player, _Instance)
@@ -243,6 +365,34 @@ AND
 DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
+LLLIB_SetManager_Menu_SetEmptyCurrentSet(_Player, _SetID);
+ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
+
+PROC
+LLLIB_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _)
+THEN
+LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
+ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
+
+PROC
+LLLIB_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _CurrentSetID)
+AND
+_SetID == _CurrentSetID
+THEN
+ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
+
+PROC
+LLLIB_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _CurrentSetID)
+AND
+_SetID != _CurrentSetID
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
 
 IF
 ObjectFlagSet("LLEQSET_Actions_ClearSelectedSetEquipment", (CHARACTERGUID)_Player, _Instance)
@@ -252,6 +402,15 @@ AND
 DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_ClearSet(_Player, _SetID);
+LLLIB_SetManager_Menu_ClearEquippedSetIfMatched(_Player, _SetID);
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
+
+PROC
+LLLIB_SetManager_Menu_ClearEquippedSetIfMatched((CHARACTERGUID)_Player, (STRING)_SetID)
+AND
+DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
+THEN
+ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
 
 IF
 ObjectFlagSet("LLEQSET_Actions_GiveSelectedSetSkill", (CHARACTERGUID)_Player, _Instance)
@@ -420,6 +579,13 @@ THEN
 LLEQSET_Menu_LoadSetNames(_Player, _Instance);
 LLEQSET_Menu_SetActiveSetNames(_Player, _Instance);
 LLEQSET_Menu_InitMenuFlags(_Player, _Instance);
+
+IF
+DialogEnded("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+DialogGetInvolvedPlayer(_Instance, 1, (CHARACTERGUID)_Player)
+THEN
+LLEQSET_Menu_ClearMenuFlags(_Player);
 //END_REGION
 
 //REGION NAMING
