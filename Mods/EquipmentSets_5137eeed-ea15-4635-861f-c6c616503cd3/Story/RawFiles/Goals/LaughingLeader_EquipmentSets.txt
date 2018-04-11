@@ -19,6 +19,13 @@ LLEQSET_Start_Internal_CompleteIfStarted()
 AND
 DB_StoryStarted(_)
 THEN
+DebugBreak("[LLEQSET] Existing save detected.");
+LLEQSET_Internal_StartEquipmentSets();
+
+IF
+DB_LeaderLib_GameStarted(_)
+THEN
+DebugBreak("[LLEQSET] Existing save detected. This goal wasn't completed after initializing, for some reason.");
 LLEQSET_Internal_StartEquipmentSets();
 EXITSECTION
 
