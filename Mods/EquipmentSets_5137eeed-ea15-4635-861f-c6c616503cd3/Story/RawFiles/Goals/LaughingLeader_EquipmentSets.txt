@@ -17,7 +17,7 @@ LLEQSET_Internal_StartEquipmentSets();
 PROC
 LLEQSET_Start_Internal_CompleteIfStarted()
 AND
-SysIsCompleted("__Start")
+DB_StoryStarted(_)
 THEN
 LLEQSET_Internal_StartEquipmentSets();
 EXITSECTION
