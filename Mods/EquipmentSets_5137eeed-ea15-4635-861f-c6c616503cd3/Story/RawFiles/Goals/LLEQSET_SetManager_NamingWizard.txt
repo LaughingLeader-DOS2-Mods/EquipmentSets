@@ -97,7 +97,7 @@ THEN
 ObjectClearFlag(_Player, "LLEQSET_NamingWizard_Running");
 ObjectClearFlag(_Player, "LeaderLib_BlockModMenuReopen");
 SetVarString(_Player, "LLNWIZ_TargetName", "");
-SetVarString(_Player, "LLNWIZ_CustomName", "");
+SetVarString(_Player, "LLNWIZ_CustomNameOverride", "");
 //END_REGION
 
 //REGION NAMING_WIZARD_MENU
@@ -131,7 +131,7 @@ DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 AND
 DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 THEN
-SetVarString(_Player, "LLNWIZ_CustomName", _Name);
+SetVarString(_Player, "LLNWIZ_CustomNameOverride", _Name);
 
 IF
 StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingWizardOpened")
