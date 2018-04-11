@@ -132,6 +132,16 @@ AND
 DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _Name)
 THEN
 SetVarString(_Player, "LLNWIZ_CustomNameOverride", _Name);
+ObjectClearFlag(_Player, "LLNWIZ_Naming_HideCustomName");
+
+PROC
+LLEQSET_NamingInterface_InitNamingWizardSettings((CHARACTERGUID)_Player)
+AND
+DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
+AND
+NOT DB_LLEQSET_SetManager_SetNames(_Player, _SetID, _)
+THEN
+ObjectSetFlag(_Player, "LLNWIZ_Naming_HideCustomName");
 
 IF
 StoryEvent((CHARACTERGUID)_Player, "LLNWIZ_Events_NamingWizardOpened")
