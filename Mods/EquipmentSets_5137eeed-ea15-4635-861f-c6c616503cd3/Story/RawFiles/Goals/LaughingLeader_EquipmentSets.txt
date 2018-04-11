@@ -1,7 +1,7 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-
+LLEQSET_Start_Internal_CompleteIfStarted(); // Existing saves
 KBSECTION
 PROC
 LLEQSET_Internal_StartEquipmentSets()
@@ -11,6 +11,13 @@ GoalCompleted;
 
 IF
 GameEventSet("GAMEEVENT_GameStarted")
+THEN
+LLEQSET_Internal_StartEquipmentSets();
+
+PROC
+LLEQSET_Start_Internal_CompleteIfStarted()
+AND
+SysIsCompleted("__Start")
 THEN
 LLEQSET_Internal_StartEquipmentSets();
 EXITSECTION
