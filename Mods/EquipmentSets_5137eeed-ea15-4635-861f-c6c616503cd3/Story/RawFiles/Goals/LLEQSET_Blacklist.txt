@@ -10,6 +10,7 @@ PROC
 LLEQSET_Blacklist_InitBlacklist()
 THEN
 LLEQSET_Blacklist_Add_Template("RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1");
+LLEQSET_Blacklist_Add_Tag("EquipmentSets_Ignored");
 
 //END_REGION
 
