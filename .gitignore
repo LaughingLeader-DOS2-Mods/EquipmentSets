@@ -2,7 +2,7 @@
 ##########################
 SourceControlGenerator.json
 
-# Level Data         #
+# Levels
 ######################
 Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Levels/*
 Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Globals/*
@@ -12,28 +12,24 @@ Editor/Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Levels/*
 ######################
 *.div
 *.raw
-*.osi
-story_ac.dat
-Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/Dialogs/Autosave/*
-Mods/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Story/Dialogs/Recovered/*
-
-# Editor files       #
-######################
-*.config
-StatsEditorConfig.*
-EditorBrowserMetadata.*
-EditorMetadata.*
-EffectEditorConfig.*
-ResourceSelectorConfig.*
-RootTemplateSelectorConfig.*
-meta.lsx
+story_orphanqueries_ignore.txt
 
 # Asset Folders      #
 ######################
 Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Assets/*
-Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Content/*
-Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/RootTemplates/*
-Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Voice/*
+#Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/GUI/*
+
+# Editor files       #
+######################
+RootTemplateSelectorConfig_*
+ResourceSelectorConfig_*
+StatsEditorConfig.xml
+EffectEditorConfig.xml
+DockPanel.config
+EditorBrowserMetadata_*
+EditorBrowserMetadata.xml
+Autosave/*
+Recovered/*
 
 # Assets             #
 ######################
@@ -45,12 +41,21 @@ Public/EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3/Voice/*
 *.tga
 *.png
 *.ttf
+*.lsb
+*.lsf
+*.lsfx
+*.lsefx
+#*.lsx
+*.lsmg
 
 # Logs               #
 ######################
 *.log
 *.ailog
 log.txt
+errors.txt
+dialoglog.txt
+personallog.txt
 
 # Binary Files       #
 ######################
@@ -63,10 +68,6 @@ log.txt
 *.fnt
 *.iggy
 *.iggytex
-*.lsb
-*.lsf
-*.lsfx
-*.lsefx
 *.osi
 *.patch
 *.tmpl
@@ -105,3 +106,4 @@ log.txt
 .Trashes
 ehthumbs.db
 Thumbs.db
+*.lnk

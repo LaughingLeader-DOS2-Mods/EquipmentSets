@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<save>
+    <header version="2" time="1534590383" />
+    <version major="3" minor="6" revision="0" build="3" />
+    <region id="MetaData">
+        <node id="root">
+            <attribute id="Module" value="5e772b3a-8c72-5250-22f9-5d8bbe751d74" type="23" />
+            <attribute id="Name" value="EquipmentSets" type="23" />
+            <attribute id="Type" value="Add-on" type="23" />
+            <attribute id="UUID" value="03b66de3-2e44-4754-af0b-c73138504af8" type="23" />
+        </node>
+    </region>
+</save>
