@@ -19,12 +19,6 @@ PROC
 LLEQSET_System_UpdateDatabases()
 THEN
 LLEQSET_Blacklist_InitBlacklist();
-
-PROC
-LLEQSET_System_RegisterDatabases()
-THEN
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "Blacklist", "DB_LLEQSET_Blacklist", 2);
-LeaderLog_Log("TRACE","[LLEQSET:SetManager:Blacklist] Databases registered.");
 //END_REGION
 
 //REGION ADDING

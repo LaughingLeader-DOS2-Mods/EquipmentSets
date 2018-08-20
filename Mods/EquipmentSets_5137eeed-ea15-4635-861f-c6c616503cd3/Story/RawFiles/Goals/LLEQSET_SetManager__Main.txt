@@ -53,21 +53,6 @@ PROC
 LLEQSET_System_UpdateDatabases()
 THEN
 LLEQSET_SetManager_InitializeSettings();
-
-PROC
-LLEQSET_System_RegisterDatabases()
-THEN
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Menu_SelectedSet", 2);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_CurrentSet", 2);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_LastSet", 2);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_SavedSetEquipment", 4);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_SetNames", 3);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_SetConfig", 4);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_Variables", 4);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_SetManager_EquipRate", 1);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Temp_EquipTimer", 5);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Main", "DB_LLEQSET_Temp_EquipTimerActive", 2);
-LeaderLog_Log("TRACE","[LLEQSET:SetManager:Main] Databases registered.");
 //END_REGION
 
 //REGION CLEAR
@@ -108,7 +93,7 @@ LLEQSET_SetManager_RemoveFromBackpack(_Player, _SetID, _Item);
 QRY
 LLEQSET_QRY_PlayerHasEquipment((CHARACTERGUID)_Player)
 AND
-DB_LLLIB_EquipmentSlots(_Slot)
+DB_LeaderLib_EquipmentSlots(_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
 AND
@@ -536,7 +521,7 @@ LLEQSET_SetManager_Internal_OnEquipTick((CHARACTERGUID)_Player, (STRING)_SetID, 
 AND
 NOT DB_LLEQSET_Temp_EquipTimerActive(_Player, (STRING)_)
 AND
-DB_LLLIB_Array_Data("LeaderLib_EquipmentSlots", _SlotIndex, _Slot)
+DB_LeaderLib_Array_Data("LeaderLib_EquipmentSlots", _SlotIndex, _Slot)
 AND
 NOT LLEQSET_SetManager_Internal_QRY_ItemSavedForSlot(_Player, _SetID, _Slot)
 AND
@@ -551,7 +536,7 @@ LLEQSET_SetManager_Internal_OnEquipTick((CHARACTERGUID)_Player, (STRING)_SetID, 
 AND
 NOT DB_LLEQSET_Temp_EquipTimerActive(_Player, (STRING)_)
 AND
-DB_LLLIB_Array_Data("LeaderLib_EquipmentSlots", _SlotIndex, _Slot)
+DB_LeaderLib_Array_Data("LeaderLib_EquipmentSlots", _SlotIndex, _Slot)
 AND
 LLEQSET_SetManager_Internal_QRY_ItemSavedForSlot(_Player, _SetID, _Slot)
 THEN
@@ -562,7 +547,7 @@ LLEQSET_SetManager_Internal_OnEquipItem(_Player, _SetID, _Slot, _Mode);
 PROC
 LLEQSET_SetManager_Internal_OnEquipTick((CHARACTERGUID)_Player, (STRING)_SetID, (INTEGER)_SlotIndex, (INTEGER)_Mode)
 AND
-NOT DB_LLLIB_Array_Data("LeaderLib_EquipmentSlots", _SlotIndex, _)
+NOT DB_LeaderLib_Array_Data("LeaderLib_EquipmentSlots", _SlotIndex, _)
 AND
 IntegertoString(_SlotIndex, _Str)
 THEN
@@ -634,7 +619,7 @@ LLEQSET_SetManager_Internal_OnEquipTimerFinished((STRING)_TimerName)
 AND
 DB_LLEQSET_Temp_EquipTimer(_Player, _SetID, _TimerName, _CurrentIndex, _Mode)
 AND
-DB_LLLIB_Array_Length("LeaderLib_EquipmentSlots", _Length)
+DB_LeaderLib_Array_Length("LeaderLib_EquipmentSlots", _Length)
 AND
 _CurrentIndex >= _Length
 THEN
@@ -646,7 +631,7 @@ LLEQSET_SetManager_Internal_OnEquipTimerFinished((STRING)_TimerName)
 AND
 DB_LLEQSET_Temp_EquipTimer(_Player, _SetID, _TimerName, _CurrentIndex, _Mode)
 AND
-DB_LLLIB_Array_Length("LeaderLib_EquipmentSlots", _Length)
+DB_LeaderLib_Array_Length("LeaderLib_EquipmentSlots", _Length)
 AND
 _CurrentIndex < _Length
 THEN
@@ -657,7 +642,7 @@ LLEQSET_SetManager_Internal_IncrementEquipTick((CHARACTERGUID)_Player, (STRING)_
 AND
 DB_LLEQSET_Temp_EquipTimer(_Player, _SetID, _TimerName, _CurrentIndex, _Mode)
 AND
-DB_LLLIB_Array_Length("LeaderLib_EquipmentSlots", _Length)
+DB_LeaderLib_Array_Length("LeaderLib_EquipmentSlots", _Length)
 AND
 IntegerSum(_CurrentIndex, 1, _NextIndex)
 THEN
@@ -886,7 +871,7 @@ UserGetFlag(_Player, "LLEQSET_Settings_AutoSaveEnabled", 1)
 AND
 ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 0)
 AND
-DB_LLLIB_EquipmentSlots(_Slot)
+DB_LeaderLib_EquipmentSlots(_Slot)
 AND
 NOT DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _NextSetID, _Slot, _)
 AND
@@ -959,7 +944,7 @@ LLEQSET_SetManager_ClearSet(_Player, _SetID);
 PROC
 LLEQSET_SetManager_RegisterAllEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLLIB_EquipmentSlots(_Slot)
+DB_LeaderLib_EquipmentSlots(_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
 AND
@@ -970,7 +955,7 @@ DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
 PROC
 LLEQSET_SetManager_RegisterAllEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
-DB_LLLIB_EquipmentSlots(_Slot)
+DB_LeaderLib_EquipmentSlots(_Slot)
 AND
 NOT CharacterGetEquippedItem(_Player, _Slot, _)
 AND
@@ -1015,7 +1000,7 @@ LLEQSET_SetManager_UnequipSet(_Player, _SetID);
 
 //REGION USE_EVENTS
 IF
-CharacterUsedSkill(_Player, _Skill, _)
+CharacterUsedSkill(_Player, _Skill, _, _)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
 AND
@@ -1024,7 +1009,7 @@ THEN
 LLEQSET_SetManager_PlayOverlayEffect(_Player, _SetID);
 
 IF
-SkillCast(_Player, _Skill, _)
+SkillCast(_Player, _Skill, _, _)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
 AND
@@ -1033,7 +1018,7 @@ THEN
 LLEQSET_SetManager_PlayCastEffect(_Player, _SetID);
 
 IF
-SkillCast(_Player, _Skill, _)
+SkillCast(_Player, _Skill, _, _)
 AND
 DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
 THEN

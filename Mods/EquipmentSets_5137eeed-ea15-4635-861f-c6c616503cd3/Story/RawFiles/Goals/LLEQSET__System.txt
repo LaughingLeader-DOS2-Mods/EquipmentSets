@@ -1,7 +1,7 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-//DB_LLLIB_EquipmentSlots(_Slot)
+//DB_LeaderLib_EquipmentSlots(_Slot)
 //DB_LLEQSET_SystemColors(_Color, _ColorValue)
 //DB_LLEQSET_DefaultColors(_Index, _ColorName, _ColorValue)
 //DB_LLEQSET_PlayerColors(_Player, _ColorID, _ColorValue)
@@ -78,22 +78,6 @@ PROC
 LLEQSET_System_UpdateDatabases()
 THEN
 LLEQSET_System_InitializeSettings();
-
-PROC
-LLEQSET_System_RegisterDatabases()
-THEN
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_SystemColors", 2);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_DefaultColors", 3);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_PlayerColors", 3);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_MenuSkill", 1);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_MenuItem", 1);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_System_PlayerInitialized", 1);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_NextMessageColor", 3);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_OutVariable", 2);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_TracedCharacterValue", 2);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "System","DB_LLEQSET_Temp_ItemSlot", 3);
-LeaderLog_Log("TRACE","[LLEQSET:System] Databases registered.");
-
 //END_REGION
 
 //REGION DATABASE_HELPERS
@@ -426,7 +410,7 @@ NOT DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);
 QRY
 LLEQSET_QRY_GetSlot((CHARACTERGUID)_Player, (ITEMGUID)_Item)
 AND
-DB_LLLIB_EquipmentSlots(_Slot)
+DB_LeaderLib_EquipmentSlots(_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, _Item)
 THEN

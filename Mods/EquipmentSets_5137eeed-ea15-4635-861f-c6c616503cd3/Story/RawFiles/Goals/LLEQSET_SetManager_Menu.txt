@@ -20,13 +20,6 @@ PROC
 LLEQSET_System_UpdateDatabases()
 THEN
 LLEQSET_Menu_InitializeSettings();
-
-PROC
-LLEQSET_System_RegisterDatabases()
-THEN
-//LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_", 0);
-LeaderUpdater_Register_Database("EquipmentSets", "LaughingLeader", "SetManager_Menu", "DB_LLEQSET_SetManager_DefaultSetNames", 2);
-LeaderLog_Log("TRACE","[LLEQSET:SetManager:Menu] Databases registered.");
 //END_REGION
 
 //REGION CLEAR
@@ -294,7 +287,7 @@ LLEQSET_Menu_Internal_UnequipCurrentSet(_Player);
 PROC
 LLEQSET_Menu_Internal_UnequipCurrentSet((CHARACTERGUID)_Player)
 AND
-DB_LLLIB_EquipmentSlots(_Slot)
+DB_LeaderLib_EquipmentSlots(_Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
 THEN
@@ -366,11 +359,11 @@ AND
 DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_RegisterAllEquipment(_Player, _SetID);
-LLLIB_SetManager_Menu_SetEmptyCurrentSet(_Player, _SetID);
+LeaderLib_SetManager_Menu_SetEmptyCurrentSet(_Player, _SetID);
 ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
 
 PROC
-LLLIB_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+LeaderLib_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 NOT DB_LLEQSET_SetManager_CurrentSet(_Player, _)
 THEN
@@ -378,7 +371,7 @@ LLEQSET_SetManager_SetCurrentSet(_Player, _SetID);
 ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
 
 PROC
-LLLIB_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+LeaderLib_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _CurrentSetID)
 AND
@@ -387,7 +380,7 @@ THEN
 ObjectSetFlag(_Player, "LLEQSET_Menu_CurrentSetEquipped");
 
 PROC
-LLLIB_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
+LeaderLib_SetManager_Menu_SetEmptyCurrentSet((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _CurrentSetID)
 AND
@@ -403,11 +396,11 @@ AND
 DB_LLEQSET_Menu_SelectedSet(_Player, _SetID)
 THEN
 LLEQSET_SetManager_ClearSet(_Player, _SetID);
-LLLIB_SetManager_Menu_ClearEquippedSetIfMatched(_Player, _SetID);
+LeaderLib_SetManager_Menu_ClearEquippedSetIfMatched(_Player, _SetID);
 ObjectClearFlag(_Player, "LLEQSET_Menu_CurrentSetSaved");
 
 PROC
-LLLIB_SetManager_Menu_ClearEquippedSetIfMatched((CHARACTERGUID)_Player, (STRING)_SetID)
+LeaderLib_SetManager_Menu_ClearEquippedSetIfMatched((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 DB_LLEQSET_SetManager_CurrentSet(_Player, _SetID)
 THEN
@@ -495,7 +488,7 @@ LLEQSET_QRY_ClearObjectFlag(_Player, "LLEQSET_Actions_UnequipEverything")
 AND
 LLEQSET_QRY_ColorStatusText(_Player, "Unequipped all items.", "UnequippedAll")
 AND
-DB_LLLIB_EquipmentSlots(_Slot)
+DB_LeaderLib_EquipmentSlots(_Slot)
 THEN
 LLEQSET_SetManager_UnequipItemInSlot_NoDelay(_Player, _Slot);
 
@@ -558,7 +551,7 @@ LLEQSET_ColorStatusText(_Player, "Unable to open the Equipment Set menu while in
 
 //Events
 IF
-CharacterUsedSkill(_Player, _Skill, _)
+CharacterUsedSkill(_Player, _Skill, _, _)
 AND
 DB_LLEQSET_MenuSkill(_Skill)
 THEN

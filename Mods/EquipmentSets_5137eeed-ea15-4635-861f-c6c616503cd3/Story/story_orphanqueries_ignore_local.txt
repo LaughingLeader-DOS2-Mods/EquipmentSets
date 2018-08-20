@@ -1,0 +1,7 @@
+DB_LLNWIZ_Words_CurrentlySorting 1
+DB_LLNWIZ_ModApi_RegisterMenu 4
+DB_LLEQSET_SavedSets 4
+DB_LLNWIZ_ModApi_RegisterWord 2
+DB_LLNWIZ_ModApi_ClearSessionVariables 1
+DB_LLNWIZ_ModApi_SortMenu 1
+DB_LLNWIZ_Words_Displayed 2
