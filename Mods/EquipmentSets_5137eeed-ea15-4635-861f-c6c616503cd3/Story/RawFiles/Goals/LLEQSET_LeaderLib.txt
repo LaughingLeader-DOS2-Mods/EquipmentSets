@@ -27,9 +27,9 @@ LeaderLib_Treasure_Configure_AddMaxAmount("LeaderLib.LeaderTrader.ModBooks", _Te
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
 THEN
-LeaderLib_Trader_Register_Position("LeaderLib_LeaderTrader", "TestLevel_EquipmentSets", 15.70, 0.0, 3.19);
-LeaderLib_Trader_Register_StartingGold("LeaderLib_LeaderTrader", "TestLevel_EquipmentSets", 11000);
-//LeaderLib_Trader_Register_PositionObject("LeaderLib_LeaderTrader", "LLNWIZ_DebugLevel", ITEMGUID_WPN_Dwarves_Shield_A_000_ef289002-e5b3-4a3e-8ad5-1d68ac847f67);
+LeaderLib_Trader_Register_Position("LeaderLib.LeaderTrader", "TestLevel_EquipmentSets", 15.70, 0.0, 3.19);
+LeaderLib_Trader_Register_StartingGold("LeaderLib.LeaderTrader", "TestLevel_EquipmentSets", 11000);
+//LeaderLib_Trader_Register_PositionObject("LeaderLib.LeaderTrader", "LLNWIZ_DebugLevel", ITEMGUID_WPN_Dwarves_Shield_A_000_ef289002-e5b3-4a3e-8ad5-1d68ac847f67);
 EXITSECTION
 
 ENDEXITSECTION

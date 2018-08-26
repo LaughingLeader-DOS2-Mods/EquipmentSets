@@ -6,7 +6,7 @@ KBSECTION
 PROC
 LLEQSET_Internal_StartEquipmentSets()
 THEN
-DebugBreak("[LLEQSET] Equipment Sets starting.");
+DebugBreak("[LLEQSET] Starting Equipment Sets.");
 GoalCompleted;
 
 IF
@@ -19,13 +19,15 @@ LLEQSET_Start_Internal_CompleteIfStarted()
 AND
 DB_StoryStarted(_)
 THEN
-DebugBreak("[LLEQSET] Existing save detected.");
+DebugBreak("[LLEQSET:CompleteIfStarted] Equipment Sets was added to an existing save. Starting from INIT section.");
 LLEQSET_Internal_StartEquipmentSets();
 
 IF
-DB_LeaderLib_GameStarted(_)
+SaveGameLoaded(_,_,_,_)
+AND
+DB_StoryStarted(_)
 THEN
-DebugBreak("[LLEQSET] Existing save detected. This goal wasn't completed after initializing, for some reason.");
+DebugBreak("[LLEQSET:SaveGameLoaded] Existing save detected. For some reason, this goal wasn't completed after initializing.");
 LLEQSET_Internal_StartEquipmentSets();
 EXITSECTION
 
