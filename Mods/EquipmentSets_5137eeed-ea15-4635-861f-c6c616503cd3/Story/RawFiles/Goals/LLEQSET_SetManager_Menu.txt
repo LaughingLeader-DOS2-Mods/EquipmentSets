@@ -17,7 +17,9 @@ DB_LLEQSET_SetManager_DefaultSetNames("Set4", "Set 4");
 DB_LLEQSET_SetManager_DefaultSetNames("Set5", "Set 5");
 
 PROC
-LLEQSET_System_UpdateDatabases()
+LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", _Version)
+AND
+_Version == "-1"
 THEN
 LLEQSET_Menu_InitializeSettings();
 //END_REGION

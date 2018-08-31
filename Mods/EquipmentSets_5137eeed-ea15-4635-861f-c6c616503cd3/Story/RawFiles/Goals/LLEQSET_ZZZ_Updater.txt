@@ -2,7 +2,7 @@ Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
 LLEQSET_Updater_InitSettings();
-LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "1.0.0.0");
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "1.0.0.5");
 LeaderUpdater_Register_ActiveGoal("EquipmentSets", "LaughingLeader", "LLEQSET_ZZZ_Updater");
 //DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 KBSECTION
@@ -16,9 +16,9 @@ DB_LLEQSET_Dependencies("NamingWizard", "LaughingLeader", "LLEQSET_Global_Naming
 
 //REGION MOD_UPDATING
 PROC
-LLEQSET_System_UpdateDatabases()
+LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", _Version)
 THEN
-LeaderLog_Log("DEBUG","[LLEQSET][Updater] Databases updated.");
+LeaderLog_Log("DEBUG", "[LLEQSET:Updater] Updated from version [",_Version,"]");
 
 PROC
 LLEQSET_Updater_UnregisterMod()
@@ -30,10 +30,9 @@ LeaderUpdater_UnregisterMod("EquipmentSets", "LaughingLeader");
 IF
 GameStarted(_,_)
 AND
-LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", "1.0.0.0")
+LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", "1.0.0.5")
 THEN
-LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "1.0.0.0");
-LLEQSET_System_UpdateDatabases();
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "1.0.0.5");
 //END_REGION
 
 //REGION MOD_DETECTION
@@ -44,7 +43,7 @@ DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 AND
 LeaderUpdater_QRY_ModIsActive(_Mod, _Author)
 THEN
-LeaderLog_Log("DEBUG","[LLEQSET][Updater] Mod ",_Mod," by ", _Author," is active.");
+LeaderLog_Log("DEBUG","[LLEQSET:Updater] Mod ",_Mod," by ", _Author," is active.");
 GlobalSetFlag(_GlobalFlag);
 
 PROC

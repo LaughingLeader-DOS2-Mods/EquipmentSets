@@ -50,7 +50,9 @@ LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_SetManager_EquipRate", 1);
 DB_LLEQSET_SetManager_EquipRate(100);
 
 PROC
-LLEQSET_System_UpdateDatabases()
+LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", _Version)
+AND
+_Version == "-1"
 THEN
 LLEQSET_SetManager_InitializeSettings();
 //END_REGION
