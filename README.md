@@ -1,4 +1,4 @@
-Equipment Sets Mod for Divinity: Original Sin 2
+Equipment Sets for Divinity: Original Sin 2 - Definitive Edition
 =======
 Equipment Sets adds the ability to save equipment loadouts, and switch between them quickly.
 
