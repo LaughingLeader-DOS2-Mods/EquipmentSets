@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <save>
-    <header version="2" time="1535691104" />
+    <header version="2" time="1535756309" />
     <version major="3" minor="6" revision="0" build="4" />
     <region id="Config">
         <node id="root">
@@ -12,7 +12,7 @@
                             <attribute id="MD5" value="" type="23" />
                             <attribute id="Name" value="LeaderLib" type="22" />
                             <attribute id="UUID" value="7e737d2f-31d2-4751-963f-be6ccc59cd0c" type="22" />
-                            <attribute id="Version" value="268435462" type="4" />
+                            <attribute id="Version" value="268435463" type="4" />
                         </node>
                     </children>
                 </node>
@@ -25,7 +25,7 @@
                     <attribute id="LobbyLevelName" value="" type="22" />
                     <attribute id="MD5" value="" type="23" />
                     <attribute id="MenuLevelName" value="" type="22" />
-                    <attribute id="Name" value="Equipment Sets" type="22" />
+                    <attribute id="Name" value="Equipment Sets - Definitive Edition" type="22" />
                     <attribute id="NumPlayers" value="2" type="1" />
                     <attribute id="PhotoBooth" value="" type="22" />
                     <attribute id="StartupLevelName" value="" type="22" />
@@ -35,7 +35,7 @@
                     <attribute id="Version" value="268435461" type="4" />
                     <children>
                         <node id="PublishVersion">
-                            <attribute id="Version" value="907812438" type="4" />
+                            <attribute id="Version" value="907814608" type="4" />
                         </node>
                         <node id="Scripts" />
                         <node id="TargetModes">
