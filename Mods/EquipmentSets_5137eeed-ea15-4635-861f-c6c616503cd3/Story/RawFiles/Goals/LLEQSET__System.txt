@@ -473,7 +473,7 @@ StoryEvent(_, "LeaderLib_Initialized")
 AND
 DB_CurrentLevel(_Level)
 AND
-IsCharacterCreationLevel(_Level, 0)
+IsGameLevel(_Level, 1)
 AND
 DB_IsPlayer(_Player)
 THEN
@@ -484,7 +484,7 @@ DB_IsPlayer(_Player)
 AND
 DB_CurrentLevel(_Level)
 AND
-IsCharacterCreationLevel(_Level, 0)
+IsGameLevel(_Level, 1)
 THEN
 LLEQSET_System_InitialSetup(_Player);
 //END_REGION
