@@ -23,9 +23,9 @@ LLEQSET_NamingInterface_AddWord("Thievery");
 
 //REGION UPDATER
 PROC
-LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", _Version)
+LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", (STRING)_PastVersion, (STRING)_NewVersion)
 AND
-_Version == "-1"
+_PastVersion == "-1"
 THEN
 LLEQSET_NamingInterface_InitSettings();
 LeaderLog_Log("DEBUG","[LLEQSET:NamingInterface] Databases updated.");

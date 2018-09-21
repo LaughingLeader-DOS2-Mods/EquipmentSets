@@ -75,9 +75,9 @@ SysClear("DB_LLEQSET_Temp_TracedCharacterValue", 2);
 SysClear("DB_LLEQSET_Temp_ItemSlot", 3);
 
 PROC
-LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", _Version)
+LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", (STRING)_PastVersion, (STRING)_NewVersion)
 AND
-_Version == "-1"
+_PastVersion == "-1"
 THEN
 LLEQSET_System_InitializeSettings();
 //END_REGION
