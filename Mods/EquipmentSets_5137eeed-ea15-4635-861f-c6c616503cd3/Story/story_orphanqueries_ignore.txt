@@ -327,7 +327,13 @@ DB_LeaderLog_Temp_RealString 4
 DB_LastManInCombatKilledBy 2
 DB_TUT_PlayOnEasy 1
 DB_LeaderLib_Combat_PastCombat 1
-DB_LLNWIZ_Words_CurrentlySorting 1
+DB_LeaderLib_Settings_Initialized 1
+DB_LLBARTER_DialogBlacklist 2
+DB_LeaderLib_RaceTalents 1
+DB_EG_DivinityCompetitorTeleported 1
+DB_EG_MakingTheChoice 1
+DB_LeaderLib_PresetMenu_Temp_BlockSkill 2
+DB_LeaderLib_BlockedSkill 1DB_LLNWIZ_Words_CurrentlySorting 1
 DB_LLNWIZ_ModApi_RegisterMenu 4
 DB_LLEQSET_SavedSets 4
 DB_LLNWIZ_ModApi_RegisterWord 2
