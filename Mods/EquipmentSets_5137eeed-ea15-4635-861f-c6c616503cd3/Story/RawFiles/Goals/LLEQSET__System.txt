@@ -420,13 +420,15 @@ DB_LLEQSET_Temp_ItemSlot(_Player, _Item, _Slot);
 //END_REGION
 
 //REGION TIMER_HELPERS
+/*
 IF
 TimerFinished(_TimerName)
 AND
-DB_LLEQSET_Timers_DelayedMessage(_TimerName, _Player, _Message, _Color)
+DB_LLEQSET_Timers_DelayedMessage(_TimerName, (CHARACTERGUID)_Player, (STRING)_Message, (STRING)_Color)
 THEN
 LLEQSET_ColorStatusText(_Player, _Message, _Color);
 NOT DB_LLEQSET_Timers_DelayedMessage(_TimerName, _Player, _Message, _Color);
+*/
 //END_REGION
 
 //REGION INIT
@@ -439,6 +441,8 @@ NOT DB_LLEQSET_System_PlayerInitialized(_Player);
 
 PROC
 LLEQSET_System_InitialSetup((CHARACTERGUID)_Player)
+AND
+GlobalGetFlag("LeaderLib_AutoAddModMenuBooksDisabled", 0)
 AND
 NOT DB_LLEQSET_System_PlayerInitialized(_Player)
 AND
@@ -480,6 +484,18 @@ THEN
 LLEQSET_System_InitialSetup(_Player);
 
 IF
+CharacterJoinedParty(_Player)
+AND
+DB_CurrentLevel(_Region)
+AND
+IsGameLevel(_Region, 1)
+AND
+LeaderLib_Helper_QRY_CharacterIsPlayer(_Player)
+THEN
+LLEQSET_System_InitialSetup(_Player);
+
+/*
+IF
 DB_IsPlayer(_Player)
 AND
 DB_CurrentLevel(_Level)
@@ -487,6 +503,7 @@ AND
 IsGameLevel(_Level, 1)
 THEN
 LLEQSET_System_InitialSetup(_Player);
+*/
 //END_REGION
 
 //REGION DEBUG

@@ -97,7 +97,7 @@ LLEQSET_QRY_PlayerHasEquipment((CHARACTERGUID)_Player)
 AND
 DB_LeaderLib_EquipmentSlots(_Slot)
 AND
-CharacterGetEquippedItem(_Player, _Slot, _EquippedItem)
+CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_EquippedItem)
 AND
 _EquippedItem != NULL_00000000-0000-0000-0000-000000000000
 AND
