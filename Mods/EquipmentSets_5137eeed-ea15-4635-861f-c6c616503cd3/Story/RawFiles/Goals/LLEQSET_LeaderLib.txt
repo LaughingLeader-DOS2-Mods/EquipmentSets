@@ -14,7 +14,7 @@ DB_LLEQSET_RegisteredLeaderLibSettings(1);
 // [END_NO_OSITOOLS]
 
 PROC
-LeaderLib_Mods_OnModRegistered(7e737d2f-31d2-4751-963f-be6ccc59cd0c, (INTEGER)_Version, (INTEGER)_Major, (INTEGER)_Minor, (INTEGER)_Revision, (INTEGER)_Build)
+LeaderLib_Mods_OnModRegistered(5e772b3a-8c72-5250-22f9-5d8bbe751d74, (INTEGER)_Version, (INTEGER)_Major, (INTEGER)_Minor, (INTEGER)_Revision, (INTEGER)_Build)
 AND
 NOT DB_LLEQSET_RegisteredLeaderLibSettings(_)
 THEN
@@ -25,7 +25,7 @@ PROC
 LLEQSET_LeaderLib_RegisterSettings()
 THEN
 //LeaderLib_Register_ModMenu("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
-LeaderLib_Register_ModMenu("7e737d2f-31d2-4751-963f-be6ccc59cd0c", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
+LeaderLib_Register_ModMenu("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
@@ -52,18 +52,18 @@ AND
 DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader")
 THEN
 NOT DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
-LeaderLib_Register_ModMenu("7e737d2f-31d2-4751-963f-be6ccc59cd0c", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
+LeaderLib_Register_ModMenu("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
 // [END_NO_OSITOOLS]
 
 PROC
-LeaderLib_Mods_OnVersionChanged(7e737d2f-31d2-4751-963f-be6ccc59cd0c, (INTEGER)_LastVersion, (INTEGER)_NextVersion)
+LeaderLib_Mods_OnVersionChanged(5e772b3a-8c72-5250-22f9-5d8bbe751d74, (INTEGER)_LastVersion, (INTEGER)_NextVersion)
 AND
 _LastVersion < 268500992
 AND
 DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader")
 THEN
 NOT DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
-LeaderLib_Register_ModMenu("7e737d2f-31d2-4751-963f-be6ccc59cd0c", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
+LeaderLib_Register_ModMenu("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
 //END_REGION
 EXITSECTION
 
