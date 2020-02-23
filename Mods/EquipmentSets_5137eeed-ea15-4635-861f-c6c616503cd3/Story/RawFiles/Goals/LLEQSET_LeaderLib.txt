@@ -3,6 +3,7 @@ SubGoalCombiner SGC_AND
 INITSECTION
 //DB_LLEQSET_RegisteredLeaderLibSettings(_Val)
 KBSECTION
+// [BEGIN_NO_OSITOOLS]
 IF
 StoryEvent(_, "LeaderLib_Initialized")
 AND
@@ -10,6 +11,15 @@ NOT DB_LLEQSET_RegisteredLeaderLibSettings(_)
 THEN
 LLEQSET_LeaderLib_RegisterSettings();
 DB_LLEQSET_RegisteredLeaderLibSettings(1);
+// [END_NO_OSITOOLS]
+
+PROC
+LeaderLib_Mods_OnModRegistered(7e737d2f-31d2-4751-963f-be6ccc59cd0c, (INTEGER)_Version, (INTEGER)_Major, (INTEGER)_Minor, (INTEGER)_Revision, (INTEGER)_Build)
+AND
+NOT DB_LLEQSET_RegisteredLeaderLibSettings(_)
+THEN
+DB_LLEQSET_RegisteredLeaderLibSettings(1);
+LLEQSET_LeaderLib_RegisterSettings();
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
@@ -33,10 +43,22 @@ LeaderLib_Trader_Register_StartingGold("LeaderLib.LeaderTrader", "TestLevel_Equi
 //LeaderLib_Trader_Register_PositionObject("LeaderLib.LeaderTrader", "LLNWIZ_DebugLevel", ITEMGUID_WPN_Dwarves_Shield_A_000_ef289002-e5b3-4a3e-8ad5-1d68ac847f67);
 
 //REGION UPDATES
+// [BEGIN_NO_OSITOOLS]
 PROC
 LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", (STRING)_PastVersion, (STRING)_NewVersion)
 AND
 LeaderLib_StringExt_QRY_VersionIsLessThan(_PastVersion, 1,0,1,0)
+AND
+DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader")
+THEN
+NOT DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
+LeaderLib_Register_ModMenu("7e737d2f-31d2-4751-963f-be6ccc59cd0c", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
+// [END_NO_OSITOOLS]
+
+PROC
+LeaderLib_Mods_OnVersionChanged(7e737d2f-31d2-4751-963f-be6ccc59cd0c, (INTEGER)_LastVersion, (INTEGER)_NextVersion)
+AND
+_LastVersion < 268500992
 AND
 DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader")
 THEN

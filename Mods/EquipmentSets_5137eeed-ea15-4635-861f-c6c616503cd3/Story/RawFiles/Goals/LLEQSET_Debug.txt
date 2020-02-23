@@ -6,6 +6,17 @@ DB_LLEQSET_Debug_LoadoutChest(1, ITEMGUID_LLEQSET_Debug_Chest_Set2_af6752f6-6357
 DB_LLEQSET_Debug_LoadoutLever(-1, (ITEMGUID)ITEMGUID_LLEQSET_Debug_Lever_Set1_863726c4-2003-43af-8af4-99645fbe6203);
 DB_LLEQSET_Debug_LoadoutLever(1, ITEMGUID_LLEQSET_Debug_Lever_Set2_2bfc7c04-ffbd-42ea-a00e-28943ec3bbd2);
 KBSECTION
+
+IF
+StoryEvent(_, "LeaderLib_Initialized")
+AND
+CharacterGetHostCharacter(_Player)
+THEN
+CharacterAddAttribute(_Player, "Strength", 4);
+CharacterAddAttribute(_Player, "Finesse", 4);
+CharacterAddAttribute(_Player, "Intelligence", 4);
+CharacterAddAttribute(_Player, "Constitution", 4);
+
 IF
 StoryEvent(_, "LeaderLib_Initialized")
 AND
