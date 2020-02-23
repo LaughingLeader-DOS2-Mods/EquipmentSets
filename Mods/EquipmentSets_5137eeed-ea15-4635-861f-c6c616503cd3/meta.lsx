@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <save>
     <header version="2" />
-    <version major="3" minor="6" revision="1" build="0" />
+    <version major="3" minor="6" revision="6" build="0" />
     <region id="Config">
         <node id="root">
             <children>
@@ -12,7 +12,7 @@
                             <attribute id="MD5" value="" type="23" />
                             <attribute id="Name" value="LeaderLib - Definitive Edition" type="22" />
                             <attribute id="UUID" value="7e737d2f-31d2-4751-963f-be6ccc59cd0c" type="22" />
-                            <attribute id="Version" value="268632065" type="4" />
+                            <attribute id="Version" value="369098752" type="4" />
                         </node>
                     </children>
                 </node>
@@ -20,6 +20,8 @@
                     <attribute id="Author" value="LaughingLeader" type="30" />
                     <attribute id="CharacterCreationLevelName" value="" type="22" />
                     <attribute id="Description" value="Adds the ability to save equipment as loadouts, and switch between them quickly. Also has support for the Naming Wizard mod to enable the ability to name your sets." type="30" />
+                    <attribute id="DescriptionName" value="" handle="ls::TranslatedStringRepository::s_HandleUnknown" type="28" />
+                    <attribute id="DisplayName" value="" handle="ls::TranslatedStringRepository::s_HandleUnknown" type="28" />
                     <attribute id="Folder" value="EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3" type="30" />
                     <attribute id="GMTemplate" value="" type="22" />
                     <attribute id="LobbyLevelName" value="" type="22" />
@@ -32,7 +34,7 @@
                     <attribute id="Tags" value="" type="30" />
                     <attribute id="Type" value="Add-on" type="22" />
                     <attribute id="UUID" value="5e772b3a-8c72-5250-22f9-5d8bbe751d74" type="22" />
-                    <attribute id="Version" value="268435464" type="4" />
+                    <attribute id="Version" value="268500992" type="4" />
                     <children>
                         <node id="PublishVersion">
                             <attribute id="Version" value="907936416" type="4" />
