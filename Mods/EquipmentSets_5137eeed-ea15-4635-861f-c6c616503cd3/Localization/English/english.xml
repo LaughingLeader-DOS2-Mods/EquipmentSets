@@ -1,0 +1,101 @@
+<contentList>
+	<content contentuid="h081ca04ag694cg40c1gbe08g7cea75d65f89" Source="BOOK_LLEQSET_MenuBook">Use to open the Equipment Sets menu.</content>
+	<content contentuid="h243196dfg8907g4c49g9b98g7d469c7ea45c" Source="BOOK_LLEQSET_MenuBook">Equipment Sets Menu</content>
+	<content contentuid="he782e609gfffbg47cagaa83g55ae292b9797" Source="BOOK_LLEQSET_MenuBook">Configure Sets</content>
+	<content contentuid="h747c3d04gca2fg4162gb2b7g2e4c3f36b694" Source="LLEQSET_BackPack_Set1">A backpack used to store equipment sets..</content>
+	<content contentuid="h64ff3e76g942dg4cc5gbd2bg3f55cc567067" Source="LLEQSET_BackPack_Set1">Equipment Set 1</content>
+	<content contentuid="hebbc9968ga7b9g4d8bgbe2egd889d5361759" Source="LLEQSET_BackPack_Set2">Equipment Set 2</content>
+	<content contentuid="h3064e873g1db4g4271g8f31g19ce1be3fec2" Source="LLEQSET_BackPack_Set3">Equipment Set 3</content>
+	<content contentuid="h7ca9c9a7ge0b8g475bgbd3dg4477f48dd11f" Source="LLEQSET_BackPack_Set4">Equipment Set 4</content>
+	<content contentuid="h6a3fd305g02e3g4affgbcc3g7d981e890236" Source="LLEQSET_BackPack_Set5">Equipment Set 5</content>
+	<content contentuid="h4358a33ege748g42b0g9a4bg2bf7321e3bdd" Source="LLEQSET_EquipmentSetMenu.lsj">No.</content>
+	<content contentuid="h5470c3e6g9697g498dgb713gcb27c37cef03" Source="LLEQSET_EquipmentSetMenu.lsj">[Commands]</content>
+	<content contentuid="h9e525404g9a35g4d43g87e0g28e074ae20d9" Source="LLEQSET_EquipmentSetMenu.lsj">Yes, give me all the set skills.</content>
+	<content contentuid="h339db9fagd658g48b9ga727g452b581fde65" Source="LLEQSET_EquipmentSetMenu.lsj">Yes, take me to the [Settings Menu].</content>
+	<content contentuid="h798e7ccage705g461bg8351g5c2c21ced46c" Source="LLEQSET_EquipmentSetMenu.lsj">Settings Menu</content>
+	<content contentuid="hf1b29d55gb246g467bgabcbg2ca66997a308" Source="LLEQSET_EquipmentSetMenu.lsj">[LLEQSET_Set3_Name_11964073-abcf-4d8e-b509-7cfe4fe42a7a] (Set 3)</content>
+	<content contentuid="h18da5ee0g167ag496dgbc78g35d5704476fe" Source="LLEQSET_EquipmentSetMenu.lsj">Set switching skill learned.</content>
+	<content contentuid="h06922d87g9f6dg40b8g8a12g5cda85818098" Source="LLEQSET_EquipmentSetMenu.lsj">Clear All Set Names</content>
+	<content contentuid="h421d740cg2369g46bdg8cfbg7536b3ee156d" Source="LLEQSET_EquipmentSetMenu.lsj">Clear all saved equipment sets for this character?</content>
+	<content contentuid="h5e85669cgdcc2g41a7g869dgb9bf79a8e930" Source="LLEQSET_EquipmentSetMenu.lsj">Cancel</content>
+	<content contentuid="h58c037f6g6aebg49d5g950bgba4b39899823" Source="LLEQSET_EquipmentSetMenu.lsj">Added set switcher item to inventory.</content>
+	<content contentuid="h9c716476g6535g44beg9b95gb73cc06ff40a" Source="LLEQSET_EquipmentSetMenu.lsj">All set names cleared.</content>
+	<content contentuid="h8537568bg9715g4dd4gb5fdge673d1e1c7e2" Source="LLEQSET_EquipmentSetMenu.lsj">[LLEQSET_Set2_Name_cd6de903-2364-4c6d-9a10-9b2b2707236d] (Set 2)</content>
+	<content contentuid="h35dce55aga8afg4512gb24eg900cb250b9c1" Source="LLEQSET_EquipmentSetMenu.lsj">Actually, give me all the set skills in [Item] form (these apply instantly, without any casting animations, and don&apos;t knock you out of your inventory window).</content>
+	<content contentuid="hd6a0d8b7gd670g4ac4gb5d2gbb86ae31afdc" Source="LLEQSET_EquipmentSetMenu.lsj">Name this equipment set [LLEQSET_Naming_FinalText_7a7aaab8-c19d-4af5-9d1b-9a1b5d7a47c0]?</content>
+	<content contentuid="hd29ef72bg0d5cg40b7gab16g7555d912b5e6" Source="LLEQSET_EquipmentSetMenu.lsj">[Main Menu]</content>
+	<content contentuid="h78c5e8adgada4g42d4gb530g551ae3057388" Source="LLEQSET_EquipmentSetMenu.lsj">Clear all set names for this character?</content>
+	<content contentuid="hf3c804d9gbc43g4830g87bdg86d4dd582b5a" Source="LLEQSET_EquipmentSetMenu.lsj">Unequip Set</content>
+	<content contentuid="hb0dcb0cdgc455g4d41gb957g5a84f69df1b1" Source="LLEQSET_EquipmentSetMenu.lsj">No, take me to the [Main Menu].</content>
+	<content contentuid="h4e507e85g7c83g44c1g9f64g9bd09b3a0244" Source="LLEQSET_EquipmentSetMenu.lsj">[CHARACTER] Enable Automatically Storing Equipment in Backpacks</content>
+	<content contentuid="ha8112c55g9a03g4fb2g85beg24316cec0264" Source="LLEQSET_EquipmentSetMenu.lsj">Confirm</content>
+	<content contentuid="hd5888955ga108g4d56gac37g3493da4ef9ce" Source="LLEQSET_EquipmentSetMenu.lsj">Equip Set</content>
+	<content contentuid="h0b562500g96d3g4b37g9e8agaa30ada4dfdb" Source="LLEQSET_EquipmentSetMenu.lsj">[CLEAR] Clear Saved Equipment</content>
+	<content contentuid="h295b021cg7d4eg40d7gbc13g69a56f177bc4" Source="LLEQSET_EquipmentSetMenu.lsj">Sets Management Menu&lt;br&gt;[LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2]&lt;br&gt;[LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22]</content>
+	<content contentuid="h8c3b9f2bgffbbg4ec4g98e2gc62b9d75434d" Source="LLEQSET_EquipmentSetMenu.lsj">Clear saved equipment from this set?</content>
+	<content contentuid="hb41e1eacgeb75g4c6dg8aaagb280a01fa62c" Source="LLEQSET_EquipmentSetMenu.lsj">Current equipment saved to set.</content>
+	<content contentuid="hea842ba6g36fag4bafg8efdg5281ea69a5e5" Source="LLEQSET_EquipmentSetMenu.lsj">Debug Commands</content>
+	<content contentuid="hb0584d67g8066g4c98gadc8g2052ac08c5d4" Source="LLEQSET_EquipmentSetMenu.lsj">[Sets] Manage Equipment Sets</content>
+	<content contentuid="hd561bbeagbab3g4390g94cagbd1b6cfc9916" Source="LLEQSET_EquipmentSetMenu.lsj">[Exit]</content>
+	<content contentuid="h03cd67a2gfa08g48d6g94f6g0bcaee4f0f03" Source="LLEQSET_EquipmentSetMenu.lsj">Saving set...</content>
+	<content contentuid="h3aadcf0ag4823g427aga536g46ef32d7edd8" Source="LLEQSET_EquipmentSetMenu.lsj">Unequip Everything</content>
+	<content contentuid="h2f2b23d0g3cb6g4aa8gb333g8144ddbceb32" Source="LLEQSET_EquipmentSetMenu.lsj">Running command...</content>
+	<content contentuid="h00f71846g4c34g4db4gbdabg3aa6b064ca0e" Source="LLEQSET_EquipmentSetMenu.lsj">Welcome to Equipment Sets. Would you like to choose some initial settings?</content>
+	<content contentuid="h9845d0c3gff05g4c1bg9666gf712123c3739" Source="LLEQSET_EquipmentSetMenu.lsj">[CHARACTER] Ignore Empty Slots - Equipment slots that are empty won&apos;t be saved to equipment sets.</content>
+	<content contentuid="h43e3ea55g4f9dg4db2gaf23g6e04d53e7cd1" Source="LLEQSET_EquipmentSetMenu.lsj">Opening naming wizard...</content>
+	<content contentuid="he9e61c4cgc3a0g452eg9127gcaafff59868f" Source="LLEQSET_EquipmentSetMenu.lsj">Closing...</content>
+	<content contentuid="h48f25c4dg4208g4c1bg86bcg73f38ffc5f07" Source="LLEQSET_EquipmentSetMenu.lsj">[SKILL] Remove Set Switcher Skill</content>
+	<content contentuid="h8d28fae7g556eg44e5gbb2ag01dfc9479738" Source="LLEQSET_EquipmentSetMenu.lsj">[NAME-DISABLED] Install the &lt;b&gt;Naming Wizard &lt;/b&gt;mod to rename this set.</content>
+	<content contentuid="hae26234bg7749g45e6ga584g969381310ba2" Source="LLEQSET_EquipmentSetMenu.lsj">All sets cleared.</content>
+	<content contentuid="h244c617dg90cag45dbg8b76gdaeb3350c537" Source="LLEQSET_EquipmentSetMenu.lsj">No, I&apos;ll add them individually.</content>
+	<content contentuid="h861a7d3eg33e7g40e8gad39gec0c62505485" Source="LLEQSET_EquipmentSetMenu.lsj">[Set Menu]</content>
+	<content contentuid="h3f83a593g0aa4g4d4dg8a0fg9e5503be4f20" Source="LLEQSET_EquipmentSetMenu.lsj">Learn Equipments Sets Menu Skill</content>
+	<content contentuid="h993fc318gca04g4c0cga4f1g4e8de592cadf" Source="LLEQSET_EquipmentSetMenu.lsj">[NAME] Rename Set</content>
+	<content contentuid="h06f16100g64d6g44a8g8e2dgbcf3c251fffc" Source="LLEQSET_EquipmentSetMenu.lsj">Loading set menu...</content>
+	<content contentuid="h4f1b60ddg93a7g4dc0g896fgb04d169d053c" Source="LLEQSET_EquipmentSetMenu.lsj">[CHARACTER] Save Empty Slots - Empty slots will be saved to equipment sets.</content>
+	<content contentuid="had65be1cg2e2bg4ae9ga9a0gec2f8b802b0a" Source="LLEQSET_EquipmentSetMenu.lsj">[Debug Commands]</content>
+	<content contentuid="hdb9bae3ag87cdg42d3gb351ge1095495aedd" Source="LLEQSET_EquipmentSetMenu.lsj">Set unequipped.</content>
+	<content contentuid="h000609f9gd661g409dgbaf9g99ac13f2f269" Source="LLEQSET_EquipmentSetMenu.lsj">Commands Menu</content>
+	<content contentuid="hd04bef7aga174g4353g80dcg758ac699247e" Source="LLEQSET_EquipmentSetMenu.lsj">Remove All Set Skills</content>
+	<content contentuid="h0e64ee6cgcc8eg4529ga866ga62b53092edb" Source="LLEQSET_EquipmentSetMenu.lsj">Give All Set Switcher Items</content>
+	<content contentuid="hfe29fcbdg6defg46e1g841dg6cfefd9b9b2e" Source="LLEQSET_EquipmentSetMenu.lsj">[LLEQSET_Set5_Name_96b8dacd-3eaf-4b43-bb88-ea1af58840e2] (Set 5)</content>
+	<content contentuid="hf8b8f932g93e0g402eg92b2g16f173beeef5" Source="LLEQSET_EquipmentSetMenu.lsj">Overwrite currently saved equipment?</content>
+	<content contentuid="hb9c64b65ged8ag4cacg8b91ga696cc323992" Source="LLEQSET_EquipmentSetMenu.lsj">[LLEQSET_Set4_Name_b099c556-cd9b-4764-b8e8-21151e9d0d73] (Set 4)</content>
+	<content contentuid="hea4c27a5gc72dg4090g9e3dg33336d8dc9db" Source="LLEQSET_EquipmentSetMenu.lsj">Reset Initialization. This acts as if you started the mod for the first time.</content>
+	<content contentuid="he754fed4g1d96g4b73g9cd1gc39c5d53826a" Source="LLEQSET_EquipmentSetMenu.lsj">[SAVE] Save Current Equipment to Set</content>
+	<content contentuid="hd81ff921g72e6g4f33g9de8g92f779ecbf88" Source="LLEQSET_EquipmentSetMenu.lsj">[LLEQSET_Menu_CurrentSetName_89e7900d-a560-496f-83d8-9d6593bc0f3e] Menu</content>
+	<content contentuid="heb667d7agdd72g4b1fgb0a4g33ef0488674d" Source="LLEQSET_EquipmentSetMenu.lsj">[USER] Disable Auto-Saving</content>
+	<content contentuid="h8d272c23g87ddg4379g9411g76ce2b982b0c" Source="LLEQSET_EquipmentSetMenu.lsj">Equipment Sets Main Menu&lt;br&gt;[LLEQSET_Menu_CurrentSet_b7d19a06-c548-4fad-91b7-19f0fbeea6d2]&lt;br&gt;[LLEQSET_Menu_LastSet_4b15c955-324e-4236-8107-94259433de22]</content>
+	<content contentuid="hba6f0e84ga7b5g4003g88deg8e60f6b8589d" Source="LLEQSET_EquipmentSetMenu.lsj">Enable [Equipment Auto-Saving]? When a set is equipped and you equip a new item, it will automatically be saved to your current set. This is a &lt;b&gt;user-level &lt;/b&gt;setting, meaning it applies to all of your controlled characters.</content>
+	<content contentuid="h851a2b7cg1c7bg436egbcacg92a8d2af1a99" Source="LLEQSET_EquipmentSetMenu.lsj">Yes.</content>
+	<content contentuid="h2b9ae242gf901g4c56g9263gaf728f18b95a" Source="LLEQSET_EquipmentSetMenu.lsj">Actually, take me to the [Commands] menu instead.</content>
+	<content contentuid="hafbc6451g0596g4dedg9973ga111a45fa021" Source="LLEQSET_EquipmentSetMenu.lsj">Equipment set name change canceled.</content>
+	<content contentuid="h188e31ceg6c66g49feg8182ga16b2d2acefd" Source="LLEQSET_EquipmentSetMenu.lsj">[USER] Enable Auto-Saving - Items you equip/unequip will be automatically saved to the active set.</content>
+	<content contentuid="hca191acbg2e48g46b5gb717g009a855c402a" Source="LLEQSET_EquipmentSetMenu.lsj">[LLEQSET_Set1_Name_66186e4d-bc09-41b6-892f-15da2693d668] (Set 1)</content>
+	<content contentuid="hf40cc510g7da7g492dg8b36g3e4458c5b6b4" Source="LLEQSET_EquipmentSetMenu.lsj">Set switching skill removed.</content>
+	<content contentuid="h99e86510g3a97g4ba1g98ddg33dc992138ba" Source="LLEQSET_EquipmentSetMenu.lsj">Yes, enable [Equipment Auto-Saving].</content>
+	<content contentuid="h23059c0dgc89bg4ea0ga6c3gcdc96ab878fe" Source="LLEQSET_EquipmentSetMenu.lsj">[SKILL] Add Set Switcher Skill</content>
+	<content contentuid="h02cab42cgf5e0g499cg9f6bg428888aefbc2" Source="LLEQSET_EquipmentSetMenu.lsj">[ITEM] Give Set Switcher Item</content>
+	<content contentuid="h940f1e1bgdf4ag42d8g8a50gcba1e61cf070" Source="LLEQSET_EquipmentSetMenu.lsj">Saved equipment cleared.</content>
+	<content contentuid="hc067659dgb165g40adg9048g7c433b8b4de1" Source="LLEQSET_EquipmentSetMenu.lsj">Remove Equipment Sets Menu Skill</content>
+	<content contentuid="h7cada2cfg60c7g47feg9ebdg5e2cd37331b0" Source="LLEQSET_EquipmentSetMenu.lsj">Add all set switching skills?</content>
+	<content contentuid="h046b5fb3gca86g462bg9566gfbfa5157ff23" Source="LLEQSET_EquipmentSetMenu.lsj">Give All Set Skills</content>
+	<content contentuid="h02fc0c71g164eg42d8g9404gf7759efbae32" Source="LLEQSET_EquipmentSetMenu.lsj">[Settings]</content>
+	<content contentuid="h47061e01ge611g47b6gbd16g596fd93f0f20" Source="LLEQSET_EquipmentSetMenu.lsj">[CHARACTER] Disable Automatically Storing Equipment in Backpacks</content>
+	<content contentuid="ha6913f31g4e84g495ag83f7g4342ee2205fd" Source="LLEQSET_EquipmentSetMenu.lsj">Set equipped.</content>
+	<content contentuid="hc0a9cf48g9678g4231g9673g61983c1ffb62" Source="LLEQSET_EquipmentSetMenu.lsj">Give Menu Book</content>
+	<content contentuid="h38f10fa8gd1fbg4a83g8f88g8a412c25fa22" Source="LLEQSET_EquipmentSetMenu.lsj">[SAVE-DISABLED] Enable the &quot;Save Empty Slots&quot; option to save current nakedness, or equip something.</content>
+	<content contentuid="hb8873e5bgf145g405egb005g92821e85bdc3" Source="LLEQSET_EquipmentSetMenu.lsj">Would you like to see other settings?</content>
+	<content contentuid="h2b84b536ged75g4ff0g80dag5fb62d552d0c" Source="LLEQSET_EquipmentSetMenu.lsj">Equipment set name change confirmed.</content>
+	<content contentuid="haf9a3058g4b66g4800g8486gd5cec044a418" Source="LLEQSET_EquipmentSetMenu.lsj">Clear All Equipment Sets</content>
+	<content contentuid="h6cd603b9gc7b2g4327gb361gad088558da41" Source="LLEQSET_SetSwitcher_Set1">&lt;font color=&apos;#00FA9A&apos;&gt;Automatically equip all items saved to this equipment set.&lt;/font&gt;</content>
+	<content contentuid="h12dd798cg8743g4c29g9b5dg45aa8c809e9f" Source="LLEQSET_SetSwitcher_Set1">Equip Set</content>
+	<content contentuid="h600d1299gc9f3g44d9gaf62gfaa4c41be068" Source="Shout_Description.lsb" Key="Shout_LLEQSET_EquipmentSetBase_Description">&lt;font color=&apos;#00FA9A&apos;&gt;Automatically equip all items saved to this equipment set.&lt;/font&gt;</content>
+	<content contentuid="h7d6d1b45gfe90g4c21gafa8g40ea5f2b50ab" Source="Shout_Description.lsb" Key="Shout_LLEQSET_OpenSetMenu_Description">Open the Equipment Sets menu to configure equipment sets.</content>
+	<content contentuid="hba0875dagbc55g46ddga327gc2f7e08207e7" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_EquipmentSet1_DisplayName">Equipment Set 1</content>
+	<content contentuid="h744fb08dg9705g4770gbffdg997999500e5e" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_EquipmentSet2_DisplayName">Equipment Set 2</content>
+	<content contentuid="h3a1655fcg2784g40e4g97a9gcd96e774b874" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_EquipmentSet3_DisplayName">Equipment Set 3</content>
+	<content contentuid="h09a354c6g6dd2g4fa6g9d3ag9c78b154a72a" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_EquipmentSet4_DisplayName">Equipment Set 4</content>
+	<content contentuid="h1be73110gf48ag494aga14fgc2005a880e76" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_EquipmentSet5_DisplayName">Equipment Set 5</content>
+	<content contentuid="h1a1e769dge0a2g4fdagaa3eg69d21a7523ba" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_OpenSetMenu_DisplayName">Open Equipment Sets Menu</content>
+</contentList>
