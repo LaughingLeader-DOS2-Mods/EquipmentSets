@@ -1,0 +1,7 @@
+{
+    "RequiredExtensionVersion": 38,
+    "FeatureFlags": [
+        "OsirisExtensions",
+        "Preprocessor"
+    ]
+}
