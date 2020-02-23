@@ -4,9 +4,14 @@ INITSECTION
 
 KBSECTION
 IF
-RegionStarted("TestLevel_EquipmentSets")
+RegionStarted("TestLevel_LL_LeaderLib")
 THEN
-GoalCompleted;
+SysActivateGoal("LLEQSET_Debug");
+
+IF
+RegionStarted("_TMPL_Sandbox")
+THEN
+SysActivateGoal("LLEQSET_Debug");
 EXITSECTION
 
 ENDEXITSECTION
