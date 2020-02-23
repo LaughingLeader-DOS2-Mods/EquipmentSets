@@ -22,6 +22,14 @@ DB_LLEQSET_RegisteredLeaderLibSettings(1);
 LLEQSET_LeaderLib_RegisterSettings();
 
 PROC
+LeaderLib_Mods_OnVersionChanged(5e772b3a-8c72-5250-22f9-5d8bbe751d74, (INTEGER)_LastVersion, (INTEGER)_NextVersion)
+AND
+NOT DB_LLEQSET_RegisteredLeaderLibSettings(_)
+THEN
+DB_LLEQSET_RegisteredLeaderLibSettings(1);
+LLEQSET_LeaderLib_RegisterSettings();
+
+PROC
 LLEQSET_LeaderLib_RegisterSettings()
 THEN
 LeaderLib_Register_ModMenuByUUID("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu", "EquipmentSets", "LaughingLeader");
