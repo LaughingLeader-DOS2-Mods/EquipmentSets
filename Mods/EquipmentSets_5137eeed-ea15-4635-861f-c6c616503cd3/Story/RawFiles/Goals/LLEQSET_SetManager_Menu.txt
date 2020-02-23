@@ -581,6 +581,26 @@ THEN
 LLEQSET_ColorStatusText(_Player, "[Equipment Sets] Auto-Save Disabled", "Warning");
 //END_REGION
 
+//REGION NAMING_WIZARD_CHECK
+IF
+DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+GlobalGetFlag("LLEQSET_Global_NamingWizardFound", 0)
+AND
+LeaderUpdater_QRY_ModIsActive("NamingWizard", "LaughingLeader")
+THEN
+GlobalSetFlag("LLEQSET_Global_NamingWizardFound");
+
+IF
+DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)
+AND
+GlobalGetFlag("LLEQSET_Global_NamingWizardFound", 1)
+AND
+NOT LeaderUpdater_QRY_ModIsActive("NamingWizard", "LaughingLeader")
+THEN
+GlobalClearFlag("LLEQSET_Global_NamingWizardFound");
+//END_REGION
+
 //REGION DIALOG_EVENTS
 IF
 DialogStarted("LLEQSET_EquipmentSetMenu", _Instance)

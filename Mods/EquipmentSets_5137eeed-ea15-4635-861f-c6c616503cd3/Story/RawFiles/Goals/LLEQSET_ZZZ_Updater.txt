@@ -1,73 +1,22 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-LLEQSET_Updater_InitSettings();
-LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "1.0.1.0");
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", 1,0,1,0);
 LeaderUpdater_Register_ActiveGoal("EquipmentSets", "LaughingLeader", "LLEQSET_ZZZ_Updater");
 LeaderUpdater_Register_UUID("EquipmentSets", "LaughingLeader", 7e737d2f-31d2-4751-963f-be6ccc59cd0c);
 //DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 KBSECTION
-//REGION SETTINGS
-PROC
-LLEQSET_Updater_InitSettings()
-THEN
-LLEQSET_System_ClearExistingDatabase("DB_LLEQSET_Dependencies", 2);
-DB_LLEQSET_Dependencies("NamingWizard", "LaughingLeader", "LLEQSET_Global_NamingWizardFound");
-//END_REGION
 
-//REGION MOD_UPDATING
-PROC
-LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", (STRING)_PastVersion, (STRING)_NewVersion)
-THEN
-LeaderLog_Log("DEBUG", "[LLEQSET:Updater] Updated from version [",_PastVersion,"] to [",_NewVersion,"]");
-
-PROC
-LLEQSET_Updater_UnregisterMod()
-THEN
-LeaderUpdater_UnregisterMod("EquipmentSets", "LaughingLeader");
-//END_REGION
-
+// [BEGIN_NO_OSITOOLS]
 //REGION UPDATE_EVENT
 IF
 GameStarted(_,_)
 AND
-LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", "1.0.0.8")
+LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", 1,0,1,0)
 THEN
-LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", "1.0.0.8");
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", 1,0,1,0);
 //END_REGION
-
-//REGION MOD_DETECTION
-PROC
-LLEQSET_Updater_CheckDependencies()
-AND
-DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
-AND
-LeaderUpdater_QRY_ModIsActive(_Mod, _Author)
-THEN
-LeaderLog_Log("DEBUG","[LLEQSET:Updater] Mod ",_Mod," by ", _Author," is active.");
-GlobalSetFlag(_GlobalFlag);
-
-PROC
-LLEQSET_Updater_CheckDependencies()
-AND
-DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
-AND
-NOT LeaderUpdater_QRY_ModIsActive(_Mod, _Author)
-THEN
-LeaderLog_Log("DEBUG","[LLEQSET][Updater] Mod ",_Mod," by ", _Author," not active.");
-GlobalClearFlag(_GlobalFlag);
-//END_REGION
-
-//DEPENDENCY_CHECK_EVENT
-IF
-GameStarted(_,_)
-THEN
-TimerLaunch("LLEQSET_Timers_CheckDependencies", 500);
-
-IF
-TimerFinished("LLEQSET_Timers_CheckDependencies")
-THEN
-LLEQSET_Updater_CheckDependencies();
+// [END_NO_OSITOOLS]
 EXITSECTION
 
 ENDEXITSECTION
