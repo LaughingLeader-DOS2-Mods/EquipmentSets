@@ -14,14 +14,6 @@ DB_LLEQSET_RegisteredLeaderLibSettings(1);
 // [END_NO_OSITOOLS]
 
 PROC
-LeaderLib_Mods_OnModRegistered(5e772b3a-8c72-5250-22f9-5d8bbe751d74, (INTEGER)_Version, (INTEGER)_Major, (INTEGER)_Minor, (INTEGER)_Revision, (INTEGER)_Build)
-AND
-NOT DB_LLEQSET_RegisteredLeaderLibSettings(_)
-THEN
-DB_LLEQSET_RegisteredLeaderLibSettings(1);
-LLEQSET_LeaderLib_RegisterSettings();
-
-PROC
 LeaderLib_Mods_OnVersionChanged(5e772b3a-8c72-5250-22f9-5d8bbe751d74, (INTEGER)_LastVersion, (INTEGER)_NextVersion)
 AND
 NOT DB_LLEQSET_RegisteredLeaderLibSettings(_)
