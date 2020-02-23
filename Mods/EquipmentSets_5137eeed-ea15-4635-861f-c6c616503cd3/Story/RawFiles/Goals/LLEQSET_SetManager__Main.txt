@@ -1000,40 +1000,144 @@ THEN
 LLEQSET_SetManager_UnequipSet(_Player, _SetID);
 //END_REGION
 
-//REGION USE_EVENTS
+//REGION SKILL_USE_EVENTS
 IF
-CharacterUsedSkill(_Player, _Skill, _, _)
+CharacterUsedSkill(_Player, "Shout_LLEQSET_EquipmentSet1", _, _)
 AND
-DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet1",_,_)
+THEN
+LLEQSET_SetManager_OnSkillUsed(_Player, _SetID);
+
+IF
+SkillCast(_Player, "Shout_LLEQSET_EquipmentSet1", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet1",_,_)
+THEN
+LLEQSET_SetManager_OnSkillCast(_Player, _SetID);
+
+IF
+CharacterUsedSkill(_Player, "Shout_LLEQSET_EquipmentSet2", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet2",_,_)
+THEN
+LLEQSET_SetManager_OnSkillUsed(_Player, _SetID);
+
+IF
+SkillCast(_Player, "Shout_LLEQSET_EquipmentSet2", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet2",_,_)
+THEN
+LLEQSET_SetManager_OnSkillCast(_Player, _SetID);
+
+IF
+CharacterUsedSkill(_Player, "Shout_LLEQSET_EquipmentSet3", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet3",_,_)
+THEN
+LLEQSET_SetManager_OnSkillUsed(_Player, _SetID);
+
+IF
+SkillCast(_Player, "Shout_LLEQSET_EquipmentSet3", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet3",_,_)
+THEN
+LLEQSET_SetManager_OnSkillCast(_Player, _SetID);
+
+IF
+CharacterUsedSkill(_Player, "Shout_LLEQSET_EquipmentSet4", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet4",_,_)
+THEN
+LLEQSET_SetManager_OnSkillUsed(_Player, _SetID);
+
+IF
+SkillCast(_Player, "Shout_LLEQSET_EquipmentSet4", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet4",_,_)
+THEN
+LLEQSET_SetManager_OnSkillCast(_Player, _SetID);
+
+IF
+CharacterUsedSkill(_Player, "Shout_LLEQSET_EquipmentSet5", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet5",_,_)
+THEN
+LLEQSET_SetManager_OnSkillUsed(_Player, _SetID);
+
+IF
+SkillCast(_Player, "Shout_LLEQSET_EquipmentSet5", _, _)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, "Shout_LLEQSET_EquipmentSet5",_,_)
+THEN
+LLEQSET_SetManager_OnSkillCast(_Player, _SetID);
+//END_REGION
+
+//REGION ITEM_USE_EVENTS
+IF
+CharacterUsedItemTemplate(_Player, "LLEQSET_SetSwitcher_Set1_0730aca7-6ffd-4206-a0bf-6c454d0017f1", _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, "LLEQSET_SetSwitcher_Set1_0730aca7-6ffd-4206-a0bf-6c454d0017f1", _BackpackTemplate)
+AND
+NOT LLEQSET_SetManager_QRY_PlayerCurrentlyEquipping(_Player)
+THEN
+LLEQSET_SetManager_Internal_OnSetItemUsed(_Player, _SetID);
+
+IF
+CharacterUsedItemTemplate(_Player, "LLEQSET_SetSwitcher_Set2_39f4f924-dd09-42d3-9da2-9dcb852f4d6b", _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, "LLEQSET_SetSwitcher_Set2_39f4f924-dd09-42d3-9da2-9dcb852f4d6b", _BackpackTemplate)
+AND
+NOT LLEQSET_SetManager_QRY_PlayerCurrentlyEquipping(_Player)
+THEN
+LLEQSET_SetManager_Internal_OnSetItemUsed(_Player, _SetID);
+
+IF
+CharacterUsedItemTemplate(_Player, "LLEQSET_SetSwitcher_Set3_b3fd8c1b-caba-4c5e-bb71-9d85d684b17a", _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, "LLEQSET_SetSwitcher_Set3_b3fd8c1b-caba-4c5e-bb71-9d85d684b17a", _BackpackTemplate)
+AND
+NOT LLEQSET_SetManager_QRY_PlayerCurrentlyEquipping(_Player)
+THEN
+LLEQSET_SetManager_Internal_OnSetItemUsed(_Player, _SetID);
+
+IF
+CharacterUsedItemTemplate(_Player, "LLEQSET_SetSwitcher_Set4_771ba282-d742-499b-8709-73a4239a5c29", _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, "LLEQSET_SetSwitcher_Set4_771ba282-d742-499b-8709-73a4239a5c29", _BackpackTemplate)
+AND
+NOT LLEQSET_SetManager_QRY_PlayerCurrentlyEquipping(_Player)
+THEN
+LLEQSET_SetManager_Internal_OnSetItemUsed(_Player, _SetID);
+
+IF
+CharacterUsedItemTemplate(_Player, "LLEQSET_SetSwitcher_Set5_fc91f52e-978b-454e-8ac2-ddb81d91601b", _Item)
+AND
+DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, "LLEQSET_SetSwitcher_Set5_fc91f52e-978b-454e-8ac2-ddb81d91601b", _BackpackTemplate)
+AND
+NOT LLEQSET_SetManager_QRY_PlayerCurrentlyEquipping(_Player)
+THEN
+LLEQSET_SetManager_Internal_OnSetItemUsed(_Player, _SetID);
+//END_REGION
+
+//REGION USE_EVENTS
+PROC
+LLEQSET_SetManager_OnSkillUsed((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 LLEQSET_QRY_SetManager_ShouldPlayEffect(_Player, _SetID)
 THEN
 LLEQSET_SetManager_PlayOverlayEffect(_Player, _SetID);
 
-IF
-SkillCast(_Player, _Skill, _, _)
-AND
-DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
+PROC
+LLEQSET_SetManager_OnSkillCast((CHARACTERGUID)_Player, (STRING)_SetID)
 AND
 LLEQSET_QRY_SetManager_ShouldPlayEffect(_Player, _SetID)
 THEN
 LLEQSET_SetManager_PlayCastEffect(_Player, _SetID);
 
-IF
-SkillCast(_Player, _Skill, _, _)
-AND
-DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill,_,_)
+PROC
+LLEQSET_SetManager_OnSkillCast((CHARACTERGUID)_Player, (STRING)_SetID)
 THEN
 LLEQSET_SetManager_ChangeSet(_Player, _SetID);
-
-IF
-CharacterUsedItemTemplate(_Player, _ItemTemplate, _Item)
-AND
-DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
-AND
-NOT LLEQSET_SetManager_QRY_PlayerCurrentlyEquipping(_Player)
-THEN
-LLEQSET_SetManager_Internal_OnSetItemUsed(_Player, _SetID);
 
 PROC
 LLEQSET_SetManager_Internal_OnSetItemUsed((CHARACTERGUID)_Player, (STRING)_SetID)
