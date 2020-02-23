@@ -24,9 +24,7 @@ LLEQSET_LeaderLib_RegisterSettings();
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
 THEN
-//LeaderLib_Register_ModMenu("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
-LeaderLib_Register_ModMenu("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
-//LeaderLib_GlobalSettings_Register_GlobalFlag(5e772b3a-8c72-5250-22f9-5d8bbe751d74, "", 1);
+LeaderLib_Register_ModMenuByUUID("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu", "EquipmentSets", "LaughingLeader");
 
 PROC
 LLEQSET_LeaderLib_RegisterSettings()
@@ -53,7 +51,7 @@ AND
 DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader")
 THEN
 NOT DB_LeaderLib_ModMenu_RegisteredMenuData("LaughingLeader.EquipmentSets", "[Equipment Sets] Main Menu", "LLEQSET_EquipmentSetMenu", "EquipmentSets", "LaughingLeader");
-LeaderLib_Register_ModMenu("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu");
+LeaderLib_Register_ModMenuByUUID("5e772b3a-8c72-5250-22f9-5d8bbe751d74", "LLEQSET_EquipmentSetMenu", "[Equipment Sets] Main Menu", "EquipmentSets", "LaughingLeader");
 // [END_NO_OSITOOLS]
 
 PROC
