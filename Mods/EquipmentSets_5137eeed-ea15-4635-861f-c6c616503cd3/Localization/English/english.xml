@@ -90,7 +90,7 @@
 	<content contentuid="haf9a3058g4b66g4800g8486gd5cec044a418" Source="LLEQSET_EquipmentSetMenu.lsj">Clear All Equipment Sets</content>
 	<content contentuid="h6cd603b9gc7b2g4327gb361gad088558da41" Source="LLEQSET_SetSwitcher_Set1">&lt;font color=&apos;#00FA9A&apos;&gt;Automatically equip all items saved to this equipment set.&lt;/font&gt;</content>
 	<content contentuid="h12dd798cg8743g4c29g9b5dg45aa8c809e9f" Source="LLEQSET_SetSwitcher_Set1">Equip Set</content>
-	<content contentuid="h600d1299gc9f3g44d9gaf62gfaa4c41be068" Source="Shout_Description.lsb" Key="Shout_LLEQSET_EquipmentSetBase_Description">&lt;font color=&apos;#00FA9A&apos;&gt;Automatically equip all items saved to this equipment set.&lt;/font&gt;</content>
+	<content contentuid="h9a8cdbcbgaae4g406fgba99g89fa6cf4de91" Source="Shout_Description.lsb" Key="Shout_LLEQSET_EquipmentSet_Description">&lt;font color=&apos;#00FA9A&apos;&gt;Automatically equip all items saved to this equipment set.&lt;/font&gt;</content>
 	<content contentuid="h7d6d1b45gfe90g4c21gafa8g40ea5f2b50ab" Source="Shout_Description.lsb" Key="Shout_LLEQSET_OpenSetMenu_Description">Open the Equipment Sets menu to configure equipment sets.</content>
 	<content contentuid="hba0875dagbc55g46ddga327gc2f7e08207e7" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_EquipmentSet1_DisplayName">Equipment Set 1</content>
 	<content contentuid="h744fb08dg9705g4770gbffdg997999500e5e" Source="Shout_DisplayName.lsb" Key="Shout_LLEQSET_EquipmentSet2_DisplayName">Equipment Set 2</content>
