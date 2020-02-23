@@ -560,9 +560,7 @@ THEN
 LLEQSET_Menu_OpenMenu(_Player);
 
 IF
-CharacterUsedItemTemplate(_Player, _Template, _Item)
-AND
-DB_LLEQSET_MenuItem(_Template)
+CharacterUsedItemTemplate(_Player, "BOOK_LLEQSET_MenuBook_42227c69-e194-4de6-9771-c05f39aa3f46", _Item)
 THEN
 LLEQSET_Menu_OpenMenu(_Player);
 //END_REGION
