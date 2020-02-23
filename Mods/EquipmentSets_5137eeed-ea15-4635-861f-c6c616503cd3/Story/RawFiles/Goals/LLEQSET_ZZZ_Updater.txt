@@ -7,7 +7,6 @@ LeaderUpdater_Register_UUID("EquipmentSets", "LaughingLeader", 7e737d2f-31d2-475
 //DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
 KBSECTION
 
-// [BEGIN_NO_OSITOOLS]
 //REGION UPDATE_EVENT
 IF
 GameStarted(_,_)
@@ -16,7 +15,6 @@ LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", 1,0,1,0)
 THEN
 LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", 1,0,1,0);
 //END_REGION
-// [END_NO_OSITOOLS]
 EXITSECTION
 
 ENDEXITSECTION
