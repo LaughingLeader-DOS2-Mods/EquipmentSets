@@ -55,7 +55,7 @@ StoryEvent(_, "LeaderLib_Initialized")
 AND
 NOT DB_LLEQSET_NamingWizard_RegisteredWordMenu(_)
 AND
-LeaderUpdater_QRY_ModIsRegistered("NamingWizard", "LaughingLeader")
+DB_Mods_Registered("NamingWizard", "LaughingLeader", _Version)
 THEN
 DB_LLNWIZ_ModApi_RegisterMenu("LLEQSET_EquipmentSetWords", "Equipment Set Words", "DB_LLEQSET_NamingWizard_Words", 2);
 DB_LLNWIZ_ModApi_RegisterWord("Mod", "Equipment Sets");
