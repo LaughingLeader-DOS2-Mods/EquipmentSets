@@ -991,7 +991,11 @@ AND
 DB_LLEQSET_SetManager_SetConfig(_SetID,_,_,_)
 THEN
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
+
 /* [OSITOOLS_ONLY]
+PROC
+LLEQSET_SetManager_RegisterEquipment((CHARACTERGUID)_Player, (STRING)_SetID, (STRING)_Slot, (ITEMGUID)_Item)
+THEN
 LeaderLib_Timers_StartObjectTimer(_Player, 500, "Timers_LLEQSET_SyncEquipmentData", "LLEQSET_SyncEquipmentData");
 
 PROC

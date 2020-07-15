@@ -1,3 +1,3 @@
-Key	Content
-Shout_LLEQSET_EquipmentSet_Description	<font color='#00FA9A'>Automatically equip all items saved to this equipment set.</font>
-Shout_LLEQSET_OpenSetMenu_Description	Open the Equipment Sets menu to configure equipment sets.
+Key	Content	Handle
+Shout_LLEQSET_EquipmentSet_Description	<font color='#00FA9A'>Automatically equip all items saved to this equipment set.</font>	h9a8cdbcbgaae4g406fgba99g89fa6cf4de91
+Shout_LLEQSET_OpenSetMenu_Description	Open the Equipment Sets menu to configure equipment sets.	h7d6d1b45gfe90g4c21gafa8g40ea5f2b50ab

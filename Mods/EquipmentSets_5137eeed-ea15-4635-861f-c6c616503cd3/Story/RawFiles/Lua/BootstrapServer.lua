@@ -25,6 +25,8 @@ local SlotOrder = {
 	"Weapon",
 }
 
+local levelText = TranslatedString:Create("h7286f6b9gecadg429aga866gddc4297ee876", "Level")
+
 function SyncEquipmentData(character)
 	local equipmentSetData = {
 		Shout_LLEQSET_EquipmentSet1 = {Name="", Data={}},
@@ -54,13 +56,19 @@ function SyncEquipmentData(character)
 			if entry ~= nil and #entry > 0 then
 				hasEquipmentData = true
 				local item = entry[1][4]
-				local itemName = Ext.GetItem(item).DisplayName
+				---@type EsvItem
+				local itemObj = Ext.GetItem(item)
+				local itemName = itemObj.DisplayName
 				-- local handle,ref = ItemTemplateGetDisplayString(item)
 				-- local itemName = NRD_ItemGetStatsId(item)
 				-- if handle ~= nil then
 				-- 	itemName = Ext.GetTranslatedString(handle, ref)
 				-- end
-				table.insert(equipmentSetData[skill].Data, {Slot=slot, Name = itemName})
+				table.insert(equipmentSetData[skill].Data, {
+					Slot=slot, 
+					Name=itemName,
+					Level = string.format("%s %i", levelText.Value, itemObj.Stats.Level)
+				})
 			end
 		end
 	end
@@ -85,17 +93,13 @@ function SyncEquipmentData(character)
 			UUID = uuid,
 			Data = equipmentSetData
 		}):ToString())
-	else
-		print("No EQ data for", character)
 	end
 end
 
 Ext.RegisterConsoleCommand("luareset", function(command)
-	LeaderLib.StartOneshotTimer("Timers_LLEQSET_ReSyncData", 500, function()
-		for i,entry in pairs(Osi.DB_IsPlayer:Get(nil)) do
-			SyncEquipmentData(entry[1])
-		end
-	end)
+	for i,entry in pairs(Osi.DB_IsPlayer:Get(nil)) do
+		Osi.LeaderLib_Timers_StartObjectTimer(entry[1], 1000, "Timers_LLEQSET_SyncEquipmentData", "LLEQSET_SyncEquipmentData")
+	end
 end)
 
 Ext.RegisterConsoleCommand("eqset_sync", function(command)
