@@ -1,7 +1,9 @@
 {
     "RequiredExtensionVersion": 49,
+    "ModTable": "EquipmentSets",
     "FeatureFlags": [
         "OsirisExtensions",
-        "Preprocessor"
+        "Preprocessor",
+        "Lua"
     ]
 }

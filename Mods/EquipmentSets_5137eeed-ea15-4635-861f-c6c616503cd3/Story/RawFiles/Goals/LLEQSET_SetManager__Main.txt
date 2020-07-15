@@ -991,7 +991,28 @@ AND
 DB_LLEQSET_SetManager_SetConfig(_SetID,_,_,_)
 THEN
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item);
+/* [OSITOOLS_ONLY]
+LeaderLib_Timers_StartObjectTimer(_Player, 500, "Timers_LLEQSET_SyncEquipmentData", "LLEQSET_SyncEquipmentData");
 
+PROC
+LLEQSET_SetManager_RegisterAllEquipment((CHARACTERGUID)_Player, (STRING)_SetID)
+THEN
+NRD_ModCall("EquipmentSets", "SyncEquipmentData", (STRING)_Player);
+
+IF
+StoryEvent((CHARACTERGUID)_Player, "LLEQSET_SyncEquipmentData")
+THEN
+NRD_ModCall("EquipmentSets", "SyncEquipmentData", (STRING)_Player);
+
+PROC
+LeaderLib_Initialized((STRING)_Region)
+AND
+IsGameLevel(_Region, 1)
+AND
+DB_IsPlayer(_Player)
+THEN
+NRD_ModCall("EquipmentSets", "SyncEquipmentData", (STRING)_Player);
+*/
 //END_REGION
 
 //REGION FLAG_EVENTS
