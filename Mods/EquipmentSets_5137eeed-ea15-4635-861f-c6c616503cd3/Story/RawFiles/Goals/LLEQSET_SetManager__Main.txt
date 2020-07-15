@@ -742,7 +742,12 @@ AND
 ItemIsInCharacterInventory(_Item, _Player, 1)
 THEN
 LLEQSET_SetManager_UnequipItemInSlot_NoDelay(_Player, _Slot);
+// [BEGIN_NO_OSITOOLS]
 CharacterEquipItem(_Player, _Item);
+// [END_NO_OSITOOLS]
+/* [OSITOOLS_ONLY]
+NRD_CharacterEquipItem(_Player, _Item, _Slot, 0, 0, 1, 1);
+*/
 
 PROC
 LLEQSET_SetManager_EquipItem_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
