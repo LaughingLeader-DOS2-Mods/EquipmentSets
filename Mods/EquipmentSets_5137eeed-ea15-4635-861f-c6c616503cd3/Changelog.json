@@ -1,0 +1,15 @@
+{
+	"DisplayName": "[Key:LLEQSET_DisplayName:Equipment Sets - Definitive Edition]",
+	"Description": "[Key:LLEQSET_Description:Adds the ability to save equipment as loadouts, and switch between them quickly. Also has support for the Naming Wizard mod to enable the ability to name your sets.]",
+	"Entries": [
+		{
+			"Version": "1.0.3.7",
+			"Changes": [
+				"Added localization files for other languages (untranslated/still in English).",
+				"Added a check to avoid trying to unequip locked items (this avoids the 'Cannot unequip' notification).",
+				"If empty slots are preserved, sets with empty slots will display those slots in the set skill tooltip.",
+				"Fixed source collars not being blacklisted."
+			]
+		}
+	]
+}

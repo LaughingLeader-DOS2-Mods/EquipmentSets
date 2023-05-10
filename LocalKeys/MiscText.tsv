@@ -2,3 +2,5 @@ Key	Content	Handle
 LLEQSET_Tooltip_SetSkillName	Equip [1]	h92cac3a8g92efg4afbg9af2g6751eebf89fa
 LLEQSET_Tooltip_EmptySetHeader	<font color='#CCCC00'>No items saved to this set.</font>	h01989188gef0fg454bgbbe2geeee6f0d8df4
 LLEQSET_Tooltip_EmptySetHelpText	<font color='#77FF00'>Use this skill to register your currently equipped items and save this equipment set.</font>	h9e4ee809g3b14g4616ga649g3811fe27c9a7
+LLEQSET_DisplayName	Equipment Sets - Definitive Edition	h70df49dagc5d0g4612gaae6g314dc603524d
+LLEQSET_Description	Adds the ability to save equipment as loadouts, and switch between them quickly. Also has support for the Naming Wizard mod to enable the ability to name your sets.	ha441e4cfg9ab2g4becg92cdg890b0447941c

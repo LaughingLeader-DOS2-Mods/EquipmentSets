@@ -20,8 +20,8 @@
                     <attribute id="Author" value="LaughingLeader" type="30" />
                     <attribute id="CharacterCreationLevelName" value="" type="22" />
                     <attribute id="Description" value="Adds the ability to save equipment as loadouts, and switch between them quickly. Also has support for the Naming Wizard mod to enable the ability to name your sets." type="30" />
-                    <attribute id="DescriptionName" value="" handle="ls::TranslatedStringRepository::s_HandleUnknown" type="28" />
-                    <attribute id="DisplayName" value="" handle="ls::TranslatedStringRepository::s_HandleUnknown" type="28" />
+                    <attribute id="DescriptionName" value="" handle="ha441e4cfg9ab2g4becg92cdg890b0447941c" type="28" />
+                    <attribute id="DisplayName" value="" handle="h70df49dagc5d0g4612gaae6g314dc603524d" type="28" />
                     <attribute id="Folder" value="EquipmentSets_5137eeed-ea15-4635-861f-c6c616503cd3" type="30" />
                     <attribute id="GMTemplate" value="" type="22" />
                     <attribute id="LobbyLevelName" value="" type="22" />
