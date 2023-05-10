@@ -37,6 +37,8 @@ function SyncEquipmentData(characterGUID)
 		Shout_LLEQSET_EquipmentSet5 = {Name="", Data={}},
 	}
 
+	local preserveEmpty = Osi.ObjectGetFlag(characterGUID, "LLEQSET_Settings_SaveEmptySlots") == 1
+
 	local hasEquipmentData = false
 	--DB_LLEQSET_SetManager_SetConfig(_SetID, _Skill, _ItemTemplate, _BackpackTemplate)
 
@@ -44,28 +46,37 @@ function SyncEquipmentData(characterGUID)
 	--DB_LLEQSET_SetManager_DefaultSetNames(_SetID, _DefaultName)
 
 	for id,skill in pairs(SetToSkill) do
+		local setData = equipmentSetData[skill]
 		local setName = Osi.DB_LLEQSET_SetManager_SetNames:Get(characterGUID, id, nil)
 		if setName ~= nil and #setName > 0 then
-			equipmentSetData[skill].Name = setName[1][3]
+			setData.Name = setName[1][3]
 		else
 			local defaultName = Osi.DB_LLEQSET_SetManager_DefaultSetNames:Get(id, nil)[1][2]
-			equipmentSetData[skill].Name = defaultName
+			setData.Name = defaultName
 		end
 
 		for i,slot in Data.VisibleEquipmentSlots:Get() do
 			local entry = Osi.DB_LLEQSET_SetManager_SavedSetEquipment:Get(characterGUID, id, slot, nil)
 			if entry ~= nil and #entry > 0 then
 				hasEquipmentData = true
-				local item = entry[1][4]
-				---@type EsvItem
-				local itemObj = GameHelpers.GetItem(item)
-				if itemObj then
-					local itemName = GameHelpers.GetDisplayName(item)
-					table.insert(equipmentSetData[skill].Data, {
-						Slot=slot, 
-						Name=itemName,
-						Level = string.format("%s %i", levelText.Value, itemObj.Stats.Level)
-					})
+				local itemGuid = entry[1][4]
+				if StringHelpers.IsNullOrEmpty(itemGuid) then
+					if preserveEmpty then
+						setData.Data[slot] = {IsEmpty=true}
+					end
+				else
+					local item = GameHelpers.GetItem(itemGuid, "EsvItem")
+					if item then
+						local name = GameHelpers.GetDisplayName(item)
+						local rarityColor = Data.Colors.Rarity[item.Stats.ItemTypeReal]
+						if rarityColor then
+							name = ("<font color='%s'>%s</font>"):format(rarityColor, name)
+						end
+						setData.Data[slot] = {
+							Name=name,
+							Level = string.format("%s %i", levelText.Value, item.Stats.Level)
+						}
+					end
 				end
 			end
 		end

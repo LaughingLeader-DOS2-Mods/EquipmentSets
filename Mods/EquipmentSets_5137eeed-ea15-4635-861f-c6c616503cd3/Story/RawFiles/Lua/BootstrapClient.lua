@@ -27,6 +27,7 @@ GameHelpers.Net.Subscribe("LLEQSET_SyncEquipmentSets", function (e, data)
 end)
 
 ---@type TranslatedString
+local emptyItem = ts:Create("h0e8e7be9g0791g42f7g9e2cg67086975901d", "EMPTY")
 local nameText = ts:Create("h92cac3a8g92efg4afbg9af2g6751eebf89fa", "Equip [1]")
 local emptySetText = ts:Create("h01989188gef0fg454bgbbe2geeee6f0d8df4", "<font color='#CCCC00'>No items saved to this set.</font>")
 local emptySetHelpText = ts:Create("h9e4ee809g3b14g4616ga649g3811fe27c9a7", "<font color='#77FF00'>Use this skill to register your currently equipped items and save this equipment set.</font>")
@@ -54,28 +55,45 @@ local function OnSkillTooltip(character, skill, tooltip)
 						})
 					end
 				end
-				for i,slotData in pairs(setData.Data) do
-					if slotData.Slot == "Shield" then
-						slotData.Slot = "Offhand"
+				local emptiesElement = nil
+				local emptySlots = {}
+				for slot,slotData in pairs(setData.Data) do
+					if slot == "Shield" then
+						slot = "Offhand"
 					end
-					local slotText = LocalizedText.Slots[slotData.Slot].Value
-					local itemName = slotData.Name
-					local ref,handle = Ext.L10N.GetTranslatedStringFromKey(slotData.Name)
-					
-					if handle ~= nil then
-						itemName = Ext.L10N.GetTranslatedString(handle, ref)
+					local slotText = LocalizedText.Slots[slot].Value
+					if slotData.IsEmpty then
+						if emptiesElement == nil then
+							local itemName = emptyItem.Value:lower()
+							itemName = itemName:sub(1,1):upper() .. itemName:sub(2)
+							emptiesElement = {
+								Type = "Tags",
+								Label = "",
+								Value = itemName,
+								Warning = "",
+							}
+						end
+
+						emptySlots[#emptySlots+1] = slotText
+					else
+						local itemName = slotData.Name
+						if string.len(StringHelpers.StripFont(itemName)) >= MAX_CHAR then
+							itemName = string.sub(itemName, 0, MAX_CHAR) .. "..."
+						end
+						tooltip:AppendElement({
+							Type = "Tags",
+							Label = slotText,
+							Value = itemName,
+							Warning = slotData.Level
+						})
 					end
-					if string.len(itemName) >= MAX_CHAR then
-						itemName = string.sub(itemName, 0, MAX_CHAR) .. "..."
-					end
-					local element = {
-						Type = "Tags",
-						Label = slotText,
-						Value = itemName,
-						Warning = slotData.Level
-					}
-					tooltip:AppendElement(element)
+
 					hasSetText = true
+				end
+				if emptiesElement then
+					table.sort(emptySlots)
+					emptiesElement.Label = StringHelpers.Join(", ", emptySlots)
+					tooltip:AppendElement(emptiesElement)
 				end
 			end
 		end
