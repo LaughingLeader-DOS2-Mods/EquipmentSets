@@ -126,13 +126,7 @@ THEN
 DB_NOOP(1);
 
 QRY
-LLEQSET_QRY_ItemNotEquippedInSlot((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
-AND
-_Item == NULL_00000000-0000-0000-0000-000000000000
-AND
-ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 1)
-AND
-CharacterGetEquippedItem(_Player, _Slot, _CurrentItem)
+LLEQSET_QRY_ItemNotEquippedInSlot((CHARACTERGUID)_Player, (STRING)_Slot, NULL_00000000-0000-0000-0000-000000000000)
 THEN
 DB_NOOP(1);
 
@@ -560,11 +554,15 @@ LLEQSET_SetManager_Internal_OnEquipItem((CHARACTERGUID)_Player, (STRING)_SetID, 
 AND
 _Mode > 0
 AND
+ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", _PreserveEmpty)
+AND
 DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
+AND
+NOT LLEQSET_SetManager_QRY_SlotIsLocked(_Player, _Slot)
 AND
 LLEQSET_QRY_ItemNotEquippedInSlot(_Player, _Slot, _Item)
 THEN
-LLEQSET_SetManager_EquipItem_NoDelay(_Player, _Slot, _Item);
+LLEQSET_SetManager_EquipItem_NoDelay(_Player, _Slot, _Item, _PreserveEmpty);
 LLEQSET_SetManager_Internal_StartEquipTimer(_Player, _SetID);
 
 PROC
@@ -716,6 +714,27 @@ NOT DB_LLEQSET_Temp_EquipTimerActive(_Player, _TimerName);
 //END_REGION
 
 //REGION EQUIPPING
+/* [OSITOOLS_ONLY]
+QRY
+LLEQSET_SetManager_QRY_SlotIsLocked((CHARACTERGUID)_Player, (STRING)_Slot)
+AND
+CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_OtherItem)
+AND
+_OtherItem != NULL_00000000-0000-0000-0000-000000000000
+AND
+NRD_ItemGetInt(_OtherItem, "UnEquipLocked", 1)
+THEN
+DB_NOOP(1);
+*/
+// [BEGIN_NO_OSITOOLS]
+QRY
+LLEQSET_SetManager_QRY_SlotIsLocked((CHARACTERGUID)_Player, (STRING)_Slot)
+AND
+1 == 0
+THEN
+DB_NOOP(1);
+// [END_NO_OSITOOLS]
+
 IF
 StoryEvent((CHARACTERGUID)_Player, "EquipmentSets_OnSetEquipped")
 AND
@@ -724,20 +743,20 @@ THEN
 LLEQSET_ColorSetText(_Player, _SetID, "SetChanged", "Equipment Set changed to  ", "");
 
 PROC
-LLEQSET_SetManager_EquipItem_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+LLEQSET_SetManager_EquipItem_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item, (INTEGER)_PreserveEmpty)
 AND
 _Item != NULL_00000000-0000-0000-0000-000000000000
 AND
-ItemIsInCharacterInventory(_Item, _Player, 0)
+NOT ItemIsInCharacterInventory(_Item, _Player, 1)
 AND
 StringConcatenate("Missing item for slot ", _Slot, _Message)
 THEN
 LLEQSET_ColorStatusText(_Player, _Message, "Error");
 
 PROC
-LLEQSET_SetManager_EquipItem_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+LLEQSET_SetManager_EquipItem_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item, (INTEGER)_PreserveEmpty)
 AND
-_Item != NULL_00000000-0000-0000-0000-000000000000
+ObjectExists(_Item, 1)
 AND
 ItemIsInCharacterInventory(_Item, _Player, 1)
 THEN
@@ -750,13 +769,15 @@ NRD_CharacterEquipItem(_Player, _Item, _Slot, 0, 0, 1, 1);
 */
 
 PROC
-LLEQSET_SetManager_EquipItem_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot, (ITEMGUID)_Item)
+LLEQSET_SetManager_EquipItem_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot, NULL_00000000-0000-0000-0000-000000000000, 1)
 AND
-_Item == NULL_00000000-0000-0000-0000-000000000000
+CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
 AND
-ObjectGetFlag(_Player, "LLEQSET_Settings_SaveEmptySlots", 1)
+_Item != NULL_00000000-0000-0000-0000-000000000000
+AND
+LLEQSET_QRY_Blacklist_NotMatched(_Item)
 THEN
-LLEQSET_SetManager_UnequipItemInSlot_NoDelay(_Player, _Slot);
+LLEQSET_SetManager_Internal_UnequipItem(_Player, _Item);
 //END_REGION
 
 //REGION UNEQUIPPING
@@ -766,19 +787,21 @@ THEN
 LLEQSET_SetManager_ResetCurrentSet(_Player);
 
 PROC
+LLEQSET_SetManager_Internal_UnequipItem((CHARACTERGUID)_Player, (ITEMGUID)_Item)
+THEN
+CharacterUnequipItem(_Player, _Item);
+LLEQSET_SetManager_StoreInBackpack(_Player, _Item);
+
+PROC
 LLEQSET_SetManager_UnequipItemInSlot_NoDelay((CHARACTERGUID)_Player, (STRING)_Slot)
+AND
+NOT LLEQSET_SetManager_QRY_SlotIsLocked(_Player, _Slot)
 AND
 CharacterGetEquippedItem(_Player, _Slot, (ITEMGUID)_Item)
 AND
 LLEQSET_QRY_Blacklist_NotMatched(_Item)
 THEN
 LLEQSET_SetManager_Internal_UnequipItem(_Player, _Item);
-
-PROC
-LLEQSET_SetManager_Internal_UnequipItem((CHARACTERGUID)_Player, (ITEMGUID)_Item)
-THEN
-CharacterUnequipItem(_Player, _Item);
-LLEQSET_SetManager_StoreInBackpack(_Player, _Item);
 
 PROC
 LLEQSET_SetManager_UnequipSet((CHARACTERGUID)_Player, (STRING)_SetID)
