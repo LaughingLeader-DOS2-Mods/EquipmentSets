@@ -74,7 +74,7 @@ function SyncEquipmentData(characterGUID)
 						end
 						setData.Data[slot] = {
 							Name=name,
-							Level = string.format("%s %i", levelText.Value, item.Stats.Level)
+							Level = string.format("<font color='#00FFAF' size='16'>%s %i</font>", levelText.Value, item.Stats.Level)
 						}
 					end
 				end

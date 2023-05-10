@@ -55,45 +55,47 @@ local function OnSkillTooltip(character, skill, tooltip)
 						})
 					end
 				end
-				local emptiesElement = nil
+				local description = tooltip:GetDescriptionElement({Type="SkillDescription", Label=""})
 				local emptySlots = {}
-				for slot,slotData in pairs(setData.Data) do
-					if slot == "Shield" then
-						slot = "Offhand"
-					end
-					local slotText = LocalizedText.Slots[slot].Value
-					if slotData.IsEmpty then
-						if emptiesElement == nil then
-							local itemName = emptyItem.Value:lower()
-							itemName = itemName:sub(1,1):upper() .. itemName:sub(2)
-							emptiesElement = {
-								Type = "Tags",
-								Label = "",
-								Value = itemName,
-								Warning = "",
-							}
+				for _,slot in Data.VisibleEquipmentSlots:Get() do
+					local slotData = setData.Data[slot]
+					if slotData then
+						if slot == "Shield" then
+							slot = "Offhand"
 						end
-
-						emptySlots[#emptySlots+1] = slotText
-					else
-						local itemName = slotData.Name
-						if string.len(StringHelpers.StripFont(itemName)) >= MAX_CHAR then
-							itemName = string.sub(itemName, 0, MAX_CHAR) .. "..."
+						local slotText = LocalizedText.Slots[slot].Value
+						if slotData.IsEmpty then
+							emptySlots[#emptySlots+1] = slotText
+						else
+							local itemName = slotData.Name
+							if string.len(StringHelpers.StripFont(itemName)) >= MAX_CHAR then
+								itemName = string.sub(itemName, 0, MAX_CHAR) .. "..."
+							end
+							-- tooltip:AppendElement({
+							-- 	Type = "Tags",
+							-- 	Label = slotText,
+							-- 	Value = itemName,
+							-- 	Warning = slotData.Level
+							-- })
+							local levelText = slotData.Level
+							if levelText then
+								levelText = string.format(" [%s]", levelText)
+							else
+								levelText = ""
+							end
+							local nameLine = string.format("%s%s", itemName, levelText)
+							local text = StringHelpers.Append(slotText, nameLine, "<br>")
+							description.Label = StringHelpers.Append(description.Label, text, "<br>")
 						end
-						tooltip:AppendElement({
-							Type = "Tags",
-							Label = slotText,
-							Value = itemName,
-							Warning = slotData.Level
-						})
+	
+						hasSetText = true
 					end
-
-					hasSetText = true
 				end
-				if emptiesElement then
+				if #emptySlots > 0 then
 					table.sort(emptySlots)
-					emptiesElement.Label = StringHelpers.Join(", ", emptySlots)
-					tooltip:AppendElement(emptiesElement)
+					local emptyName = emptyItem.Value:lower()
+					emptyName = emptyName:sub(1,1):upper() .. emptyName:sub(2)
+					description.Label = StringHelpers.Append(description.Label, StringHelpers.Join(", ", emptySlots) .. string.format("<br><font color='#FF3333'>%s</font>", emptyName), "<br>")
 				end
 			end
 		end
