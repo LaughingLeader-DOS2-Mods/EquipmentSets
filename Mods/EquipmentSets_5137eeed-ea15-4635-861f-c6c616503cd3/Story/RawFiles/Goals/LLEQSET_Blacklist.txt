@@ -10,46 +10,30 @@ PROC
 LLEQSET_Blacklist_InitBlacklist()
 THEN
 LLEQSET_Blacklist_Add_Template("RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1");
+LLEQSET_Blacklist_Add_Template("DONOTUSE_RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1");
 LLEQSET_Blacklist_Add_Tag("EquipmentSets_Ignored");
-
 //END_REGION
 
 //REGION UPDATER
 PROC
 LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", (STRING)_PastVersion, (STRING)_NewVersion)
-AND
-_PastVersion == "1.0.0.0"
 THEN
 LLEQSET_Blacklist_InitBlacklist();
-
-PROC
-LeaderUpdater_ModUpdated("EquipmentSets", "LaughingLeader", (STRING)_PastVersion, (STRING)_NewVersion)
-AND
-NOT DB_LLEQSET_Blacklist("Template", "RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1")
-THEN
-LLEQSET_Blacklist_Add_Template("RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1");
-LeaderLog_Log("DEBUG", "[LLEQSET:Blacklist] Updated from version [",_PastVersion,"]. Added missing source collar template to blacklist.");
 //END_REGION
 
 //REGION ADDING
 PROC
 LLEQSET_Blacklist_Add_Template((STRING)_Str)
-AND
-NOT DB_LLEQSET_Blacklist("Template", _Str)
 THEN
 DB_LLEQSET_Blacklist("Template", _Str);
 
 PROC
 LLEQSET_Blacklist_Add_Tag((STRING)_Str)
-AND
-NOT DB_LLEQSET_Blacklist("Tag", _Str)
 THEN
 DB_LLEQSET_Blacklist("Tag", _Str);
 
 PROC
 LLEQSET_Blacklist_Add_Flag((STRING)_Str)
-AND
-NOT DB_LLEQSET_Blacklist("Flag", _Str)
 THEN
 DB_LLEQSET_Blacklist("Flag", _Str);
 
@@ -57,8 +41,6 @@ PROC
 LLEQSET_Blacklist_Add_GUIDSTRING((GUIDSTRING)_Object)
 AND
 String(_Object, _Str)
-AND
-NOT DB_LLEQSET_Blacklist("GUIDSTRING", _Str)
 THEN
 DB_LLEQSET_Blacklist("GUIDSTRING", _Str);
 //END_REGION
