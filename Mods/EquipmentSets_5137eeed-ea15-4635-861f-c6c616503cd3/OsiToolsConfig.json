@@ -1,5 +1,5 @@
 {
-    "RequiredExtensionVersion": 49,
+    "RequiredExtensionVersion": 58,
     "ModTable": "EquipmentSets",
     "FeatureFlags": [
         "OsirisExtensions",

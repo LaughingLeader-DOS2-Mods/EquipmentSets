@@ -1,7 +1,6 @@
-local LeaderLib = Mods.LeaderLib
-local Classes = LeaderLib.Classes
-local MessageData = Classes.MessageData
-local TranslatedString = Classes.TranslatedString
+Ext.Require("Shared.lua")
+
+local ts = Classes.TranslatedString
 
 local SetToSkill = {
 	["Set1"] = "Shout_LLEQSET_EquipmentSet1",
@@ -25,9 +24,11 @@ local SlotOrder = {
 	"Weapon",
 }
 
-local levelText = TranslatedString:Create("h7286f6b9gecadg429aga866gddc4297ee876", "Level")
+local levelText = ts:Create("h7286f6b9gecadg429aga866gddc4297ee876", "Level")
 
-function SyncEquipmentData(character)
+---@param characterGUID Guid
+function SyncEquipmentData(characterGUID)
+	local character = GameHelpers.GetCharacter(characterGUID, "EsvCharacter")
 	local equipmentSetData = {
 		Shout_LLEQSET_EquipmentSet1 = {Name="", Data={}},
 		Shout_LLEQSET_EquipmentSet2 = {Name="", Data={}},
@@ -43,7 +44,7 @@ function SyncEquipmentData(character)
 	--DB_LLEQSET_SetManager_DefaultSetNames(_SetID, _DefaultName)
 
 	for id,skill in pairs(SetToSkill) do
-		local setName = Osi.DB_LLEQSET_SetManager_SetNames:Get(character, id, nil)
+		local setName = Osi.DB_LLEQSET_SetManager_SetNames:Get(characterGUID, id, nil)
 		if setName ~= nil and #setName > 0 then
 			equipmentSetData[skill].Name = setName[1][3]
 		else
@@ -51,54 +52,36 @@ function SyncEquipmentData(character)
 			equipmentSetData[skill].Name = defaultName
 		end
 
-		for i,slot in LeaderLib.Data.VisibleEquipmentSlots:Get() do
-			local entry = Osi.DB_LLEQSET_SetManager_SavedSetEquipment:Get(character, id, slot, nil)
+		for i,slot in Data.VisibleEquipmentSlots:Get() do
+			local entry = Osi.DB_LLEQSET_SetManager_SavedSetEquipment:Get(characterGUID, id, slot, nil)
 			if entry ~= nil and #entry > 0 then
 				hasEquipmentData = true
 				local item = entry[1][4]
 				---@type EsvItem
-				local itemObj = Ext.GetItem(item)
-				local itemName = itemObj.DisplayName
-				-- local handle,ref = ItemTemplateGetDisplayString(item)
-				-- local itemName = NRD_ItemGetStatsId(item)
-				-- if handle ~= nil then
-				-- 	itemName = Ext.GetTranslatedString(handle, ref)
-				-- end
-				table.insert(equipmentSetData[skill].Data, {
-					Slot=slot, 
-					Name=itemName,
-					Level = string.format("%s %i", levelText.Value, itemObj.Stats.Level)
-				})
+				local itemObj = GameHelpers.GetItem(item)
+				if itemObj then
+					local itemName = GameHelpers.GetDisplayName(item)
+					table.insert(equipmentSetData[skill].Data, {
+						Slot=slot, 
+						Name=itemName,
+						Level = string.format("%s %i", levelText.Value, itemObj.Stats.Level)
+					})
+				end
 			end
 		end
 	end
-	--DB_LLEQSET_SetManager_SavedSetEquipment(_Player, _SetID, _Slot, _Item)
-	-- local savedSets = Osi.DB_LLEQSET_SetManager_SavedSetEquipment:Get(character, nil, nil, nil)
-	-- for i,entry in pairs(savedSets) do
-	-- 	local id = entry[2]
-	-- 	local slot = entry[3]
-	-- 	local item = entry[4]
-	-- 	local handle,ref = ItemTemplateGetDisplayString(item)
-	-- 	local itemName = NRD_ItemGetStatsId(item)
-	-- 	if handle ~= nil then
-	-- 		itemName = Ext.GetTranslatedString(handle, ref)
-	-- 	end
-	-- 	table.insert(equipmentSetData[SetToSkill[id]].Data, {Slot=slot, Name = itemName})
-	-- 	hasEquipmentData = true
-	-- end
 
 	if hasEquipmentData then
-		local uuid = GetUUID(character)
-		Ext.PostMessageToClient(uuid, "LLEQSET_SyncEquipmentSets", MessageData:CreateFromTable("EquipmentSetsData", {
-			UUID = uuid,
+		GameHelpers.Net.PostToUser(character, "LLEQSET_SyncEquipmentSets", {
+			NetID = character.NetID,
 			Data = equipmentSetData
-		}):ToString())
+		})
 	end
 end
 
-Ext.RegisterConsoleCommand("luareset", function(command)
-	for i,entry in pairs(Osi.DB_IsPlayer:Get(nil)) do
-		Osi.LeaderLib_Timers_StartObjectTimer(entry[1], 1000, "Timers_LLEQSET_SyncEquipmentData", "LLEQSET_SyncEquipmentData")
+Events.LuaReset:Subscribe(function (e)
+	for player in GameHelpers.Character.GetPlayers() do
+		Osi.LeaderLib_Timers_StartObjectTimer(player.MyGuid, 1000, "Timers_LLEQSET_SyncEquipmentData", "LLEQSET_SyncEquipmentData")
 	end
 end)
 
