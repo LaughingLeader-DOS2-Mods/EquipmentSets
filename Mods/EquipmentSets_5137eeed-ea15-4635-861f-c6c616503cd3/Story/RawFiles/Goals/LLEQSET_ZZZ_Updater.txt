@@ -1,7 +1,7 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
-LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", 1,0,2,0);
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", 1,0,3,0);
 LeaderUpdater_Register_ActiveGoal("EquipmentSets", "LaughingLeader", "LLEQSET_ZZZ_Updater");
 LeaderUpdater_Register_UUID("EquipmentSets", "LaughingLeader", 5e772b3a-8c72-5250-22f9-5d8bbe751d74);
 //DB_LLEQSET_Dependencies(_Mod, _Author, _GlobalFlag)
@@ -11,9 +11,9 @@ KBSECTION
 IF
 GameStarted(_,_)
 AND
-LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", 1,0,2,0)
+LeaderUpdater_QRY_ModUpdateNeeded("EquipmentSets", "LaughingLeader", 1,0,3,0)
 THEN
-LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", 1,0,2,0);
+LeaderUpdater_Register_Mod("EquipmentSets", "LaughingLeader", 1,0,3,0);
 //END_REGION
 EXITSECTION
 
